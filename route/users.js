@@ -15,7 +15,7 @@ var router = express.Router();
   router.get('/', findUser);
     function findUser(req, res) {
       User.findAll().then( function(user){
-        res.json(user)
+        res.render('user', {user: user})
       }, function(err) {
         res.status(400).send(err)
       })
@@ -67,7 +67,9 @@ var router = express.Router();
       loggn(user).then(function(user){
         if (user){
           req.session.user = user;
-          //console.log("profile");
+          var hour = 36000000;
+          req.session.cookie.expires = new Date(Date.now() + hour)
+          req.session.cookie.maxAge = hour
           res.redirect('profile')
         } else {
           res.json('no user')
@@ -104,6 +106,7 @@ var router = express.Router();
       })   
           
     };
+    /*find a profile when clicked*/
     router.get('/:id', findUserProfileWithID);
      function findUserProfileWithID(req,res) {
       var userId = req.params.id
@@ -130,7 +133,20 @@ var router = express.Router();
           
     };
 
-  
+  /*edit profile*/
+  router.route('/:id/edit')
+      .get()
+      .put(updateProfile)
+
+  function updateProfile(req,res) {
+    console.log(req.body);
+    var user = req.session.user;
+    var data = req.body
+    User.updateUser(user, data).then(function(user){
+      res.json(user)
+    })
+  }
+
     router.post('/logout', logout)
     //router.post('/logout', logout)
 

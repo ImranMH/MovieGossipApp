@@ -7,6 +7,9 @@ module.exports = function( mongoose) {
 	UserSchema = new Schema({
 		username: String,
 		name: String,
+		position: String,
+		avater: String,
+		age: Number,
 		password: String,
 		likeMovies: [MovieSchema]
 	}, {collection: 'expariments-user'})

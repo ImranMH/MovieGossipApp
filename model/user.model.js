@@ -12,6 +12,7 @@ module.exports = function(mongoose, q) {
 		createUser : createUser,
 		movieLikedUser : movieLikedUser,
 		findByCredientials: findByCredientials,
+		updateUser: updateUser,
 		userDb: userDb()
 	}
 	return api;
@@ -111,6 +112,32 @@ module.exports = function(mongoose, q) {
 
         return deferred.promise;
 	}
+/*update user database*/
+	function updateUser (userid, data) {
+		var deferred = q.defer()
+		User.findOne({_id:userid._id}, function(err, user){
+			if (err) {
+				deferred.reject(err)
+			} else {
+				user.update({
+					name: data.name,
+					age: data.age,
+					position: data.position,
+					avater: data.avater
+				},function(err, user){
+					if (err) {
+                deferred.reject(err);
+                //console.log(users);
+            } else {
+            	
+                deferred.resolve(user);
+            }
+				})
+			}
+		})
+		return deferred.promise;
+	};
+
 
 	function userDb(){
 		return User;

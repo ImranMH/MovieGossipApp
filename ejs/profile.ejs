@@ -12,22 +12,62 @@
 			background: #abc;
 			text-transform: capitalize;
 		}
+		.left{
+			float: left;
+			width: 30%;
+		}
+		.right{
+			float: right;
+			width: 65%;
+		}
+		.left img{
+			width: 100%;
+		}
 	</style>
 </head>
 <body>
 		<% include header %>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-10">
+			<div class="col-md-12">
 				<h2>profile page</h2>
+				<p><button class="edit">Edit Profile</button></p>
 				<% if ( searchUser )%>
-				<h3>Personal information</h3>
-				<h3> <%= searchUser.username %> </h3>
-				<h3> <%= searchUser.name %> </h3>
+				<h2>Personal information</h2>
+				<hr>
+				<div class="left">
+					<img src="<%= searchUser.avater %>" alt="<%= searchUser.name %>"> <br>
+					<small> <%= searchUser.name %> </small>
+				</div>
+				<div class="right">
+					<h3> <%= searchUser.name %> </h3>
+					<h5> <%= searchUser.username %> </h5>
+					
+					<p>Age : <%= searchUser.age %> </p>
+					<p>  <%= searchUser.position %> </p>
+					<h3> <%= searchUser.avater %> </h3>
+				</div>
+				
 			</div>
 		</div>
 	</div>
-	
+	<div id="showEdit" class="container hidden">
+		<div class="row">
+			<h3>edit profile</h3>
+
+			<div class="col-md-12">
+				<form method= 'post' action="/user/:id/edit">
+				<p>
+					 Name: <input class="ename form-control" type="text" name="name" value="<%= user.name %>"> <br>
+					age: <input class="eage form-control" type="text" name="age" value="<%= user.age %>"> <br>
+					position: <input class="eposition form-control" type="text" name="position" value="<%= user.position %>"> <br>
+					Avater: <input class="avater form-control " type="text" name="avater" value="<%= user.avater %>"> <br>
+				</p>
+					<p> <button rel="user/<%= user._id %>/edit"  class="updateUser btn btn-primary btn-lg btn-block">Update Profile</button></p>
+			</form>
+			</div>
+		</div>
+	</div>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">

@@ -99,4 +99,36 @@ $(function(){
 			console.log("successfully logout");
 		})
 	}
+
+
+	/*profile page*/
+	$('.edit').on('click', taggleEdit);
+
+	function taggleEdit() {
+		$('#showEdit').toggleClass('hidden')
+	}
+	$('.updateUser').on('click', function() {
+		var url = $(this).attr('rel');
+		var name = $('.ename').val();
+		var age = $('.eage').val();
+		var position = $('.eposition').val();
+		var avater = $('.avater').val();
+		var data = {
+			name:name,
+			age: age,
+			position: position,
+			avater: avater
+		}
+		console.log(url);
+		$.ajax({
+			url: '/'+url,
+			type: 'put',
+			data: data
+		}).then(function(data) {
+			console.log(data);
+		},function(err) {
+			console.log(err);
+		})
+		return false
+	})
 })

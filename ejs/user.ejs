@@ -19,7 +19,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-10">
-				<h2>Movie List</h2>
+				<h2>User List</h2>
 
 					
 				<% if ( user ) { %>
@@ -27,26 +27,16 @@
 						<% for(var u of user) { %>
 							<li>
 								<div class="panel panel-default">
-									<div class="panel-heading"><a href="/movie/<%= u._id%>"><%= u.name %></a></div>
+									<div class="panel-heading"><a href="/user/<%= u._id%>"><%= u.name %></a></div>
 									<div class="panel-body">
 									
-										<p><%= u.plot %></p>
-										<p><%= u.genere %></p>
+										<p><%= u.age %></p>
+										<p><%= u.username %></p>
 										<a href="movie/<%= u._id %>" class="btn btn-primary details">details</a>
 										
 										<a href="./movie/<%= u._id %>/edit" class="btn btn-primary edit">edit</a>
 										<button rel="movie/<%= u._id %>" class="btn btn-primary delete">delete</button>
-										<% for (var i =0; i < u.likeUsers.length; i++) { %> 
-											<% if ( u.likeUsers[i] == logUser._id) { %>
-												<% var lkdUder =  u.likeUsers[i] %>
-											<% } %>																
-										<% } %>								
-										<% if (lkdUder) { %>
-											<button class="btn btn-primary liked">liked </button>
-										<% } else { %>
-											<button rel="movie/<%= u._id %>/user" class="btn btn-primary likes">like</button>
-										<% } %>
-										<% var lkdUder =  false %>
+										
 									</div>
 								</div>
 							</li>
@@ -60,19 +50,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h2> Movie like this user</h2>
-				<%if (movie) { %>
-						
-					<ul>
-						<%for(var m of movie) { %>
-							<li class="liked_movie">
-								<h4><a href="../movie/<%=m._id%>"><%= m.name %></h4></a>
-								<p><%= m.plot %></p>
-								<p><%= m.genere %></p>
-							</li>
-						<% } %>	
-					</ul>
-					<% } %>
+				
 			</div>
 		</div>
 	</div>
