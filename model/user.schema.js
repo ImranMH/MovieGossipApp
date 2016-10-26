@@ -8,7 +8,7 @@ module.exports = function( mongoose) {
 		username: String,
 		name: String,
 		position: String,
-		avater: String,
+		avater: {type: String, default: 'http://semantic-ui.com/images/avatar/large/christian.jpg'},
 		age: Number,
 		password: String,
 		likeMovies: [MovieSchema]

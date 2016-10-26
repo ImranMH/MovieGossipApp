@@ -10,6 +10,16 @@
 	 	.liked{
 	 		background: red;
 	 	}
+	 	.avater_small{
+	 		width: 80px;
+	 		display: block;
+	 	}
+	 	.avater_small img{
+	 		width: 100%;
+	 	}
+	 	.avater_container{
+	 		display: inline-block;
+	 	}
 	 	ul{
 	 		margin: 0;
 	 		padding: 0;
@@ -101,7 +111,8 @@
 				<% if(user) { %> <br>
 
 				<% for(var i= 0 ; i < user.length; i++ ) { %>
-					<li>
+					<li class="avater_container">
+						<a class="avater_small" href="../user/<%=user[i]._id %>"><img src="<%= user[i].avater %>"></a>
 						<a href="../user/<%=user[i]._id %>"><%= user[i].name %></a>
 						<p> </p>
 					</li>

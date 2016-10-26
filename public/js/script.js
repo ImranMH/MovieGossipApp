@@ -96,7 +96,7 @@ $(function(){
 			url: '/user/logout',
 			type: 'POST'
 		}).then(function(data) {
-			console.log("successfully logout");
+			window.location.replace('/user/login')
 		})
 	}
 
