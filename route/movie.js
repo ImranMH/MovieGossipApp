@@ -86,7 +86,7 @@ function deleteMovieById(req, res) {
 	var id = req.params.id;
 	Movie.deleteMovie(id).then(function(count){
 		console.log("i am in return promise");
-		res.redirect('/movie')
+		res.end()
 	},function(err){
 		console.log("i am in return promise fail section");
 		console.log(err);

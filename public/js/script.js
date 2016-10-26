@@ -1,9 +1,19 @@
 $(function(){
 	$('.details').on('click', showDetails)
 	$('.update').on('click', doUpdate)
-	$('.delete').on('click', DecideDel)
+	
 	$('.likes').on('click', ShowLikes)
 	$('.logout').on('click', logout)
+	$('.delete').on('click', function(){
+		var url = $(this).attr('rel');
+			function DecideDel() {
+			var conDelete = confirm("do You realy want to delete this item?");
+			if (conDelete) {
+				doDelete(url)
+			}
+		}
+		DecideDel()
+	})
 
 	function showDetails(e) {
 		/*e.preventDefault()
@@ -16,17 +26,12 @@ $(function(){
 			console.log(id);
 		})*/
 	}
-	function DecideDel() {
-		var conDelete = confirm("do You realy want to delete this item?");
-		if (conDelete) {
-			doDelete()
-		}
-	}
+
 	function doUpdate() {
 		var url = $(this).attr('rel')
 		var url3      = window.location.href;
 		
-		console.log('jq put start'+url3);
+		//console.log('jq put start'+url3);
 		var data ={
 			name: $('.ename').val(),
 			plot: $('.eplot').val(),
@@ -39,7 +44,7 @@ $(function(){
 			type:'put',
 			data: data
 		}).then(function(id){
-			console.log(id+ "successfully edited");
+			//console.log(id+ "successfully edited");
 			//window.location.replace("http://localhost:3000/movie");
 			window.location.reload('')
 		})
@@ -47,17 +52,18 @@ $(function(){
 	}
 
 
-	function doDelete() {
-		var url = $(this).attr('rel')
+
+	function doDelete(url) {
+		//var url = url
 		console.log(url);
 		$.ajax({
 			url: url,
 			type:'delete'
 		}).then(function(id){
-			console.log(id+ "successfully edited");
+			//console.log(id+ "successfully edited");
 			window.location.replace("http://localhost:3000/movie");
 		})
-		return false;
+		//return false;
 	};
 
 
@@ -65,7 +71,7 @@ $(function(){
 	function ShowLikes() {
 		var self = $(this)
 		var url = $(this).attr('rel')
-		console.log(url);
+		//console.log(url);
 		var data = {
 			user: true
 		}
@@ -74,10 +80,10 @@ $(function(){
 			url: url,	
 			type:'POST'
 		}).then(function(id){
-			console.log(id);
+			//console.log(id);
 			//
 			self.css("background", 'red')
-			console.log(self);
+			//console.log(self);
 			$(this).css('backrground', 'red')
 			//window.location.replace("http://localhost:3000/movie");
 		})
