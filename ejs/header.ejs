@@ -1,0 +1,21 @@
+<div class="container">
+        <div class="header clearfix">
+            <nav>
+              <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="/user/profile"><%= user.username? user.username: "null" %></a></li>
+                <li role="presentation" class="active"><a href="/">Home</a></li>
+                <li role="presentation"><a href="/movie">Movie</a></li>
+                <li role="presentation"><a href="/user">user</a></li>
+                 <% if(!user.name) { %>
+                <li role="presentation"><a href="user/login">Login</a></li>
+                <% } else { %>
+
+                <li role="presentation"><a href="/user/profile">profile</a></li>
+                <li role="presentation"><a class="logout" >LogOut</a></li>
+                <% } %>
+              </ul>
+            </nav>
+            <h3 class="text-muted">Project name</h3>
+          </div>
+        
+    </div>

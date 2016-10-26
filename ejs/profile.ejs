@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ejs home</title>
+	<link href="../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style type="text/css">
+		.liked_movie{
+			display: inline-block;
+			border: 1px solid #ccc;
+			padding: 5px;
+			background: #abc;
+			text-transform: capitalize;
+		}
+	</style>
+</head>
+<body>
+		<% include header %>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+				<h2>profile page</h2>
+				<% if ( searchUser )%>
+				<h3>Personal information</h3>
+				<h3> <%= searchUser.username %> </h3>
+				<h3> <%= searchUser.name %> </h3>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2> Movie like this user</h2>
+				<%if (movie) { %>
+						
+					<ul>
+						<%for(var m of movie) { %>
+							<li class="liked_movie">
+								<h4><a href="../movie/<%=m._id%>"><%= m.name %></h4></a>
+								<p><%= m.plot %></p>
+								<p><%= m.genere %></p>
+							</li>
+						<% } %>	
+					</ul>
+					<% } %>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src= "../lib/jquery/dist/jquery.min.js" ></script>
+	<script type="text/javascript" src= "../js/script.js" ></script>
+</body>
+</html>

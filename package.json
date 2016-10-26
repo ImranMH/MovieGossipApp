@@ -1,0 +1,14 @@
+{
+  "name": "expariments",
+  "version": "1.0.0",
+  "description": "middleware expariments",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Imran Hossain <imran096@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "q": "^1.4.1"
+  }
+}

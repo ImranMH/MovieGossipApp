@@ -1,0 +1,53 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ejs movie</title>
+	 <link href="../../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+				
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+					<h2>Movie list</h2>
+		<h3>movie accessor</h3>
+		<form method= 'post' action="/movie">
+		<p>
+			Movie Naame: <input class="ename form-control" type="text" name="name" value="<%= movie.name %>"> <br>
+			Plot: <input class="eplot form-control" type="text" name="plot" value="<%= movie.plot %>"> <br>
+			Ganere: <input class="egenere form-control" type="text" name="genere" value="<%= movie.genere %>"> <br>
+		</p>
+			<p> <button rel="<%= movie._id %>/edit"  class="update btn btn-primary btn-lg btn-block">Update Movie</button></p>
+	</form>
+	<% if ( movie ) { %>
+		<ul>
+		
+				<li rel="' + this._id + '">
+					<h4><%= movie.name %></h4>
+					<p><%= movie.plot %></p>
+					<p><%= movie.genere %></p>
+				</li>
+
+		</ul>
+
+					<a href="./movie/<%= movie._id %>" class="btn btn-primary details">details</a>
+					<button rel="<%= movie._id %>" class="btn btn-primary delete">Delete</button>					
+					<a href="./<%= movie._id %>" class="btn btn-primary likes">likes</a>
+	<% } %>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src= "../../lib/jquery/dist/jquery.min.js" ></script>
+	<script type="text/javascript" src= "../../js/script.js" ></script>
+</body>
+</html>

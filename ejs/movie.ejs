@@ -1,0 +1,119 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ejs movie</title>
+	 <link href="../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	 <style type="text/css">
+	 	.liked{
+	 		background: red;
+	 	}
+	 	ul{
+	 		margin: 0;
+	 		padding: 0;
+	 		list-style-type: none;
+	 	}
+	 	li{
+	 		list-style-type: none;
+	 	}
+	 </style>
+</head>
+<body>
+	<div class="container">
+        <div class="header clearfix">
+            <nav>
+              <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="/user/profile"><%= logUser.username? logUser.username: "null" %></a></li>
+                <li role="presentation" class="active"><a href="/">Home</a></li>
+                <li role="presentation"><a href="/movie">Movie</a></li>
+                <li role="presentation"><a href="/user">user</a></li>
+                 <% if(!logUser.name) { %>
+                <li role="presentation"><a href="../user/login">Login</a></li>
+                <% } else { %>
+
+                <li role="presentation"><a href="/user/profile">profile</a></li>
+                <li role="presentation"><a class="logout" >LogOut</a></li>
+                <% } %>
+              </ul>
+            </nav>
+            <h3 class="text-muted">Project name</h3>
+          </div>
+        
+    </div>
+    <div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h3>Create a movie</h3>
+					<form method= 'post' action="/movie">
+					Movie Naame: <input type="text" name="name" class="form-control"> <br>
+					Year: <input type="text" name="year" class="form-control"> <br>
+					Plot: <input type="text" name="plot" class="form-control"> <br>
+					Ganere: <input type="text" name="genere" class="form-control"> <br>
+					<input type="submit" value="Post Movie" class="btn btn-primary btn-lg btn-block">
+				</form>
+				</div>
+			</div>
+		</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+				<h2>Movie Details</h2>
+					
+				<% if ( movie ) { %>
+					<ul class="panel">
+					
+							
+								<div class="panel panel-default">
+									<div class="panel-heading"><%= movie.name %></div>
+									<div class="panel-body">
+									<p><%= movie.plot %></p>
+									<p><%= movie.genere %></p>
+									</div>
+								</div>
+								
+							
+
+					</ul>
+								<a href="/movie " class="btn btn-primary details">Movie List</a>
+								<button rel="<%= movie._id %>" class="btn btn-primary delete">Delete</button>
+								<a href="./<%= movie._id %>/edit" class="btn btn-primary edit">edit</a>
+								<% for (var i =0; i < movie.likeUsers.length; i++) { %> 
+									<% if ( movie.likeUsers[i] == logUser._id) { %>
+										<% var lkdUder =  movie.likeUsers[i] %>
+									<% } %>																
+								<% } %>								
+								<% if (lkdUder) { %>
+									<button class="btn btn-primary liked">liked </button>
+								<% } else { %>
+									<button rel="movie/<%= movie._id %>/user" class="btn btn-primary likes">like</button>
+								<% } %>
+				<% } %>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+				<ul>
+				<h2>User Who like the movie</h2>
+				<% if(user) { %> <br>
+
+				<% for(var i= 0 ; i < user.length; i++ ) { %>
+					<li>
+						<a href="../user/<%=user[i]._id %>"><%= user[i].name %></a>
+						<p> </p>
+					</li>
+					<% } %>
+					<br>
+				<% } %>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src= "../lib/jquery/dist/jquery.min.js" ></script>
+	<script type="text/javascript" src= "../js/script.js" ></script>
+</body>
+</html>

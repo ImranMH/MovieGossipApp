@@ -1,0 +1,36 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ejs movie</title>
+	 <link href="../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container">
+		<div class="row">
+			<h2>production</h2>
+		</div>
+	</div>
+	 <div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h3>Create a movie</h3>
+					<form method= 'post' action="/production">
+					Director ID: <input type="number" name="id" class="form-control"> <br>
+					Director Name: <input type="text" name="name" class="form-control"> <br>
+					age: <input type="number" name="age" class="form-control"> <br>
+					City: <input type="text" name="city" class="form-control"> <br>
+					<input type="submit" value="Post Director" class="btn btn-primary btn-lg btn-block">
+				</form>
+				</div>
+			</div>
+		</div>
+	
+	
+	<script type="text/javascript" src= "../lib/jquery/dist/jquery.min.js" ></script>
+	<script type="text/javascript" src= "../js/script.js" ></script>
+</body>
+</html>
