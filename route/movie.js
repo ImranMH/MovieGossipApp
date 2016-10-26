@@ -108,10 +108,12 @@ router.route('/:id/edit')
 
 	function doEdit(req, res) {
 		var id = req.params.id;
-		console.log(req.body);
 		var reqmov = req.body;
+		//console.log(req.body);
+		
 		Movie.editMovie(id, reqmov).then(function(movie){
-			res.json(movie)
+			//res.redirect('/:id')
+			res.end();
 		})
 	}
 	

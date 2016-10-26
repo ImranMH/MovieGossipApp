@@ -26,11 +26,12 @@ $(function(){
 		var url = $(this).attr('rel')
 		var url3      = window.location.href;
 		
-		console.log('jq put start');
+		console.log('jq put start'+url3);
 		var data ={
 			name: $('.ename').val(),
 			plot: $('.eplot').val(),
-			genere: $('.egenere').val()
+			genere: $('.egenere').val(),
+			year: $('.eyear').val()
 		}
 		console.log(data);
 		$.ajax({
@@ -40,7 +41,7 @@ $(function(){
 		}).then(function(id){
 			console.log(id+ "successfully edited");
 			//window.location.replace("http://localhost:3000/movie");
-			window.location.replace('')
+			window.location.reload('')
 		})
 		return false;
 	}

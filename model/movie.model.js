@@ -98,13 +98,14 @@ module.exports = function(mongoose,q){
 				movie.update({
 					name: mov.name,
 					plot: mov.plot,
-					genere: mov.genere
-				},function(err, del) {
+					genere: mov.genere,
+					year: mov.year
+				},function(err, editMov) {
 					if(err) {
 						deffered.reject(err)
 					} else {
 						console.log('inside db after edit');
-						deffered.resolve(del)
+						deffered.resolve(editMov)
 					}
 				})
 			}

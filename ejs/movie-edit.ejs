@@ -23,6 +23,7 @@
 		<form method= 'post' action="/movie">
 		<p>
 			Movie Naame: <input class="ename form-control" type="text" name="name" value="<%= movie.name %>"> <br>
+			Year: <input class="eyear form-control" type="text" name="year" value="<%= movie.year %>"> <br>
 			Plot: <input class="eplot form-control" type="text" name="plot" value="<%= movie.plot %>"> <br>
 			Ganere: <input class="egenere form-control" type="text" name="genere" value="<%= movie.genere %>"> <br>
 		</p>
@@ -31,8 +32,9 @@
 	<% if ( movie ) { %>
 		<ul>
 		
-				<li rel="' + this._id + '">
+				<li>
 					<h4><%= movie.name %></h4>
+					<p><%= movie.year %></p>
 					<p><%= movie.plot %></p>
 					<p><%= movie.genere %></p>
 				</li>
