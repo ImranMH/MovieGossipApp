@@ -3,22 +3,39 @@
 <head>
 	<meta charset="UTF-8">
 	<title>login</title>
+	<link href="../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-		<div class="container">
-		<div class="row">
-			<div class="col-md-10">
-				<h2>login form</h2>
 
-				<form method= 'post' action="register">
-					UserName: <input type="text" name="username"> <br>
-					Name: <input type="text" name="name"> <br>
-					Password: <input type="password" name="password"> <br>
-					<input type="submit" value="register">
-				</form>
-			</div>
-		</div>
-	</div>
+
+	<div class="container">
+        <div class="row">
+          <div class="col-md-8 col-offset-4">
+            <h1><span class="fa fa-sign-in"></span> Register</h1>
+            <form action="register" method="post">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" name="username">
+                </div>
+                 <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" class="form-control" name="name">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="password">
+                </div>
+
+                <button type="submit" class="btn btn-warning btn-lg">Register</button>
+            </form>
+
+            <hr>
+
+            <p>Already Have an account? <a href="/user/login">Login</a></p>
+            <p>Or go <a href="/">home</a>.</p>
+          </div>
+        </div>
+      </div>
 	
 </body>
 </html>
