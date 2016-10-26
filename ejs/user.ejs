@@ -12,6 +12,10 @@
 			background: #abc;
 			text-transform: capitalize;
 		}
+		ul{
+			margin: 0;
+			padding: 0;
+		}
 	</style>
 </head>
 <body>
@@ -27,16 +31,18 @@
 						<% for(var u of user) { %>
 							<li>
 								<div class="panel panel-default">
-									<div class="panel-heading"><a href="/user/<%= u._id%>"><%= u.name %></a></div>
+									<div class="panel-heading"><a href="/user/<%= u._id %>"><%= u.name %></a></div>
 									<div class="panel-body">
-									
-										<p><%= u.age %></p>
-										<p><%= u.username %></p>
-										<a href="movie/<%= u._id %>" class="btn btn-primary details">details</a>
+										<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+											<a href="u._id" class="thumbnail">
+												<img src=" <%= u.avater %>" alt="<%= u.name %>">
+											</a>
+										</div>
+										<p><%= u.name %></p>
+										<p>Age : <%= u.age %></p>
+										<p><%= u.position %></p>
 										
-										<a href="./movie/<%= u._id %>/edit" class="btn btn-primary edit">edit</a>
-										<button rel="movie/<%= u._id %>" class="btn btn-primary delete">delete</button>
-										
+										<p><button rel="<%= u._id %>" class="edit"> Follow </button></p>
 									</div>
 								</div>
 							</li>

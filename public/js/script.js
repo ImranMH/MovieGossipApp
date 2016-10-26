@@ -126,6 +126,8 @@ $(function(){
 			data: data
 		}).then(function(data) {
 			console.log(data);
+			$('#showEdit').addClass('hidden');
+			window.location.reload()
 		},function(err) {
 			console.log(err);
 		})

@@ -30,7 +30,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h2>profile page</h2>
+				<h2><%= searchUser.name %> page</h2>
 				<p><button class="edit">Edit Profile</button></p>
 				<% if ( searchUser )%>
 				<h2>Personal information</h2>
@@ -71,7 +71,8 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h2> Movie like this user</h2>
+				<h2> Movie like <%= searchUser.name %></h2>
+				<hr>
 				<%if (movie) { %>
 						
 					<ul>
