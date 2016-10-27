@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Movie Watcher</title>
+	<link href="css/bootstrap.css" rel="stylesheet">
+
+	<script src="js/vendor/jquery-1.11.2.js"></script>
+	<script src="js/vendor/bootstrap.js"></script>
+	<script src="js/vendor/angular.js"></script>
+	<script src="js/vendor/angular-route.js"></script>
+  <script src="app.js"></script>
+  <script src="config.js"></script>
+  
+  <script src="view/home/home.ctrl.js"></script>
+  <script src="view/search/search.ctrl.js"></script>
+  <script src="services/ombd.service.js"></script>
+  <script src="services/movie.service.js"></script>
+  <script src="view/nav/nav.ctrl.js"></script>
+</head>
+<body ng-app="expariment">
+	
+	<div class="container">
+    <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="/user/profile"></a></li>
+            <li role="presentation" class="active"><a href="/">Home</a></li>
+            <li role="presentation"><a href="/movie">Movie</a></li>
+            <li role="presentation"><a href="/user">User</a></li>
+            
+            <li role="presentation"><a href="/user/login">Login</a></li>
+           
+
+            <li role="presentation"><a href="/user/profile">profile</a></li>
+            <li role="presentation"><a class="logout" >LogOut</a></li>
+           
+          </ul>
+        </nav>
+        <h3 class="text-muted">Project name</h3>
+    </div>
+        
+  </div>
+
+  <div class="container" ng-controller="navCtrl">
+    <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills ">
+            
+            <li class=""><a href="#/home">Home</a></li>
+            <li><a href="#/home/search">search</a></li>
+            <li><a href="/user">User</a></li>
+            
+            <li><a href="/user/login">Login</a></li>
+           
+
+            <li><a href="/user/profile">profile</a></li>
+                   
+          </ul>
+        </nav>
+    </div>        
+  </div>
+
+
+	
+		
+			<p>{{vvm.name}}</p>
+	
+    <div ng-view></div>
+</body>
+</html>

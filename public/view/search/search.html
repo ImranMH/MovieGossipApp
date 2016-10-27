@@ -1,0 +1,54 @@
+<div class="container">
+	<div class="row">
+		<h2>search Movie</h2>
+		<input ng-model="vm.movieQuery.title"
+       class="form-control"
+       placeholder="Search Movie  Batman"/>
+
+		<button ng-click="vm.search(vm.movieQuery)"
+		        class="btn btn-primary btn-block">
+		    Search
+		</button>
+
+		{{vm.name}}
+		{{vm.movie.title}}
+	</div>
+</div>
+<div class="container" style="margin-top:50px" ng-if="vm.movie">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="movie">
+				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+					<a href="{{vm.movie.Poster}}" class="thumbnail">
+						<img src="{{vm.movie.Poster}}" alt="{{vm.movie.Title}}">
+					</a>
+				</div>
+				<div class="movie--info col-xs-9 col-sm-9 col-md-9 col-lg-9">
+						<p>{{vm.movie.Title}} <span>{{vm.movie.Year}}</span></p>
+						<p>{{vm.movie.Director}}</p>
+						<p>{{vm.movie.Plot}}</p>
+						<button ng-click="vm.addMovie(vm.movie)" class= "btn btn-primary">Add To List</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div ng-if="model.profile.likesMovies.length">
+
+    <h3>Movies I Like</h3>
+
+    <div class="panel panel-default jga-movie-panel"
+         ng-repeat="movie in model.profile.likesMovies">
+        <div class="panel-heading">
+            <a href="#/details/{{movie.imdbID}}">
+                {{movie.title}}
+            </a>
+        </div>
+        <div class="panel-body">
+            <a href="#/details/{{movie.imdbID}}">
+                <img ng-src="{{movie.poster}}" width="100px"/>
+            </a>
+        </div>
+    </div>
+</div>
