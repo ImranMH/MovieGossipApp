@@ -12,6 +12,7 @@ db = mongoose.connect('mongodb://127.0.0.1:27017/test-chirp')
 
 
 app.use(bodyParser.urlencoded({ extended: false}))
+app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(session({
     resave: false,
