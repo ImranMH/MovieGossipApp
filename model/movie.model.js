@@ -35,22 +35,26 @@ module.exports = function(mongoose,q){
 		return deffered.promise;
 	}
 
-	function createMovie(movie, user) {
+	function createMovie(movieIn, user) {
 		var deffered = q.defer();
-			Movie.find({imdbID:movie.imdbID}, function(err, mov){
+			Movie.findOne({imdbID: movieIn.imdbID}, function(err, mov){
 				if(err){
 					deffered.reject(err)
 				} else {
-					if (!mov) {
-						console.log(movie.Title);
+					if (mov) {
+						//console.log("inside else :"+mov);
+						deffered.resolve("movie already added")
+					} else {
+						
+						//console.log("inside save :"+movieIn);
 						var movie = new Movie({
-							title: movie.Title,
-							year: movie.Year,
-							genre: movie.Genre,
-							imdbID: movie.imdbID,
-							poster: movie.Poster,
-							director: movie.Director,
-							plot: movie.Plot,
+							title: movieIn.Title,
+							year: movieIn.Year,
+							genre: movieIn.Genre,
+							imdbID: movieIn.imdbID,
+							poster: movieIn.Poster,
+							director: movieIn.Director,
+							plot: movieIn.Plot,
 							addedBy:user._id
 						})
 						
@@ -61,8 +65,6 @@ module.exports = function(mongoose,q){
 								deffered.resolve(movie)
 							}
 						})
-					} else {
-						deffered.resolve("movie already added")
 					}
 				}
 			})

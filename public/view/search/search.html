@@ -21,13 +21,21 @@
 			<div class="movie">
 				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 					<a href="#" class="thumbnail">
-						<img ng-src="{{vm.movie.Poster}}" alt="{{vm.movie.Title}}">
+						<img ng-hide ="vm.movie.Poster =='N/A'" ng-src="{{vm.movie.Poster}}" alt="{{vm.movie.Title}}">
+						<img ng-show ="vm.movie.Poster =='N/A'" ng-src="http://www.classicposters.com/images/nopicture.gif" alt="{{vm.movie.Title}}">
 					</a>
 				</div>
 				<div class="movie--info col-xs-9 col-sm-9 col-md-9 col-lg-9">
-						<p>{{vm.movie.Title}} <span> {{vm.movie.Year}}</span></p>
-						<p>{{vm.movie.Director}}</p>
+						<p>{{vm.movie.Title}} </p>
+						<p>Year: {{vm.movie.Year}} </p>
+						<p>Country: {{vm.movie.Country}}</p>
+						<p>Actors: {{vm.movie.Actors}}</p>
+						<p>Director: {{vm.movie.Director}}</p>
+						
+						<p>{{vm.movie.Genre}}</p>
 						<p>{{vm.movie.Plot}}</p>
+						<p>Awards: {{vm.movie.Awards}}</p>
+						<p>Language: {{vm.movie.Language}}</p>
 						<button ng-hide="vm.added" ="vm." ng-click="vm.addMovie(vm.movie)" class= "btn btn-primary"
 						ng-class="{ 'loading': vm.added} ">Add To List</button>
 						<button ng-show="vm.added"  class= "btn btn-primary">Movie Added</button>
