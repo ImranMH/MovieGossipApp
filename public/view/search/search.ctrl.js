@@ -11,21 +11,19 @@
 				var vm = this;
 				vm.search = searchMovie;
 				vm.addMovie = addMovie;
-				//vm.test = testfunc;
+				
 
 				activate();
-				var data= {
-					name: 'adib',
-					age:6 ,
-					sex: 'male'
-				}
+
 				function activate() {
 
 				}
 				function searchMovie(movie) {
+					vm.done = true;
 					console.log("ctrl");
 					return OmdbService.getMovieByTitle(movie.title).then(function(movie){
 						console.log(movie);
+						vm.done = false;
 						 vm.movie = movie.data;
 						return vm.movie;
 					})
@@ -43,9 +41,11 @@
 
 				function addMovie(movie) {
 					console.log(movie);
+					vm.added = false;
 					console.log('ctrl');
 					return MovieService.addMovie(movie).then(function(movie){
 						console.log(movie);
+						vm.added = true;
 						// vm.movie = movie.data;
 						//return vm.movie;
 					})

@@ -6,7 +6,8 @@
        placeholder="Search Movie  Batman"/>
 
 		<button ng-click="vm.search(vm.movieQuery)"
-		        class="btn btn-primary btn-block">
+		        class="btn btn-primary btn-block "
+		        ng-class="{ 'loading': vm.done}">
 		    Search
 		</button>
 
@@ -14,7 +15,7 @@
 		{{vm.movieQuery.title}}
 	</div>
 </div>
-<div class="container" style="margin-top:50px" ng-if="vm.movie">
+<div class="container" style="margin-top:50px" ng-if="vm.movie.imdbID">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="movie">
@@ -27,9 +28,20 @@
 						<p>{{vm.movie.Title}} <span> {{vm.movie.Year}}</span></p>
 						<p>{{vm.movie.Director}}</p>
 						<p>{{vm.movie.Plot}}</p>
-						<button ng-click="vm.addMovie(vm.movie)" class= "btn btn-primary">Add To List</button>
+						<button ng-hide="vm.added" ="vm." ng-click="vm.addMovie(vm.movie)" class= "btn btn-primary"
+						ng-class="{ 'loading': vm.added} ">Add To List</button>
+						<button ng-show="vm.added"  class= "btn btn-primary">Movie Added</button>
+						<!-- <button ng-show="vm.added" ng-click="vm.addMovie(vm.movie)" class= "btn btn-primary">Go To Movie</button> -->
 				</div>
 			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container" style="margin-top:50px" ng-if="vm.movie.Error">
+	<div class="row">
+		<div class="col-sm-9">
+			<h2>{{vm.movie.Error}}</h2>
 		</div>
 	</div>
 </div>

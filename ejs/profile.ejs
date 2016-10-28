@@ -98,7 +98,7 @@
 						<%for(var m of movie) { %>
 							<li class="liked_movie">
 								<div class="movie_thumb">
-									<img src="<%= m.poster %>" alt="<%= m.title %>">
+									<a href="/movie/<%= m._id %>"><img src="<%= m.poster %>" alt="<%= m.title %>"></a>
 								</div>								
 									<div class="movie_thump_meta">
 										<h5><%= m.title %></h5>
