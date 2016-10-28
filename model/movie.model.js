@@ -37,26 +37,37 @@ module.exports = function(mongoose,q){
 
 	function createMovie(movie, user) {
 		var deffered = q.defer();
-		
-			console.log(movie.Title);
-			var movie = new Movie({
-				title: movie.Title,
-				year: movie.Year,
-				genre: movie.Genre,
-				imdbID: movie.imdbID,
-				poster: movie.Poster,
-				director: movie.Director,
-				plot: movie.Plot,
-				addedBy:user._id
-			})
-			
-			movie.save(function(err, movie){
-				if (err) {
+			Movie.find({imdbID:movie.imdbID}, function(err, mov){
+				if(err){
 					deffered.reject(err)
 				} else {
-					deffered.resolve(movie)
+					if (!mov) {
+						console.log(movie.Title);
+						var movie = new Movie({
+							title: movie.Title,
+							year: movie.Year,
+							genre: movie.Genre,
+							imdbID: movie.imdbID,
+							poster: movie.Poster,
+							director: movie.Director,
+							plot: movie.Plot,
+							addedBy:user._id
+						})
+						
+						movie.save(function(err, movie){
+							if (err) {
+								deffered.reject(err)
+							} else {
+								deffered.resolve(movie)
+							}
+						})
+					} else {
+						deffered.resolve("movie already added")
+					}
 				}
 			})
+
+			
 		// 	Movie.create(movie, function(err, movie){
 		// 	console.log(movie);	
 		// 	if(err) {
