@@ -69,12 +69,16 @@
 						<% for(var m of movie) { %>
 							<li>
 								<div class="panel panel-default">
-									<div class="panel-heading"><a href="/movie/<%= m._id%>"><%= m.name %></a></div>
+									<div class="panel-heading"><a href="/movie/<%= m._id%>"><%= m.title %> <span>(<%= m.year %>)</span></a></div>
 									<div class="panel-body">
-									
-										<p><%= m.year %></p>
+										<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+											<a href="#" class="thumbnail">
+												<img src="<%= m.poster %>" alt="">
+											</a>
+										</div>
+										<p>Director: <%= m.director %></p>
 										<p><%= m.plot %></p>
-										<p><%= m.genere %></p>
+										<p><%= m.genre %></p>
 										<a href="movie/<%= m._id %>" class="btn btn-primary details">details</a>
 										
 										<a href="./movie/<%= m._id %>/edit" class="btn btn-primary edit">edit</a>

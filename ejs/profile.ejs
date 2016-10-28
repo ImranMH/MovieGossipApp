@@ -9,8 +9,27 @@
 			display: inline-block;
 			border: 1px solid #ccc;
 			padding: 5px;
-			/* background: #abc; */
+			 text-align: center;
 			text-transform: capitalize;
+			height: 200px;
+			margin: 10px;
+			
+		}
+		.movie_thumb{
+			width: 100px;
+			
+		}
+		.movie_thumb img {
+			width: 100%;
+			height: 150px;
+		}
+		.liked_movie small {
+			font-size: 10px;
+			margin-bottom: 5px;
+		}
+		.liked_movie h5{
+			margin: 5px 0 0px;
+		
 		}
 		.left{
 			float: left;
@@ -78,9 +97,13 @@
 					<ul>
 						<%for(var m of movie) { %>
 							<li class="liked_movie">
-								<h4><a href="../movie/<%=m._id%>"><%= m.name %></h4></a>
-								<p><%= m.plot %></p>
-								<p><%= m.genere %></p>
+								<div class="movie_thumb">
+									<img src="<%= m.poster %>" alt="<%= m.title %>">
+								</div>								
+									<div class="movie_thump_meta">
+										<h5><%= m.title %></h5>
+										<small><%= m.year %></small>
+									</div>
 							</li>
 						<% } %>	
 					</ul>
