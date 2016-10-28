@@ -35,35 +35,38 @@ module.exports = function(mongoose,q){
 		return deffered.promise;
 	}
 
-	function createMovie(movie) {
+	function createMovie(movie, user) {
 		var deffered = q.defer();
 		
-		if (movie.name && movie.year) {
-			/*var movie = new Movie({
-				name: movie.name,
-				year: movie.year,
-				ganere: movie.ganere
+			console.log(movie.Title);
+			var movie = new Movie({
+				title: movie.Title,
+				year: movie.Year,
+				genre: movie.Genre,
+				imdbID: movie.imdbID,
+				poster: movie.Poster,
+				director: movie.Director,
+				plot: movie.Plot,
+				addedBy:user._id
 			})
-			console.log(movie);
+			
 			movie.save(function(err, movie){
 				if (err) {
 					deffered.reject(err)
 				} else {
 					deffered.resolve(movie)
 				}
-			})*/
-			Movie.create(movie, function(err, movie){
-			console.log(movie);	
-			if(err) {
-				deffered.reject(err)
-			} else {
-				console.log('resolved');
-				deffered.resolve(movie)
-			}
-		})
-		} else {
-			console.log("movie field blank");
-		}
+			})
+		// 	Movie.create(movie, function(err, movie){
+		// 	console.log(movie);	
+		// 	if(err) {
+		// 		deffered.reject(err)
+		// 	} else {
+		// 		console.log('resolved');
+		// 		deffered.resolve(movie)
+		// 	}
+		// })
+		
 		return deffered.promise;
 	}
 	function findMovieById(movieId) {

@@ -11,13 +11,29 @@ var router = express.Router();
       var xxx =res.locals.user = req.session.user || {};
         next()
     })
-
+  router.get('/json', findUserJson);
+  function findUserJson(req, res) {
+      User.findAll().then( function(user){
+        
+        res.json(user)
+      }, function(err) {
+          res.status(400).send(err)
+      })
+    }
   router.get('/', findUser);
     function findUser(req, res) {
       User.findAll().then( function(user){
-        res.render('user', {user: user})
+        res.format({
+          html: function() {
+            res.render('user', {user: user})
+          },
+          json: function() {
+            res.json(user)
+          }
+        })
+        
       }, function(err) {
-        res.status(400).send(err)
+          res.status(400).send(err)
       })
     }
     //app.get('/user', createAll)

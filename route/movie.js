@@ -21,11 +21,17 @@ function getMovie(req, res){
 	})
 	
 }
+//router.post('/special',postMovie)
 function postMovie(req, res){
-	console.log("reach postMovie post request");
-	Movie.createMovie(req.body).then(function(movie){
+	console.log("reach postMovie post request server route");
+	var movie = req.body;
+
+	console.log(movie);
+	var user =req.session.user;
+	//console.log('request in route:'+movie.imdbID);
+	Movie.createMovie(movie, user).then(function(movie){
 		console.log(movie);
-		res.redirect('/movie')
+		res.json(movie)
 	})
 }
 router.route('/all')

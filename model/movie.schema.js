@@ -3,13 +3,17 @@ module.exports = function(mongoose) {
 	var Schema = mongoose.Schema;
 
 	MovieSchema = new Schema({
-		name: String,
-		_director: [{type: Schema.Types.ObjectId, ref: "production"}],
-		producer: [{type: Schema.Types.ObjectId, ref: "production"}],
-		year: Number,
+		title: String,
+		imdbID: String,
+		year: String,
+		poster: String,
+		director: String,
 		plot: String,
+		genre: String,
 		likeUsers: [{type: Schema.Types.ObjectId, ref: "user"}],
-		genere: String
+		viewedUser: [{type: Schema.Types.ObjectId, ref: "user"}],
+		intersetedUser: [{type: Schema.Types.ObjectId, ref: "user"}],
+		addedBy: [{type: Schema.Types.ObjectId, ref: "user"}],		
 	}, {collection: 'exp-populate-movie'});
 
 	return MovieSchema;
