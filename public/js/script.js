@@ -3,7 +3,10 @@ $(function(){
 	$('.update').on('click', doUpdate)
 	
 	$('.likes').on('click', ShowLikes)
+	$('.watch').on('click', watched)
 	$('.logout').on('click', logout)
+	$('#deactivate').on('click', deactivate)
+
 	$('.delete').on('click', function(){
 		var url = $(this).attr('rel');
 			function DecideDel() {
@@ -89,6 +92,29 @@ $(function(){
 		})
 	}
 
+	function watched() {
+
+		var url = $(this).attr('rel')
+		url = '/'+url
+		console.log(url);
+		var self = $(this)
+		var data = {
+			user: true
+		}
+		$.ajax({
+			data: data,	
+			url: url,	
+			type:'POST'
+		}).then(function(id){
+			//console.log(id);
+			//
+			self.css("background", 'red')
+			//console.log(self);
+			$(this).css('backrground', 'red')
+			//window.location.replace("http://localhost:3000/movie");
+		})
+	}
+
 
 	function logout() {
 		console.log('clickrd');
@@ -132,5 +158,23 @@ $(function(){
 			console.log(err);
 		})
 		return false
-	})
+	});
+
+	function deactivate() {
+		var self = $(this)
+		var url = $(this).attr('rel')
+		console.log(url);
+
+		$.ajax({	
+			url: '/'+url,	
+			type:'delete'
+		}).then(function(id){
+			//console.log(id);
+			
+			window.location.replace("http://localhost:3000/user/login");
+		})
+	}
+
+
+
 })
