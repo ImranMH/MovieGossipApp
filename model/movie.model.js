@@ -11,6 +11,7 @@ module.exports = function(mongoose,q){
 		findMovieById: findMovieById,
 		findMovieByIds: findMovieByIds,
 		likeMovie: likeMovie,
+		watchUser: watchUser,
 		editMovie: editMovie,
 		deleteMovie: deleteMovie
 	}
@@ -160,6 +161,28 @@ module.exports = function(mongoose,q){
 				deffered.reject(err)
 			} if(movie) {
 				movie.likeUsers.push(user._id)
+				movie.save(function(err, mov) {
+					if(err) {
+						deffered.reject(err)
+					} else {
+						console.log('inside db save');
+						deffered.resolve(mov)
+					}
+				})
+			}
+		})
+		return deffered.promise;
+	}
+
+	function watchUser(movieId, user) {
+		var users = []
+		console.log('inside db before edit');
+		var deffered = q.defer();
+		Movie.findById(movieId, function(err, movie){
+			if(err) {
+				deffered.reject(err)
+			} if(movie) {
+				movie.viewedUser.push(user._id)
 				movie.save(function(err, mov) {
 					if(err) {
 						deffered.reject(err)

@@ -9,10 +9,13 @@ module.exports = function(mongoose, q) {
 		findUserById : findUserById,
 		findUsersByIds : findUsersByIds,
 		findUserByCredientials : findUserByCredientials,
-		createUser : createUser,
-		movieLikedUser : movieLikedUser,
 		findByCredientials: findByCredientials,
+		movieLikedUser : movieLikedUser,
+		movieAddedUser : movieAddedUser,
+		movieWatchUser : movieWatchUser,
+		createUser : createUser,
 		updateUser: updateUser,
+		deleteUserById: deleteUserById,
 		userDb: userDb()
 	}
 	return api;
@@ -46,10 +49,10 @@ module.exports = function(mongoose, q) {
 				password:credientials.password},
 				function(err, user){
 			if (err) {
-				console.log('rejected');
+				//console.log('rejected');
 				deffered.reject(err)
 			} else {
-				console.log('resolved:'+ user);
+				//console.log('resolved:'+ user);
 				deffered.resolve(user)
 			}
 		})
@@ -79,7 +82,7 @@ module.exports = function(mongoose, q) {
 			if (err) {
 				deffered.reject(err)
 			} else {
-				console.log("return user....: "+user);
+				//console.log("return user....: "+user);
 				user.likeMovies.push(movie._id);
 				user.save(function(err, user){
 					if (err) {
@@ -92,8 +95,47 @@ module.exports = function(mongoose, q) {
 		})
 		return deffered.promise;
 	};
+/* movie added by */
+	function movieAddedUser (userid, movie) {
+		var deffered = q.defer()
+		User.findById(userid, function(err, user){
+			if (err) {
+				deffered.reject(err)
+			} else {
+				//console.log("return user....: "+user);
+				user.addedMovies.push(movie._id);
+				user.save(function(err, user){
+					if (err) {
+						deffered.reject(err)
+					} else {
+						deffered.resolve(user)
+					}
+				})
+			}
+		})
+		return deffered.promise;
+	};
 
-
+/* movie watch by user */
+	function movieWatchUser (userid, movie) {
+		var deffered = q.defer()
+		User.findById(userid, function(err, user){
+			if (err) {
+				deffered.reject(err)
+			} else {
+				//console.log("return user....: "+user);
+				user.watchMovies.push(movie._id);
+				user.save(function(err, user){
+					if (err) {
+						deffered.reject(err)
+					} else {
+						deffered.resolve(user)
+					}
+				})
+			}
+		})
+		return deffered.promise;
+	};
 	function findUsersByIds (userIds) {
         var deferred = q.defer();
 
@@ -138,6 +180,24 @@ module.exports = function(mongoose, q) {
 		return deferred.promise;
 	};
 
+/*Delete user from database (Deactivate Account)*/
+	function deleteUserById (userid) {
+		var deferred = q.defer()
+		User.findById(userid, function(err, user){
+			if (err) {
+				deferred.reject(err)
+			} else {
+				user.remove(function(err, user){
+					if (err) {
+                deferred.reject(err);
+            } else {            	
+                deferred.resolve(user);
+            }
+				});
+			}
+		})
+		return deferred.promise;
+	};
 
 	function userDb(){
 		return User;
