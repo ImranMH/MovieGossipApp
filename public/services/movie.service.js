@@ -10,13 +10,18 @@
 			function movieService($http) {
 				
 				var service = {
-					addMovie: addMovie
+					addMovie: addMovie,
+					getMovie: getMovie
 				}
 				return service;
 
 				function addMovie(movie) {
 					console.log( movie)
 					return $http.post("/movie", movie)
+				}
+				function getMovie() {
+
+					return $http.get("/movie")
 				}
 
 			}

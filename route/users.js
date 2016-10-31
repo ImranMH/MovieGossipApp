@@ -39,17 +39,17 @@ var router = express.Router();
     //app.get('/user', createAll)
     //router.post('/login',findLUser /*findLoginUser*/)
     router.get('/register', renderRegister);
-    router.post('/register', createAll);
+    router.post('/register', RegisterUser);
     function renderRegister(req, res) {
       res.render('register')
     };
 
-    function createAll(req, res) {
+    function RegisterUser(req, res) {
       //console.log("post Register");
       var user = req.body
-      User.createUser(user).then( function(user){
+      User.registerUser(user).then( function(user){
         //console.log("creating a user:"+ user);
-        res.redirect('/user')
+        res.redirect('/user/login')
       }, function(err) {
         res.status(400).send(err)
       })
@@ -58,7 +58,7 @@ var router = express.Router();
     router.get('/login', function(req, res){
       res.render('login')
     });
-    router.post('/login', loggnll)
+   // router.post('/login', loggnll)
     
     function loggn(data){
       var deffered = q.defer()
@@ -96,23 +96,18 @@ var router = express.Router();
     }
 
     router.get('/profile', findUserProfile);
-     function findUserProfile(req,res) {
+     function findUserProfile(req, res) {
 
       var userId = req.session.user._id
-      var loglogeduser = req.session.user;
+      var sessionUser = req.session.user;
       User.findUserById(userId).then(function(user){
         //console.log("profile route: "+user);
         var likeMovies = user.likeMovies;
+        
 
-        var mlu = []
-        likeMovies.forEach(function(lm) {
-          var movie = lm._id;
-          mlu.push(movie)
-        })
-         //console.log("profile route: "+mlu);
-        return Movie.findMovieByIds(mlu).then(function(mov) {
-          //console.log("return from voie :"+ mov);
-          res.render('profile',{user: loglogeduser, movie: mov,searchUser: user}) 
+        return Movie.findMovieByIds(likeMovies).then(function(mov) {
+         // console.log("return from voie :"+ mov);
+          res.render('profile',{sessionUser: sessionUser, movie: mov,searchUser: user}) 
         },function(err){
           res.json(err)
         })
@@ -122,33 +117,51 @@ var router = express.Router();
       })   
           
     };
+    /*change password*/
+    router.post('/profile/changePassword', changePassword);
+    function changePassword(req, res) {
+      console.log("here");
+      var currentUser = req.session.user
+      var changeP = req.body
+      User.changePwd(currentUser,changeP).then(function(data){
+        res.json(data)
+      }, function(err) {
+        res.json("old password dont match")
+      })
+      console.log(currentUser.password);
+      /*if (changeP.oldPassword === currentUser.password) {
+        console.log(currentUser.password);
+      }*/
+    }
     /*find a profile when clicked*/
     router.get('/:id', findUserProfileWithID);
      function findUserProfileWithID(req,res) {
       var userId = req.params.id
-      var loglogeduser = req.session.user;
+      var sessionUser = req.session.user;
       User.findUserById(userId).then(function(user){
         var likeMovies = user.likeMovies;
 
-        var mlu = []
-        likeMovies.forEach(function(lm) {
-          var movie = lm._id;
-          mlu.push(movie)
-        })
          //console.log("profile route: "+mlu);
-        return Movie.findMovieByIds(mlu).then(function(mov) {
+        return Movie.findMovieByIds(likeMovies).then(function(mov) {
           //console.log("return from voie :"+ mov);
-          res.render('profile',{user: loglogeduser, movie: mov, searchUser: user}) 
+          res.render('profile',{sessionUser: sessionUser, movie: mov, searchUser: user}) 
         },function(err){
           res.json(err)
         })
          
       },function(err){
         res.json(err)
-      })   
-          
+      })             
     };
-
+/*Delete User Account Deactivate account*/
+  router.delete('/:id', DeleteUserAccount);
+  function DeleteUserAccount(req, res) {
+    var user = req.session.user;
+    User.deleteUserById(user._id).then(function(user){
+      //console.log("successfully Deleteed:" + user);
+      res.json(user)
+    })
+  }
   /*edit profile*/
   router.route('/:id/edit')
       .get()
@@ -199,6 +212,24 @@ var router = express.Router();
       })
     };
   
+   router.post('/login', LoginFunc)
+    
+  function LoginFunc(req, res) {
+    var user = req.body;
+    User.findByCredientials(user).then(function(user){
+      if (user){
+        req.session.user = user;
+        var hour = 36000000;
+        req.session.cookie.expires = new Date(Date.now() + hour)
+        req.session.cookie.maxAge = hour
+        res.redirect('profile')
+      } else {
+        res.json('no user')
+      }
+    }, function(err){
+      res.redirect('/user/login')
+    })
+  }
 
     // working alternative
 

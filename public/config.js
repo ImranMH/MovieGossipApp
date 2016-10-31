@@ -15,6 +15,16 @@
 					controller: 'homeCtrl',
 					controllerAs: 'vm'
 				})
+				.when('/home/details', {
+					templateUrl: '/view/details/details.html',
+					controller: 'DetailsCtrl',
+					controllerAs: 'vm'
+				})
+				.when('/home/movie', {
+					templateUrl: '/view/movie/movie.html',
+					controller: 'MovieCtrl',
+					controllerAs: 'vm'
+				})
 				.when('/home/search', {
 					templateUrl: '/view/search/search.html',
 					controller: 'searchCtrl',

@@ -4,7 +4,9 @@ $(function(){
 	
 	$('.likes').on('click', ShowLikes)
 	$('.watch').on('click', watched)
+	$('.movie_details').on('click', movieDetails)
 	$('.logout').on('click', logout)
+	$('.show_change_p').on('click', showCP)
 	$('#deactivate').on('click', deactivate)
 
 	$('.delete').on('click', function(){
@@ -65,6 +67,18 @@ $(function(){
 		}).then(function(id){
 			//console.log(id+ "successfully edited");
 			window.location.replace("http://localhost:3000/movie");
+		})
+		//return false;
+	};
+	function movieDetails(url) {
+		var imdbID = $(this).attr('rel')
+		console.log(imdbID);
+		$.ajax({
+			url: "http://www.omdbapi.com/?i="+imdbID+"&plot=short&r=json",
+			type:'get'
+		}).then(function(id){
+			console.log(id);
+			window.location.replace("http://localhost:3000/#/home/details");
 		})
 		//return false;
 	};
@@ -175,6 +189,31 @@ $(function(){
 		})
 	}
 
+/* show chanege password dialog*/
+	function showCP() {
+		$('.cp').toggleClass('hidden')
+	}
 
+	$('.change_password').on('click', changePassword)
 
+	function changePassword() {
+		var oldP = $("input[name='old_password']").val()
+		var newPassword = $("input[name='new_password']").val()
+		var matchP = $("input[name='new_password2']").val()
+		if (newPassword === matchP) {
+			var data= {
+				oldPassword: oldP,
+				newPassword: newPassword
+			}
+			$.ajax({
+				url: '/user/profile/changePassword',
+				data: data,
+				type: 'post'
+			}).then(function(res) {
+				console.log("getting response"+ res);
+			})
+		} else {
+			console.log("password dont match");
+		}
+	}
 })

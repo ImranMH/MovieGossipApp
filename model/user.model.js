@@ -13,9 +13,11 @@ module.exports = function(mongoose, q) {
 		movieLikedUser : movieLikedUser,
 		movieAddedUser : movieAddedUser,
 		movieWatchUser : movieWatchUser,
+		registerUser : registerUser,
 		createUser : createUser,
 		updateUser: updateUser,
 		deleteUserById: deleteUserById,
+		changePwd: changePwd,
 		userDb: userDb()
 	}
 	return api;
@@ -58,6 +60,22 @@ module.exports = function(mongoose, q) {
 		})
 		return deffered.promise;
 	}
+	// register user
+	function registerUser(user) {
+		var deffered = q.defer()
+		var newUser = new User();
+		newUser.username = user.username;
+		newUser.name = user.name;
+		newUser.password = newUser.generateHash(user.password);
+		newUser.save(function(err, user){
+			if (err) {
+				deffered.reject(err)
+			} else {
+				deffered.resolve(user)
+			}
+		});
+		return deffered.promise;
+	}
 	function createUser (user) {
 		var deffered = q.defer()
 		User.create(user, function(err, user){
@@ -69,12 +87,41 @@ module.exports = function(mongoose, q) {
 		})
 		return deffered.promise;
 	}
+/* change password*/
 
+function changePwd(user, data) {
+	var deffered = q.defer()
+		User.findOne({username: user.username}, function(err, user){
+			if (err) {
+				res.json(err)
+			} else if (!user.validPassword(data.oldPassword)){
+				deffered.reject("Password is incerrect")
+			} else {
+				user.password = user.generateHash(data.newPassword);
+				user.save(function(err, doc) {
+					if(err) {
+						deffered.reject(err)
+					} else {
+						deffered.resolve(doc)
+					}
+				})
+			}
+		});
+		return deffered.promise;
+}
+/* login request handle*/
 	function findByCredientials (credientials) {
-
-		User.findOne({username: credientials.username,
-				password: credientials.password});
-	
+		var deffered = q.defer()
+		User.findOne({username: credientials.username}, function(err, user){
+			if (err) {
+				deffered.reject(err)
+			} else if (!user.validPassword(credientials.password)){
+				deffered.reject("Password is incerrect")
+			} else {
+				deffered.resolve(user)
+			}
+		});
+		return deffered.promise;
 	};
 	function movieLikedUser (userid, movie) {
 		var deffered = q.defer()

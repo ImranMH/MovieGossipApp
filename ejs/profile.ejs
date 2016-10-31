@@ -3,45 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>ejs home</title>
-	<link href="../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	 <link href="../css/bootstrap.css" rel="stylesheet">
+	 <link href="../css/main.css" rel="stylesheet">
 	<style type="text/css">
-		.liked_movie{
-			display: inline-block;
-			border: 1px solid #ccc;
-			padding: 5px;
-			 text-align: center;
-			text-transform: capitalize;
-			height: 200px;
-			margin: 10px;
-			
-		}
-		.movie_thumb{
-			width: 100px;
-			
-		}
-		.movie_thumb img {
-			width: 100%;
-			height: 150px;
-		}
-		.liked_movie small {
-			font-size: 10px;
-			margin-bottom: 5px;
-		}
-		.liked_movie h5{
-			margin: 5px 0 0px;
-		
-		}
-		.left{
-			float: left;
-			width: 30%;
-		}
-		.right{
-			float: right;
-			width: 65%;
-		}
-		.left img{
-			width: 100%;
-		}
+	
 	</style>
 </head>
 <body>
@@ -72,18 +37,29 @@
 	</div>
 	<div id="showEdit" class="container hidden">
 		<div class="row">
-			<h3>edit profile</h3>
+			<h3>Edit Profile</h3>
+
 
 			<div class="col-md-12">
+		
 				<form method= 'post' action="/user/:id/edit">
 				<p>
-					 Name: <input class="ename form-control" type="text" name="name" value="<%= user.name %>"> <br>
-					age: <input class="eage form-control" type="text" name="age" value="<%= user.age %>"> <br>
-					position: <input class="eposition form-control" type="text" name="position" value="<%= user.position %>"> <br>
-					Avater: <input class="avater form-control " type="text" name="avater" value="<%= user.avater %>"> <br>
+					 Name: <input class="ename form-control" type="text" name="name" value="<%= sessionUser.name %>"> <br>
+					age: <input class="eage form-control" type="text" name="age" value="<%= sessionUser.age %>"> <br>
+					position: <input class="eposition form-control" type="text" name="position" value="<%= sessionUser.position %>"> <br>
+					Avater: <input class="avater form-control " type="text" name="avater" value="<%= sessionUser.avater %>"> <br>
 				</p>
-					<p> <button rel="user/<%= user._id %>/edit"  class="updateUser btn btn-primary btn-lg btn-block">Update Profile</button></p>
+					<p> <button rel="user/<%= sessionUser._id %>/edit"  class="updateUser btn btn-primary btn-lg btn-block">Update Profile</button></p>
 			</form>
+			<button class="show_change_p btn btn-default">Change Password</button>
+			<div class="cp hidden">
+				Old Password: <input type="password" name="old_password" class="form-control">
+				New Password: <input type="password" name="new_password" class="form-control">
+				Contarm New Password: <input type="password" name="new_password2" class="form-control">
+				<button class="change_password btn btn-info">Confarm Change</button>
+			</div>
+
+			<button id="deactivate" rel="user/<%= sessionUser._id %>" class="btn btn-danger right">Deactivate Account</button>
 			</div>
 		</div>
 	</div>
@@ -96,6 +72,31 @@
 						
 					<ul>
 						<%for(var m of movie) { %>
+							<li class="liked_movie">
+								<div class="movie_thumb">
+									<a href="/movie/<%= m._id %>"><img src="<%= m.poster %>" alt="<%= m.title %>"></a>
+								</div>								
+									<div class="movie_thump_meta">
+										<h5><%= m.title %></h5>
+										<small><%= m.year %></small>
+									</div>
+							</li>
+						<% } %>	
+					</ul>
+					<% } %>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2> Movie Watch By <%= searchUser.name %></h2>
+				<hr>
+				<%if (movie.viewedUser) { %>
+						
+					<ul>
+						<%for(var m of movie.viewedUser) { %>
 							<li class="liked_movie">
 								<div class="movie_thumb">
 									<a href="/movie/<%= m._id %>"><img src="<%= m.poster %>" alt="<%= m.title %>"></a>

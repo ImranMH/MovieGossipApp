@@ -1,4 +1,5 @@
 var q = require('q')
+var bcrypt = require('bcryptjs')
 module.exports = function( mongoose) {
 	var MovieSchema = require('./movie.schema')(mongoose)
 
@@ -16,5 +17,14 @@ module.exports = function( mongoose) {
 		watchMovies: [{type: Schema.Types.ObjectId, ref: "Movie"}],
 		interestedMovies: [{type: Schema.Types.ObjectId, ref: "Movie"}]
 	}, {collection: 'expariments-user'})
+
+	UserSchema.methods.generateHash = function (password) {
+		return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
+	};
+
+	// check password for valid
+	UserSchema.methods.validPassword = function(password) {
+		return bcrypt.compareSync(password, this.password);
+	}
 	return UserSchema ;
 }

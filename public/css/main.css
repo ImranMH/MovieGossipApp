@@ -1,3 +1,99 @@
+/* profile css */
+.liked_movie{
+			display: inline-block;
+			border: 1px solid #ccc;
+			padding: 5px;
+			 text-align: center;
+			text-transform: capitalize;
+			height: 200px;
+			margin: 10px;
+			width: 110px;
+			overflow: hidden;
+		}
+		.movie_thumb{
+			width: 100px;
+			
+		}
+		.movie_thumb img {
+			width: 100%;
+			height: 150px;
+			
+		}
+		.liked_movie small {
+			font-size: 8px;
+			margin-bottom: 5px;
+		}
+		.liked_movie h5{
+			margin: 5px 0 -3px 0;
+	    overflow-wrap: break-word;
+	    word-wrap: break-word;
+	    font-size: 11px
+		}
+		.left{
+			float: left;
+			width: 30%;
+		}
+		.right{
+			float: right;
+			width: 65%;
+		}
+		.left img{
+			width: 100%;
+		}
+
+/* movie list view */
+	.liked{
+	 		background: red;
+	 	}
+	 	ul{
+	 		margin: 0;
+	 		padding: 0;
+	 		list-style-type: none;
+	 	}
+	 	li{
+	 		list-style-type: none;
+	 	}
+/* movie page */
+
+.liked{
+	 		background: red;
+	 	}
+	 	.avater_small{
+	 		width: 80px;
+	 		display: block;
+	 	}
+	 	.avater_small img{
+	 		width: 100%;
+	 	}
+	 	.avater_container{
+	
+	 		display: inline-block;
+   		margin-right: 10px;
+	 	}
+	 	ul{
+	 		margin: 0;
+	 		padding: 0;
+	 		list-style-type: none;
+	 	}
+	 	li{
+	 		list-style-type: none;
+	 	}
+
+/* user ejs */
+.liked_movie{
+			display: inline-block;
+			border: 1px solid #ccc;
+			padding: 5px;
+			background: #abc;
+			text-transform: capitalize;
+		}
+		ul{
+			margin: 0;
+			padding: 0;
+		}
+		li{
+			list-style-type: none;
+		}
 .loading{
 	
 	cursor: not-allowed;

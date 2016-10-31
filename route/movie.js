@@ -16,8 +16,16 @@ function getMovie(req, res){
 	//console.log("reach Movie get request");
 	var user = req.session.user;
 	Movie.getMovie().then(function(movie){
-		//res.json(movie)
-		res.render('movieList',{movie:movie,  logUser:user})
+		res.format({
+			html: function () {
+				res.render('movieList',{movie:movie,  logUser:user})
+			},
+			json: function () {
+				res.json(movie)
+			}
+		})
+		
+		
 	})
 	
 }
@@ -30,8 +38,9 @@ function postMovie(req, res){
 	var user =req.session.user;
 	//console.log('request in route:'+movie.imdbID);
 	Movie.createMovie(movie, user).then(function(movie){
-		console.log(movie);
-		res.json(movie)
+		return User.movieAddedUser(user, movie).then(function(){
+			res.json(movie)
+		})	
 	})
 }
 router.route('/all')
@@ -73,9 +82,6 @@ function movieById(req, res) {
 		} else{
        res.json ({});         
 		}
-
-			
-	
 		
 	}).then(function(users){
 		movie.likeUsers = users
@@ -124,7 +130,7 @@ router.route('/:id/edit')
 	}
 	
 
-	
+	/*liked user*/
 	router.route('/:id/user')
 		.post(addLikes)
 
@@ -155,6 +161,38 @@ router.route('/:id/edit')
 				},function(err) {
 					console.log(err);
 				})
+	}
+/*watched user*/
+		router.route('/:id/watch')
+		.post(watchedUser)
+
+	function watchedUser(req, res) {
+		var movie = null
+		var user= req.session.user
+		var MovieId = req.params.id;
+		//console.log(MovieId, user);
+		Movie.watchUser(MovieId, user)
+			.then(function(movie){
+
+					//console.log(user+": users" + movie+': movie return like');
+					return User.movieWatchUser(user, movie)
+					}, function(err) {
+					res.status(400).send(err)
+			})
+			.then(function(user){
+
+				res.format({
+					html : function () {
+						res.render('movieList',{wMovie:movie, logUser:user })
+					},
+					json : function () {
+						res.json(user)
+					}
+				});
+				},function(err) {
+					console.log(err);
+				})
+		
 	}
 
 module.exports = router;

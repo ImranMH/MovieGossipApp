@@ -4,18 +4,9 @@
 	<meta charset="UTF-8">
 	<title>ejs movie</title>
 	 <link href="../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	  <link href="../css/main.css" rel="stylesheet">
 	 <style type="text/css">
-	 		.liked{
-	 		background: red;
-	 	}
-	 	ul{
-	 		margin: 0;
-	 		padding: 0;
-	 		list-style-type: none;
-	 	}
-	 	li{
-	 		list-style-type: none;
-	 	}
+	 	
 	 </style>
 </head>
 <body>
@@ -92,6 +83,18 @@
 											<button class="btn btn-primary liked">liked </button>
 										<% } else { %>
 											<button rel="movie/<%= m._id %>/user" class="btn btn-primary likes">like</button>
+										<% } %>
+										<% var lkdUder =  false %>
+
+										<% for (var i =0; i < m.likeUsers.length; i++) { %> 
+											<% if ( m.likeUsers[i] == logUser._id) { %>
+												<% var lkdUder =  m.likeUsers[i] %>
+											<% } %>																
+										<% } %>								
+										<% if (lkdUder) { %>
+											<button class="btn btn-primary ">Watched </button>
+										<% } else { %>
+											<button rel="movie/<%= m._id %>/watch" class="btn btn-primary watch">add to Watch list</button>
 										<% } %>
 										<% var lkdUder =  false %>
 									</div>

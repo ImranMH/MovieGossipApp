@@ -1,14 +1,25 @@
 {
-  "name": "expariments",
+  "name": "MovieGossipApp",
   "version": "1.0.0",
-  "description": "middleware expariments",
+  "description": "Movie Gossip app",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "4.4.0"
   },
   "author": "Imran Hossain <imran096@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "mongoose": "^4.6.5",
     "q": "^1.4.1"
   }
 }

@@ -6,28 +6,9 @@
 	<meta charset="UTF-8">
 	<title>ejs movie</title>
 	 <link href="../css/bootstrap.css" " rel="stylesheet">
+	 <link href="../css/main.css" rel="stylesheet">
 	 <style type="text/css">
-	 	.liked{
-	 		background: red;
-	 	}
-	 	.avater_small{
-	 		width: 80px;
-	 		display: block;
-	 	}
-	 	.avater_small img{
-	 		width: 100%;
-	 	}
-	 	.avater_container{
-	 		display: inline-block;
-	 	}
-	 	ul{
-	 		margin: 0;
-	 		padding: 0;
-	 		list-style-type: none;
-	 	}
-	 	li{
-	 		list-style-type: none;
-	 	}
+	 	
 	 </style>
 </head>
 <body>
@@ -52,7 +33,7 @@
           </div>
         
     </div>
-    <div class="container">
+  <!--   <div class="container">
 			<div class="row">
 				<div class="col-md-12">
 					<h3>Create a movie</h3>
@@ -65,7 +46,7 @@
 				</form>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	<div class="container">
 		<div class="row">
 			<div class="col-md-10">
@@ -79,7 +60,7 @@
 									<div class="panel-heading"><a href="/movie/<%= movie._id%>"><%= movie.title %> <span>(<%= movie.year %>)</span></a></div>
 									<div class="panel-body">
 									<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-											<a href="#" class="thumbnail">
+											<a rel="<%= movie.imdbID %>" href="#" class="thumbnail movie_details">
 												<img src="<%= movie.poster %>" alt="">
 											</a>
 										</div>
@@ -103,7 +84,7 @@
 								<% if (lkdUder) { %>
 									<button class="btn btn-primary liked">liked </button>
 								<% } else { %>
-									<button rel="movie/<%= movie._id %>/user" class="btn btn-primary likes">like</button>
+									<button rel="/movie/<%= movie._id %>/user" class="btn btn-primary likes">like</button>
 								<% } %>
 				<% } %>
 			</div>
@@ -120,6 +101,27 @@
 					<li class="avater_container">
 						<a class="avater_small" href="../user/<%=user[i]._id %>"><img src="<%= user[i].avater %>"></a>
 						<a href="../user/<%=user[i]._id %>"><%= user[i].name %></a>
+						<p> </p>
+					</li>
+					<% } %>
+					<br>
+				<% } %>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+				<ul>
+				<h2>User Who already Watch the movie</h2>
+				<% if(movie.viewedUser) { %> <br>
+
+				<% for(var i= 0 ; i < movie.viewedUser.length; i++ ) { %>
+					<li class="avater_container">
+						<a class="avater_small" href="../user/<%=user[i]._id %>"><img src="<%= movie.viewedUser[i].avater %>"></a>
+						<a href="../user/<%=user[i]._id %>"><%= movie.viewedUser[i].name %></a>
 						<p> </p>
 					</li>
 					<% } %>
