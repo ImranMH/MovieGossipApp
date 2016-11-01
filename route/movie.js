@@ -34,12 +34,14 @@ function postMovie(req, res){
 	console.log("reach postMovie post request server route");
 	var movie = req.body;
 
-	console.log(movie);
+	//console.log(movie);
 	var user =req.session.user;
 	//console.log('request in route:'+movie.imdbID);
 	Movie.createMovie(movie, user).then(function(movie){
 		return User.movieAddedUser(user, movie).then(function(){
 			res.json(movie)
+		}, function(err) {
+			res.json({err:err})
 		})	
 	})
 }

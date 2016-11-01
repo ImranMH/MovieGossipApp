@@ -94,7 +94,7 @@ $(function(){
 		}
 		$.ajax({	
 			data: data,	
-			url: url,	
+			url: '/'+url,	
 			type:'POST'
 		}).then(function(id){
 			//console.log(id);
