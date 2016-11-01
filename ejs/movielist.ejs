@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>ejs movie</title>
-	 <link href="../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	 <link href="../css/bootstrap.css" rel="stylesheet">
 	  <link href="../css/main.css" rel="stylesheet">
 	 <style type="text/css">
 	 	
@@ -14,17 +14,17 @@
         <div class="header clearfix">
             <nav>
               <ul class="nav nav-pills pull-right">
-                <li role="presentation"><a href="/user/profile"><%= logUser.username? logUser.username: "null" %></a></li>
+                <li role="presentation"><a href="/user/profile"></a></li>
                 <li role="presentation" class="active"><a href="/">Home</a></li>
                 <li role="presentation"><a href="/movie">Movie</a></li>
                 <li role="presentation"><a href="/user">user</a></li>
-                 <% if(!logUser.name) { %>
+                 
                 <li role="presentation"><a href="../user/login">Login</a></li>
-                <% } else { %>
+                
 
                 <li role="presentation"><a href="/user/profile">profile</a></li>
                 <li role="presentation"><a class="logout" >LogOut</a></li>
-                <% } %>
+                
               </ul>
             </nav>
             <h3 class="text-muted">Project name</h3>
@@ -112,7 +112,7 @@
 	</div>
 	
 	
-	<script type="text/javascript" src= "../lib/jquery/dist/jquery.min.js" ></script>
+	<script type="text/javascript" src= "../js/vendor/jquery-1.11.2.js" ></script>
 	<script type="text/javascript" src= "../js/script.js" ></script>
 </body>
 </html>
