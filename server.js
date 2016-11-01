@@ -7,8 +7,11 @@ var router = express.Router();
 var port = process.env.PORT || 3000;
 //var ejs = require('ejs');
 var mongoose = require('mongoose');
-var connectingString = ' mongodb://imranMH:pin71627162@ds139817.mlab.com:39817/movie-gassip' ||
-		'mongodb://127.0.0.1:27017/test-chirp'
+if (process.env.PORT) {
+	var connectingString = ' mongodb://imranMH:pin71627162@ds139817.mlab.com:39817/movie-gassip' ;
+}
+var connectingString ='mongodb://127.0.0.1:27017/test-chirp'
+		
 db = mongoose.connect(connectingString)
 
 
