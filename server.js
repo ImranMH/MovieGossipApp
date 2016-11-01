@@ -4,7 +4,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var app = express();
 var router = express.Router();
-
+var port = process.env.PORT || 3000;
 //var ejs = require('ejs');
 var mongoose = require('mongoose');
 
@@ -46,7 +46,7 @@ app.use('/user', users)
 app.use('/production', production)
 app.use('/movie', movie)
 
-app.listen(3000, function() {
+app.listen(port, function() {
 
-  console.log('server running at port: 3000.....');
+  console.log('server running at port: '+port+'.....');
 })
