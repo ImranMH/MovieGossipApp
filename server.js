@@ -7,8 +7,9 @@ var router = express.Router();
 var port = process.env.PORT || 3000;
 //var ejs = require('ejs');
 var mongoose = require('mongoose');
-
-db = mongoose.connect('mongodb://127.0.0.1:27017/test-chirp')
+var connectingString = ' mongodb://imranMH:pin71627162@ds139817.mlab.com:39817/movie-gassip' ||
+		'mongodb://127.0.0.1:27017/test-chirp'
+db = mongoose.connect(connectingString)
 
 
 app.use(bodyParser.urlencoded({ extended: false}))
