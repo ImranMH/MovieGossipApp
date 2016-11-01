@@ -50,7 +50,7 @@ $(function(){
 			data: data
 		}).then(function(id){
 			//console.log(id+ "successfully edited");
-			//window.location.replace("http://localhost:3000/movie");
+			window.location.replace("/movie");
 			window.location.reload('')
 		})
 		return false;
@@ -66,7 +66,7 @@ $(function(){
 			type:'delete'
 		}).then(function(id){
 			//console.log(id+ "successfully edited");
-			window.location.replace("http://localhost:3000/movie");
+			window.location.replace("/movie");
 		})
 		//return false;
 	};
@@ -74,11 +74,11 @@ $(function(){
 		var imdbID = $(this).attr('rel')
 		console.log(imdbID);
 		$.ajax({
-			url: "http://www.omdbapi.com/?i="+imdbID+"&plot=short&r=json",
+			url: "https://www.omdbapi.com/?i="+imdbID+"&plot=short&r=json",
 			type:'get'
 		}).then(function(id){
 			console.log(id);
-			window.location.replace("http://localhost:3000/#/home/details");
+			window.location.replace("/#/home/details");
 		})
 		//return false;
 	};
@@ -185,7 +185,7 @@ $(function(){
 		}).then(function(id){
 			//console.log(id);
 			
-			window.location.replace("http://localhost:3000/user/login");
+			window.location.replace("/user/login");
 		})
 	}
 

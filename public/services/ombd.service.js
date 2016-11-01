@@ -22,12 +22,12 @@
 				return service;
 
 				function getMovieById(id) {
-					return $http.get("http://www.omdbapi.com/?i="+id+"&plot=short&r=json")
+					return $http.get("https://www.omdbapi.com/?i="+id+"&plot=short&r=json")
 				}
 
 				function getMovieByTitle(title) {
 					console.log("fac");
-					return $http.get("http://www.omdbapi.com/?t="+title+"&y=&plot=short&r=json")
+					return $http.get("https://www.omdbapi.com/?t="+title+"&y=&plot=short&r=json")
 				}
 
 			}
