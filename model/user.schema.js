@@ -9,7 +9,7 @@ module.exports = function( mongoose) {
 		username: {type:String, lowercase: true},
 		name: String,
 		position: String,
-		avater: {type: String, default: 'https://semantic-ui.com/images/avatar/large/christian.jpg'},
+		avater: {type: String, default: 'https://i.imgur.com/GXXKLQZ.jpg'},
 		age: Number,
 		password: String,
 		likeMovies: [{type: Schema.Types.ObjectId, ref: "Movie"}],
