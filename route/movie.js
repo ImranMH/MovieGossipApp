@@ -18,7 +18,7 @@ function getMovie(req, res){
 	Movie.getMovie().then(function(movie){
 		res.format({
 			html: function () {
-				res.render('movie-all',{movie:movie,  logUser:user})
+				res.render('movielist',{movie:movie})
 			},
 			json: function () {
 				res.json(movie)
