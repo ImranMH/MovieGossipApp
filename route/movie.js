@@ -1,12 +1,12 @@
 var express = require('express');
-var router= express.Router();
+
 var mongoose = require('mongoose');
 var q = require('q')
 var Movie = require('../model/index.model').movie
 var User = require('../model/index.model').user
 //var Movie = require('../model/movie.model')(mongoose,q)
 //var Userss = require('../model/user.model')( mongoose);
-
+var router= express.Router();
 
 router.route('/')
 	.get(getMovie)
