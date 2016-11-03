@@ -1,0 +1,43 @@
+<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+				<h2>Movie Details</h2>
+					
+				<% if ( movie ) { %>
+					<ul class="panel">
+					
+							
+								<div class="panel panel-default">
+									<div class="panel-heading"><a href="/movie/<%= movie._id%>"><%= movie.title %> <span>(<%= movie.year %>)</span></a></div>
+									<div class="panel-body">
+									<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+											<a rel="<%= movie.imdbID %>" href="#" class="thumbnail movie_details">
+												<img src="<%= movie.poster %>" alt="">
+											</a>
+										</div>
+									<p>Director: <%= movie.director %></p>
+									<p><%= movie.plot %></p>
+									<p><%= movie.genere %></p>
+									</div>
+								</div>
+								
+							
+
+					</ul>
+								<a href="/movie " class="btn btn-primary details">Movie List</a>
+								<button rel="<%= movie._id %>" class="btn btn-primary delete">Delete</button>
+								<a href="./<%= movie._id %>/edit" class="btn btn-primary edit">edit</a>
+								<% for (var i =0; i < movie.likeUsers.length; i++) { %> 
+									<% if ( movie.likeUsers[i] == logUser._id) { %>
+										<% var lkdUder =  movie.likeUsers[i] %>
+									<% } %>																
+								<% } %>								
+								<% if (lkdUder) { %>
+									<button class="btn btn-primary liked">liked </button>
+								<% } else { %>
+									<button rel="/movie/<%= movie._id %>/user" class="btn btn-primary likes">like</button>
+								<% } %>
+				<% } %>
+			</div>
+		</div>
+	</div>
