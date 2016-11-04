@@ -8,9 +8,9 @@ var Movie = require('../model/index.model').movie
 var User = require('../model/index.model').user
 var router = express.Router();
   router.use(function(req, res, next) {
-      var xxx =res.locals.user = req.session.user || {};
+      var xxx =res.locals.session_user = req.session.user || {};
         next()
-    })
+  })
   router.get('/json', findUserJson);
   function findUserJson(req, res) {
       User.findAll().then( function(user){
@@ -19,7 +19,8 @@ var router = express.Router();
       }, function(err) {
           res.status(400).send(err)
       })
-    }
+  }
+
   router.get('/', findUser);
     function findUser(req, res) {
       User.findAll().then( function(user){
@@ -96,7 +97,7 @@ var router = express.Router();
     }
 
     router.get('/profile', findUserProfile);
-     function findUserProfile(req, res) {
+    function findUserProfile(req, res) {
 
       var userId = req.session.user._id
       var sessionUser = req.session.user;
@@ -104,19 +105,21 @@ var router = express.Router();
         //console.log("profile route: "+user);
         var likeMovies = user.likeMovies;
         
-
         return Movie.findMovieByIds(likeMovies).then(function(mov) {
          // console.log("return from voie :"+ mov);
-          res.render('profile',{sessionUser: sessionUser, movie: mov,searchUser: user}) 
-        },function(err){
+          res.format({
+            html: function () {
+              res.render('profile',{sessionUser: sessionUser, movie: mov,searchUser: user}) 
+            },
+            json: function () {
+              res.json(movie)
+            }
+            }); 
+          },function(err){
           res.json(err)
-        })
-         
-      },function(err){
-        res.json(err)
-      })   
-          
-    };
+        })        
+      });
+    }
     /*change password*/
     router.post('/profile/changePassword', changePassword);
     function changePassword(req, res) {
@@ -144,7 +147,15 @@ var router = express.Router();
          //console.log("profile route: "+mlu);
         return Movie.findMovieByIds(likeMovies).then(function(mov) {
           //console.log("return from voie :"+ mov);
-          res.render('profile',{sessionUser: sessionUser, movie: mov, searchUser: user}) 
+           res.format({
+            html: function () {
+              res.render('profile',{sessionUser: sessionUser, movie: mov, searchUser: user}) 
+            },
+            json: function () {
+              res.json(movie)
+            }
+          }) 
+          
         },function(err){
           res.json(err)
         })
@@ -159,7 +170,15 @@ var router = express.Router();
     var user = req.session.user;
     User.deleteUserById(user._id).then(function(user){
       //console.log("successfully Deleteed:" + user);
-      res.json(user)
+      res.format({
+        html: function () {
+           res.json(user)
+        },
+        json: function () {
+          res.json(movie)
+        }
+      })
+     
     })
   }
   /*edit profile*/

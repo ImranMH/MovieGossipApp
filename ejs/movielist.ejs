@@ -11,6 +11,7 @@
 	 </style>
 </head>
 	<body>
+		<% include header %>
 		<div class="container">
         <div class="header clearfix">
             <nav>
@@ -76,7 +77,7 @@
 														<a href="./movie/<%= m._id %>/edit" class="btn btn-primary edit">edit</a>
 														<button rel="movie/<%= m._id %>" class="btn btn-primary delete">delete</button>
 														<% for (var i =0; i < m.likeUsers.length; i++) { %> 
-															<% if ( m.likeUsers[i] == logUser._id) { %>
+															<% if ( m.likeUsers[i] == session_user._id) { %>
 																<% var lkdUder =  m.likeUsers[i] %>
 															<% } %>																
 														<% } %>								
@@ -88,7 +89,7 @@
 														<% var lkdUder =  false %>
 
 														<% for (var i =0; i < m.likeUsers.length; i++) { %> 
-															<% if ( m.likeUsers[i] == logUser._id) { %>
+															<% if ( m.likeUsers[i] == session_user._id) { %>
 																<% var lkdUder =  m.likeUsers[i] %>
 															<% } %>																
 														<% } %>								

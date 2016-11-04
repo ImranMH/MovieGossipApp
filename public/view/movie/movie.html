@@ -21,35 +21,27 @@
 			<div class="movie clearfix" ng-repeat="mov in vm.movie" style="margin-top:30px">
 				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 					<a href="/movie/{{mov._id}}" class="thumbnail">
-						<img ng-hide ="mov.poster =='N/A'" ng-src="{{mov.poster}}" alt="{{mov.pitle}}">
-						
+						<img ng-hide ="mov.poster =='N/A'" ng-src="{{mov.poster}}" alt="{{mov.pitle}}">						
 					</a>
 				</div>
 				<div class="movie--info col-xs-9 col-sm-9 col-md-9 col-lg-9">
 						<div class="" >
 							<p>{{mov.title}} </p>
-						<p>Year: {{mov.year}} </p>
+							<p>Year: {{mov.year}} </p>
 
-						<p>Director: {{mov.director}}</p>
-						
-						<p>{{mov.genre}}</p>
-						<p>{{mov.plot}}</p>
-						<div class="">
-							<a href="movie/{{mov._id}}" class="btn btn-primary details">details</a>
+							<p>Director: {{mov.director}}</p>
+							
+							<p>{{mov.genre}}</p>
+							<p>{{mov.plot}}</p>
+							<div class="">
+								<a href="movie/{{mov._id}}" class="btn btn-primary details">details</a>										
+								<a href="./movie/{{mov._id}}/edit" class="btn btn-primary edit">edit</a>
+								<button rel="movie/{{mov._id}}" class="btn btn-primary delete">delete</button>
 										
-							<a href="./movie/{{mov._id}}/edit" class="btn btn-primary edit">edit</a>
-										<button rel="movie/{{mov._id}}" class="btn btn-primary delete">delete</button>
-								
-
-									
-											<button rel="movie/{{mov._id}}/user" class="btn btn-primary likes"> like </button>
-
-
-										
-											<button rel="movie/{{mov._id}}/watch" class="btn btn-primary watch">add to Watch list</button>
-										
-						</div>
-						
+								<button rel="movie/{{mov._id}}/user" class="btn btn-primary likes"> like </button>
+											
+								<button rel="movie/{{mov._id}}/watch" class="btn btn-primary watch">Add to Watchlist</button>										
+							</div>						
 						</div>
 				</div>
 			</div>

@@ -6,7 +6,7 @@
 
 			//MovieCtrl.$inject['OmdbService'];
 
-			function MovieCtrl(OmdbService, MovieService) {
+			function MovieCtrl(OmdbService, MovieService, $rootScope) {
 
 				var vm = this;
 				vm.GetMovie = GetMovie;

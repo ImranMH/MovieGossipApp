@@ -13,12 +13,13 @@ router.route('/')
 	.post(postMovie)
 
 function getMovie(req, res){
-	//console.log("reach Movie get request");
+	
 	var user = req.session.user;
+	console.log(user);
 	Movie.getMovie().then(function(movie){
 		res.format({
 			html: function () {
-				res.render('movielist',{movie:movie})
+				res.render('movielist',{movie:movie, session_user:user })
 			},
 			json: function () {
 				res.json(movie)
@@ -38,7 +39,15 @@ function postMovie(req, res){
 	var user =req.session.user;
 	//console.log('request in route:'+movie.imdbID);
 	Movie.createMovie(movie, user).then(function(movie){
-		return User.movieAddedUser(user, movie).then(function(){
+		return User.movieAddedUser(user, movie).then(function(user){
+			res.format({
+			html: function () {
+				res.render('movielist',{movie:movie, session_user:user })
+			},
+			json: function () {
+				res.json({movie:movie, user: user})
+			}
+		})
 			res.json(movie)
 		}, function(err) {
 			res.json({err:err})
@@ -50,8 +59,9 @@ router.route('/all')
 
 function getAllMovie(req, res) {
 		Movie.getMovie().then(function( movie){
+			var loggdUser = req.session.user;
 			//console.log("movie json");
-			res.json(movie)
+			res.render('movie', {movie:movie})
 		}, function(err){
 			res.json(err)
 		})
@@ -72,7 +82,15 @@ function movieById(req, res) {
 			var doc = movie.likeUsers;
 			//console.log('here i am');
 			return User.findUsersByIds(doc).then(function(users){
-				res.render('movie', {movie:movie, user:users, logUser:loggdUser})
+				
+				res.format({
+					html: function () {
+						res.render('movie', {movie:movie, user:users, session_user: loggdUser})
+					},
+					json: function () {
+						res.json(movie)
+					}
+				})
 				//console.log('resolved return '+users);
 				//user.push(users)
 
@@ -92,17 +110,25 @@ function movieById(req, res) {
 function postMovieById(req, res) {
 	var id = req.params.id;
 	Movie.findMovieById(id).then(function(movie){
-		res.json(movie)
+
+		res.format({
+			html: function () {
+				res.render('movie', {movie:movie})
+			},
+			json: function () {
+				res.json(movie)
+			}
+		})
 	})
 }
 function deleteMovieById(req, res) {
 	console.log("reach deleteMovieById delete request");
 	var id = req.params.id;
 	Movie.deleteMovie(id).then(function(count){
-		console.log("i am in return promise");
+		//console.log("i am in return promise");
 		res.end()
 	},function(err){
-		console.log("i am in return promise fail section");
+		//console.log("i am in return promise fail section");
 		console.log(err);
 	})
 }
@@ -116,7 +142,15 @@ router.route('/:id/edit')
 		console.log("reach movieById edit get request");
 		var id = req.params.id;
 		Movie.findMovieById(id).then(function(movie){
-			res.render('movie-edit', {movie:movie})
+				res.format({
+					html: function () {
+						res.render('movie-edit', {movie:movie})
+					},
+					json: function () {
+						res.json(movie)
+					}
+				})
+			
 		})
 	};
 
