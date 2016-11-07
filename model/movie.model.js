@@ -12,6 +12,7 @@ module.exports = function(mongoose,q){
 		findMovieByIds: findMovieByIds,
 		likeMovie: likeMovie,
 		watchUser: watchUser,
+		getWatchUserData: getWatchUserData,
 		editMovie: editMovie,
 		deleteMovie: deleteMovie
 	}
@@ -173,7 +174,17 @@ module.exports = function(mongoose,q){
 		})
 		return deffered.promise;
 	}
+	function getWatchUserData(movieId) {
+		var deffered = q.defer();
+		Movie.findById(movieId)
+			.populate('viewedUser')
+			.exec(function(err, user) {
+				if (err) throw (err)
 
+				deffered.resolve(user.viewedUser)
+			})
+			return deffered.promise;
+	}
 	function watchUser(movieId, user) {
 		var users = []
 		console.log('inside db before edit');

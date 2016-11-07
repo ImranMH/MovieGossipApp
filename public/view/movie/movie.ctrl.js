@@ -6,32 +6,51 @@
 
 			//MovieCtrl.$inject['OmdbService'];
 
-			function MovieCtrl(OmdbService, MovieService, $rootScope) {
+			function MovieCtrl(OmdbService,MovieService, UserService, $rootScope) {
 
 				var vm = this;
-				vm.GetMovie = GetMovie;
-				vm.addMovie = addMovie;
-				
+				//vm.GetMovie = GetMovie;
+				//vm.addMovie = addMovie;
+				vm.likes = Likes;
+				vm.doWatch = doWatch;
+				vm.detail = detail;
+				vm.changeClass = false;
 
 				activate();
 
 				function activate() {
-					return MovieService.getMovie().then(function(movie){
+					MovieService.getMovie().then(function(movie){
 						console.log(movie.data);
 						
 						 vm.movie = movie.data;
 						return vm.movie;
 					})
 
-				}
-				function GetMovie() {
-					
-					console.log("ctrl");
-					return MovieService.getMovie().then(function(movie){
-						console.log(movie.data);
+					UserService.loginUser().then(function(user){
 						
-						 vm.movie = movie.data;
-						return vm.movie;
+						$rootScope.current_user = user.data.user
+						vm.user = user.data;
+						console.log(vm.user);
+						return user.data;
+					})
+				}
+
+				function Likes(id) {
+					
+					console.log(id);
+					return MovieService.movieLike(id).then(function(doc){
+						if( doc.user) {
+							vm.changeClass = true;
+						}						
+						
+					})
+				}
+				function detail(id) {
+					
+					
+					return MovieService.getMovieById(id).then(function(doc){
+						vm.mov = doc				
+						console.log(doc);
 					})
 				}
 
@@ -45,11 +64,11 @@
 					})
 				}*/
 
-				function addMovie(movie) {
-					console.log(movie);
+				function doWatch(id) {
+					//console.log(movie);
 					vm.added = false;
 					console.log('ctrl');
-					return MovieService.addMovie(movie).then(function(movie){
+					return MovieService.doWatchMovie(id).then(function(movie){
 						console.log(movie);
 						vm.added = true;
 						// vm.movie = movie.data;

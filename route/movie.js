@@ -61,7 +61,7 @@ function getAllMovie(req, res) {
 		Movie.getMovie().then(function( movie){
 			var loggdUser = req.session.user;
 			//console.log("movie json");
-			res.render('movie', {movie:movie})
+			res.json(movie)
 		}, function(err){
 			res.json(err)
 		})
@@ -73,9 +73,11 @@ router.route('/:id')
 	.delete(deleteMovieById)
 
 function movieById(req, res) {
+	console.log("here i am");
 	var user =[]
 	//console.log("reach movieById get request");
 	var id = req.params.id;
+	console.log("id is :"+id);
 	var loggdUser = req.session.user;
 	Movie.findMovieById(id).then(function(movie){
 		if (movie) {
@@ -85,10 +87,11 @@ function movieById(req, res) {
 				
 				res.format({
 					html: function () {
+						res.json(movie)
 						res.render('movie', {movie:movie, user:users, session_user: loggdUser})
 					},
 					json: function () {
-						res.json(movie)
+						res.json({movie:movie, user: users})
 					}
 				})
 				//console.log('resolved return '+users);
@@ -167,11 +170,11 @@ router.route('/:id/edit')
 	
 
 	/*liked user*/
-	router.route('/:id/user')
+	router.route('/:id/likeUser')
 		.post(addLikes)
 
 	function addLikes(req, res) {
-		var movie = null
+		//var movie = null
 		var user= req.session.user
 		var MovieId = req.params.id;
 		console.log(MovieId, user);
@@ -191,7 +194,7 @@ router.route('/:id/edit')
 						res.render('movieList',{movie:movie, logUser:user })
 					},
 					json : function () {
-						res.json(user)
+						res.json({movie:movie, likeUser:user })
 					}
 				});
 				},function(err) {
@@ -200,8 +203,16 @@ router.route('/:id/edit')
 	}
 /*watched user*/
 		router.route('/:id/watch')
+		.get(getWatchedUser)
 		.post(watchedUser)
 
+	function getWatchedUser(req, res) {
+		console.log("watch module");
+		var MovieId = req.params.id;
+		Movie.getWatchUserData(MovieId).then(function(user){
+			res.json(user)
+		})
+	}
 	function watchedUser(req, res) {
 		var movie = null
 		var user= req.session.user

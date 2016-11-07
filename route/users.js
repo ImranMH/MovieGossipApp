@@ -112,7 +112,7 @@ var router = express.Router();
               res.render('profile',{sessionUser: sessionUser, movie: mov,searchUser: user}) 
             },
             json: function () {
-              res.json(movie)
+              res.json({sessionUser:sessionUser,movie:mov, user:user})
             }
             }); 
           },function(err){
@@ -140,19 +140,24 @@ var router = express.Router();
     router.get('/:id', findUserProfileWithID);
      function findUserProfileWithID(req,res) {
       var userId = req.params.id
+      console.log("looking for: "+userId);
       var sessionUser = req.session.user;
       User.findUserById(userId).then(function(user){
+        
         var likeMovies = user.likeMovies;
-
+        //console.log("return from user :"+ mov);
          //console.log("profile route: "+mlu);
         return Movie.findMovieByIds(likeMovies).then(function(mov) {
-          //console.log("return from voie :"+ mov);
+          
            res.format({
             html: function () {
+              
+               //res.json({movie:movie, user:user})
               res.render('profile',{sessionUser: sessionUser, movie: mov, searchUser: user}) 
             },
             json: function () {
-              res.json(movie)
+              console.log("return from json :"+ user)
+              res.json({movie:mov, user:user})
             }
           }) 
           
@@ -164,6 +169,18 @@ var router = express.Router();
         res.json(err)
       })             
     };
+  // watch movie user
+  router.get('/:id/movie/watch', userWatchMovie);
+  function userWatchMovie(userId){
+    User.findById(userId)
+      .populate('watchMovies')
+      .exec(function(err, movie) {
+        if(err) {
+          console.log(err);
+        }
+        res.json(movie)
+      })
+  }
 /*Delete User Account Deactivate account*/
   router.delete('/:id', DeleteUserAccount);
   function DeleteUserAccount(req, res) {

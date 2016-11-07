@@ -20,7 +20,7 @@
 		<div class="col-md-12">
 			<div class="movie clearfix" ng-repeat="mov in vm.movie" style="margin-top:30px">
 				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-					<a href="/movie/{{mov._id}}" class="thumbnail">
+					<a href="#/movie/{{mov._id}}" class="thumbnail">
 						<img ng-hide ="mov.poster =='N/A'" ng-src="{{mov.poster}}" alt="{{mov.pitle}}">						
 					</a>
 				</div>
@@ -34,13 +34,13 @@
 							<p>{{mov.genre}}</p>
 							<p>{{mov.plot}}</p>
 							<div class="">
-								<a href="movie/{{mov._id}}" class="btn btn-primary details">details</a>										
+								<a href="/#/movie/{{mov._id}}" ng-click="vm.detail(mov.id)" class="btn btn-primary details">details</a>										
 								<a href="./movie/{{mov._id}}/edit" class="btn btn-primary edit">edit</a>
 								<button rel="movie/{{mov._id}}" class="btn btn-primary delete">delete</button>
 										
-								<button rel="movie/{{mov._id}}/user" class="btn btn-primary likes"> like </button>
-											
-								<button rel="movie/{{mov._id}}/watch" class="btn btn-primary watch">Add to Watchlist</button>										
+								<button ng-click="vm.likes(mov._id)" rel="movie/{{mov._id}}/user" class="btn btn-primary likes"> like </button>
+											<p>{{current_user.name}}</p>
+								<button ng-click="vm.doWatch(mov._id)" rel="movie/{{mov._id}}/watch" class="btn btn-primary watch">Add to Watchlist</button>										
 							</div>						
 						</div>
 				</div>

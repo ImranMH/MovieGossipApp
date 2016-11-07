@@ -1,4 +1,4 @@
-<!-- <div class="container">
+<div class="container">
 	<div class="row">
 		<h2>details Movie</h2>
 
@@ -9,25 +9,20 @@
 			<div class="movie">
 				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 					<a href="#" class="thumbnail">
-						<img ng-hide ="vm.movie.Poster =='N/A'" ng-src="{{vm.movie.Poster}}" alt="{{vm.movie.Title}}">
-						<img ng-show ="vm.movie.Poster =='N/A'" ng-src="http://www.classicposters.com/images/nopicture.gif" alt="{{vm.movie.Title}}">
+						<img ng-hide ="vm.movie.Poster =='N/A'" ng-src="{{vm.movie.poster}}" alt="{{vm.movie.title}}">
+						<img ng-show ="vm.movie.poster =='N/A'" ng-src="http://www.classicposters.com/images/nopicture.gif" alt="{{vm.movie.title}}">
 					</a>
 				</div>
 				<div class="movie--info col-xs-9 col-sm-9 col-md-9 col-lg-9">
-						<p>{{vm.movie.Title}} </p>
-						<p>Year: {{vm.movie.Year}} </p>
-						<p>Country: {{vm.movie.Country}}</p>
-						<p>Actors: {{vm.movie.Actors}}</p>
-						<p>Director: {{vm.movie.Director}}</p>
+						<p>{{vm.movie.title}} </p>
+						<p>Year: {{vm.movie.year}} </p>
 						
-						<p>{{vm.movie.Genre}}</p>
-						<p>{{vm.movie.Plot}}</p>
-						<p>Awards: {{vm.movie.Awards}}</p>
-						<p>Language: {{vm.movie.Language}}</p>
-						<button ng-hide="vm.added" ="vm." ng-click="vm.addMovie(vm.movie)" class= "btn btn-primary"
-						ng-class="{ 'loading': vm.added} ">Add To List</button>
-						<button ng-show="vm.added"  class= "btn btn-primary">Movie Added</button>
-						<button ng-show="vm.added" ng-click="vm.addMovie(vm.movie.imdbbID)" class= "btn btn-primary">Go To Movie</button>
+						<p>Director: {{vm.movie.director}}</p>
+						
+						<p>{{vm.movie.genre}}</p>
+						<p>{{vm.movie.plot}}</p>
+						
+						
 				</div>
 			</div>
 		</div>
@@ -42,28 +37,43 @@
 	</div>
 </div>
 
-	<button ng-click="vm.test()"
-	        class="btn btn-primary btn-block">
-	    test
-	</button>
-<div ng-if="model.profile.likesMovies.length">
 
-    <h3>Movies I Like</h3>
+<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+				<ul ng-if="vm.user">
+				<h2>User Who like the movie</h2>
+				
+					<li class="avater_container" ng-repeat="likeUser in vm.user">
+						<a class="avater_small" ng-click="vm.getUserProfile(likeUser._id)" href="#"><img ng-src="{{likeUser.avater}}"></a>
+						<a href="/#/user/{{likeUser._id}}">{{likeUser.name}}</a>
+						<p> </p>
+					</li>
+					
+					<br>
+				
+				</ul>
+			</div>
+		</div>
+	</div>
 
-    <div class="panel panel-default jga-movie-panel"
-         ng-repeat="movie in model.profile.likesMovies">
-        <div class="panel-heading">
-            <a href="#/details/{{movie.imdbID}}">
-                {{movie.title}}
-            </a>
-        </div>
-        <div class="panel-body">
-            <a href="#/details/{{movie.imdbID}}">
-                <img ng-src="{{movie.poster}}" width="100px"/>
-            </a>
-        </div>
-    </div>
-</div> -->
-
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+				<ul ng-if="vm.user">
+				<h2>User Who Watched the movie</h2>
+				
+					<li class="avater_container" ng-repeat="watchUser in vm.watchUser">
+						<a class="avater_small" ng-click="vm.getUserProfile(watchUser._id)" href="#"><img ng-src="{{watchUser.avater}}"></a>
+						<a href="/#/user/{{watchUser._id}}">{{watchUser.name}}</a>
+						<p> </p>
+					</li>
+					
+					<br>
+				
+				</ul>
+			</div>
+		</div>
+	</div>
 
 	

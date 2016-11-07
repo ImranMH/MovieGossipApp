@@ -13,6 +13,7 @@ module.exports = function(mongoose, q) {
 		movieLikedUser : movieLikedUser,
 		movieAddedUser : movieAddedUser,
 		movieWatchUser : movieWatchUser,
+		//userWatchMovie : userWatchMovie,
 		registerUser : registerUser,
 		createUser : createUser,
 		updateUser: updateUser,
@@ -245,7 +246,24 @@ function changePwd(user, data) {
 		})
 		return deferred.promise;
 	};
-
+/*User who watched movie*/
+	/*function deleteUserById (userid) {
+		var deferred = q.defer()
+		User.findById(userid, function(err, user){
+			if (err) {
+				deferred.reject(err)
+			} else {
+				user.remove(function(err, user){
+					if (err) {
+                deferred.reject(err);
+            } else {            	
+                deferred.resolve(user);
+            }
+				});
+			}
+		})
+		return deferred.promise;
+	};*/
 	function userDb(){
 		return User;
 	}

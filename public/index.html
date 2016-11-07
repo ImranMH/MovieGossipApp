@@ -16,10 +16,12 @@
   <script src="view/home/home.ctrl.js"></script>
   <script src="view/search/search.ctrl.js"></script>
   <script src="services/ombd.service.js"></script>
+  <script src="services/user.service.js"></script>
   <script src="services/movie.service.js"></script>
   <script src="view/nav/nav.ctrl.js"></script>
   <script src="view/movie/movie.ctrl.js"></script>
   <script src="view/details/details.ctrl.js"></script>
+  <script src="view/profile/profile.ctrl.js"></script>
 </head>
 <body ng-app="expariment">
 	
@@ -32,11 +34,11 @@
             <li role="presentation"><a href="/movie">Movie</a></li>
             <li role="presentation"><a href="/user">User</a></li>
             
-            <li role="presentation"><a href="/user/login">Login</a></li>
+            <li ng-hide="current_user.name" role="presentation"><a href="/user/login">Login</a></li>
            
 
-            <li role="presentation"><a href="/user/profile">profile</a></li>
-            <li role="presentation"><a class="logout" >LogOut</a></li>
+            <li ng-show="current_user.name" role="presentation"><a href="/user/profile">profile</a></li>
+            <li ng-show="current_user.name" role="presentation"><a class="logout" >LogOut</a></li>
            
           </ul>
         </nav>
@@ -53,7 +55,10 @@
             <li class=""><a href="#/home">Home</a></li>
             <li><a href="#/home/search">search</a></li>
             <li><a href="#/home/movie">movie</a></li>
-            <li><a href="#/home/details">Details</a></li>          
+                     
+            <li ng-show="current_user.name"><a href="#/home/profile">Profile</a></li>          
+            <li ng-hide="current_user.name"><a href="/user/login">login</a></li>          
+            <li ng-show="current_user.name"><a href="/user/profile">LogOut</a></li>          
                    
           </ul>
         </nav>

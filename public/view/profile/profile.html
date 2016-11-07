@@ -1,0 +1,104 @@
+
+
+<div class="container">
+		<div class="row">
+			<div class="col-md-12" ng-if="current_user">
+				<h2>{{ current_user.name }}  page</h2>
+				<p><button class="edit">Edit Profile</button></p>
+				
+				<h2>Personal information</h2>
+				<hr>
+				<div class="left">
+					<img src="{{ current_user.avater }} " alt="{{current_user.name}}"> <br>
+					<small> {{current_user.name}}  </small>
+				</div>
+				<div class="right">
+					<h3>{{current_user.name}}  </h3>
+					<h5> {{current_user.username }}  </h5>
+					
+					<p>Age : {{ current_user.age }}  </p>
+					<p> {{ current_user.position }}  </p>
+					<h3> {{ current_user.avater }}  </h3>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+<!-- 	<div id="showEdit" class="container hidden">
+	<div class="row">
+		<h3>Edit Profile</h3>
+
+
+		<div class="col-md-12">
+	
+			<form method= 'post' action="/user/:id/edit">
+			<p>
+				 Name: <input class="ename form-control" type="text" name="name" value="<%= sessionUser.name %>"> <br>
+				age: <input class="eage form-control" type="text" name="age" value="<%= sessionUser.age %>"> <br>
+				position: <input class="eposition form-control" type="text" name="position" value="<%= sessionUser.position %>"> <br>
+				Avater: <input class="avater form-control " type="text" name="avater" value="<%= sessionUser.avater %>"> <br>
+			</p>
+				<p> <button rel="user/<%= sessionUser._id %>/edit"  class="updateUser btn btn-primary btn-lg btn-block">Update Profile</button></p>
+		</form>
+		<button class="show_change_p btn btn-default">Change Password</button>
+		<div class="cp hidden">
+			Old Password: <input type="password" name="old_password" class="form-control">
+			New Password: <input type="password" name="new_password" class="form-control">
+			Contarm New Password: <input type="password" name="new_password2" class="form-control">
+			<button class="change_password btn btn-info">Confarm Change</button>
+		</div>
+
+		<button id="deactivate" rel="user/<%= sessionUser._id %>" class="btn btn-danger right">Deactivate Account</button>
+		</div>
+	</div>
+</div> -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2> Movie like {{ current_user.name }}</h2>
+				<hr>
+
+						
+					<ul ng-show="vm.user.movie">
+						
+							<li ng-repeat="mov in vm.user.movie" class="liked_movie">
+								<div class="movie_thumb">
+									<a href="/#/movie/{{mov._id}}"><img src="{{mov.poster}}" alt="{{mov.title}}"></a>
+								</div>								
+									<div class="movie_thump_meta">
+										<h5>{{mov.title}}</h5>
+										<small>{{mov.year}}</small>
+									</div>
+							</li>
+					
+					</ul>
+					
+			</div>
+		</div>
+	</div>
+	
+	<!-- <div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2> Movie Watched {{ current_user.name }}</h2>
+				<hr>
+	
+						
+					<ul ng-show="vm.user.movie">
+						
+							<li ng-repeat="mov in vm.user.movie" class="liked_movie">
+								<div class="movie_thumb">
+									<a href="/movie/{{mov._id}}"><img src="{{mov.poster}}" alt="{{mov.title}}"></a>
+								</div>								
+									<div class="movie_thump_meta">
+										<h5>{{mov.title}}</h5>
+										<small>{{mov.year}}</small>
+									</div>
+							</li>
+					
+					</ul>
+					
+			</div>
+		</div>
+	</div> -->
+	
