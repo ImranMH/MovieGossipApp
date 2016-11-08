@@ -238,8 +238,22 @@ router.route('/:id/edit')
 				});
 				},function(err) {
 					console.log(err);
-				})
-		
+				})	
 	}
+
+	router.route('/:id/interest')
+		.post(addToInterestList)
+
+		function addToInterestList(req,res) {
+			var user= req.session.user
+			var MovieId = req.params.id;
+			console.log('movie id is '+MovieId);
+			Movie.addToInterestDb(MovieId, user).then(function(movie){
+				return User.interestedMovieUser(user._id, movie).then(function(user){
+					res.json({movie:movie, user: user})
+				})
+					
+			})
+		}
 
 module.exports = router;

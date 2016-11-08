@@ -4,7 +4,7 @@
 			.module('expariment')
 			.controller('ProfileCtrl', ProfileCtrl)
 
-			//ProfileCtrl.$inject['OmdbService'];
+			ProfileCtrl.$inject = ['OmdbService','UserService','MovieService','$rootScope','$routeParams'];
 
 			function ProfileCtrl(OmdbService,UserService, MovieService,$rootScope,$routeParams) {
 

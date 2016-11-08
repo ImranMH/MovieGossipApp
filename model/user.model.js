@@ -13,6 +13,7 @@ module.exports = function(mongoose, q) {
 		movieLikedUser : movieLikedUser,
 		movieAddedUser : movieAddedUser,
 		movieWatchUser : movieWatchUser,
+		interestedMovieUser : interestedMovieUser,
 		//userWatchMovie : userWatchMovie,
 		registerUser : registerUser,
 		createUser : createUser,
@@ -173,6 +174,27 @@ function changePwd(user, data) {
 			} else {
 				//console.log("return user....: "+user);
 				user.watchMovies.push(movie._id);
+				user.save(function(err, user){
+					if (err) {
+						deffered.reject(err)
+					} else {
+						deffered.resolve(user)
+					}
+				})
+			}
+		})
+		return deffered.promise;
+	};
+
+/* movie interested by user */
+	function interestedMovieUser (userid, movie) {
+		var deffered = q.defer()
+		User.findById(userid, function(err, user){
+			if (err) {
+				deffered.reject(err)
+			} else {
+				//console.log("return user....: "+user);
+				user.interestedMovies.push(movie._id);
 				user.save(function(err, user){
 					if (err) {
 						deffered.reject(err)

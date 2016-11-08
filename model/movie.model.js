@@ -12,6 +12,7 @@ module.exports = function(mongoose,q){
 		findMovieByIds: findMovieByIds,
 		likeMovie: likeMovie,
 		watchUser: watchUser,
+		addToInterestDb: addToInterestDb,
 		getWatchUserData: getWatchUserData,
 		editMovie: editMovie,
 		deleteMovie: deleteMovie
@@ -177,17 +178,17 @@ module.exports = function(mongoose,q){
 	function getWatchUserData(movieId) {
 		var deffered = q.defer();
 		Movie.findById(movieId)
-			.populate('viewedUser')
+			.populate('viewedUser intersetedUser')
 			.exec(function(err, user) {
 				if (err) throw (err)
 
-				deffered.resolve(user.viewedUser)
+				deffered.resolve({viewedUser: user.viewedUser, interestUser: user.intersetedUser})
 			})
 			return deffered.promise;
 	}
 	function watchUser(movieId, user) {
 		var users = []
-		console.log('inside db before edit');
+		//console.log('inside db before edit');
 		var deffered = q.defer();
 		Movie.findById(movieId, function(err, movie){
 			if(err) {
@@ -198,7 +199,28 @@ module.exports = function(mongoose,q){
 					if(err) {
 						deffered.reject(err)
 					} else {
-						console.log('inside db save');
+						//console.log('inside db save');
+						deffered.resolve(mov)
+					}
+				})
+			}
+		})
+		return deffered.promise;
+	}
+	function addToInterestDb(movieId, user) {
+		var users = []
+		console.log('inside db before edit');
+		var deffered = q.defer();
+		Movie.findById(movieId, function(err, movie){
+			if(err) {
+				deffered.reject(err)
+			} if(movie) {
+				movie.intersetedUser.push(user._id)
+				movie.save(function(err, mov) {
+					if(err) {
+						deffered.reject(err)
+					} else {
+						//console.log('inside db save .....');
 						deffered.resolve(mov)
 					}
 				})

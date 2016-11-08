@@ -16,7 +16,8 @@
 					getMovieById: getMovieById,
 					getMovieWatcherById: getMovieWatcherById,
 					getMovie: getMovie,
-					doWatchMovie: doWatchMovie
+					doWatchMovie: doWatchMovie,
+					addToInterestList: addToInterestList,
 				}
 				return service;
 
@@ -49,6 +50,10 @@
 				function doWatchMovie(id) {
 
 					return $http.post("/movie/"+id+"/watch")
+				}
+				function addToInterestList(id) {
+
+					return $http.post("/movie/"+id+"/interest")
 				}
 
 			}

@@ -11,7 +11,7 @@
 		    Search
 		</button>
 
-
+<p>{{current_user.name}}</p>
 	
 	</div>
 </div>
@@ -39,8 +39,9 @@
 								<button rel="movie/{{mov._id}}" class="btn btn-primary delete">delete</button>
 										
 								<button ng-click="vm.likes(mov._id)" rel="movie/{{mov._id}}/user" class="btn btn-primary likes"> like </button>
-											<p>{{current_user.name}}</p>
-								<button ng-click="vm.doWatch(mov._id)" rel="movie/{{mov._id}}/watch" class="btn btn-primary watch">Add to Watchlist</button>										
+											
+								<button ng-click="vm.doWatch(mov._id)" rel="movie/{{mov._id}}/watch" class="btn btn-primary watch">Add to Watchlist</button>
+								<button ng-click="vm.addInterest(mov._id)" rel="movie/{{mov._id}}/interest" class="btn btn-primary watch">Add to Interest</button>										
 							</div>						
 						</div>
 				</div>

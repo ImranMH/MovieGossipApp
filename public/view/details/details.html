@@ -3,17 +3,69 @@
 		<h2>details Movie</h2>
 
 </div>
-<div class="container" style="margin-top:50px" ng-if="vm.movie.imdbID">
+<div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="movie">
-				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			<div class="statics">
+						<div class="stats-item">
+							<div class="stats-result">
+								<h5>{{vm.movieStats_like}}</h5>
+							</div>
+							<div class="stats-info">
+								<h4>User Like</h4>
+							</div>
+						</div>
+						<div class="stats-item">
+							<div class="stats-result">
+								<h5>{{vm.movieStats_watch}}</h5>
+							</div>
+							<div class="stats-info">
+								<h4>User Watched</h4>
+							</div>
+						</div>
+						<div class="stats-item">
+							<div class="stats-result">
+								<h5>{{vm.movieStats_interest}}</h5>
+							</div>
+							<div class="stats-info">
+								<h4>User Interest</h4>
+							</div>
+						</div>
+						<div class="stats-item">
+							<div class="stats-result imdb">
+								<a href= 'http://www.imdb.com/title/{{vm.movie.imdbID}}/?ref_=nv_sr_1' target="_blank"> IMDB</a>	
+							</div>
+							<div class="stats-info">
+								<h4>View In IMDB</h4>
+							</div>
+						</div>
+						<div class="stats-item">
+							<div class="stats-result wiki">
+								<a href= 'https://en.wikipedia.org/wiki/{{vm.movie.title}}' target="_blank"> WikiPedia</a>
+							</div>
+							<div class="stats-info">
+								<h4>View In Wikipedia</h4>
+							</div>
+						</div>
+					</div>
+			<div class="link">
+					
+					
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container" ng-if="vm.movie.imdbID">
+	<div class="row">
+		<div class="col-md-10">
+			<div class="movie-detail clearfix">
+				<div class="media">
 					<a href="#" class="thumbnail">
 						<img ng-hide ="vm.movie.Poster =='N/A'" ng-src="{{vm.movie.poster}}" alt="{{vm.movie.title}}">
 						<img ng-show ="vm.movie.poster =='N/A'" ng-src="http://www.classicposters.com/images/nopicture.gif" alt="{{vm.movie.title}}">
 					</a>
 				</div>
-				<div class="movie--info col-xs-9 col-sm-9 col-md-9 col-lg-9">
+				<div class="movie--info ">
 						<p>{{vm.movie.title}} </p>
 						<p>Year: {{vm.movie.year}} </p>
 						
@@ -24,6 +76,7 @@
 						
 						
 				</div>
+			
 			</div>
 		</div>
 	</div>
@@ -41,10 +94,9 @@
 <div class="container">
 		<div class="row">
 			<div class="col-md-10">
-				<ul ng-if="vm.user">
-				<h2>User Who like the movie</h2>
-				
-					<li class="avater_container" ng-repeat="likeUser in vm.user">
+				<h2 class="section-heading">User who like the movie</h2>
+				<ul ng-if="vm.likeUsers[0]._id">				
+					<li class="avater_container" ng-repeat="likeUser in vm.likeUsers">
 						<a class="avater_small" ng-click="vm.getUserProfile(likeUser._id)" href="#"><img ng-src="{{likeUser.avater}}"></a>
 						<a href="/#/user/{{likeUser._id}}">{{likeUser.name}}</a>
 						<p> </p>
@@ -55,25 +107,40 @@
 				</ul>
 			</div>
 		</div>
-	</div>
+</div>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-md-10">
-				<ul ng-if="vm.user">
-				<h2>User Who Watched the movie</h2>
+<div class="container">
+	<div class="row">
+		<div class="col-md-10">
+			<h2 class="section-heading">User who watched the movie</h2>
+			<ul ng-if="vm.watchUser[0]._id">
+							
+				<li class="avater_container" ng-repeat="watchUser in vm.watchUser">
+					<a class="avater_small" ng-click="vm.getUserProfile(watchUser._id)" href="#"><img ng-src="{{watchUser.avater}}"></a>
+					<a href="/#/user/{{watchUser._id}}">{{watchUser.name}}</a>
 				
-					<li class="avater_container" ng-repeat="watchUser in vm.watchUser">
-						<a class="avater_small" ng-click="vm.getUserProfile(watchUser._id)" href="#"><img ng-src="{{watchUser.avater}}"></a>
-						<a href="/#/user/{{watchUser._id}}">{{watchUser.name}}</a>
-						<p> </p>
-					</li>
-					
-					<br>
-				
-				</ul>
-			</div>
+				</li>			
+			</ul>
+			<p ng-if="!vm.watchUser[0]._id"> No User </p>
 		</div>
 	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-10">
+			<h2 class="section-heading">User interested in this movie</h2>
+			<ul ng-if="vm.interestUser[0]._id">
+							
+				<li class="avater_container" ng-repeat="ir in vm.interestUser">
+					<a class="avater_small" ng-click="vm.getUserProfile(ir._id)" href="#"><img ng-src="{{ir.avater}}"></a>
+					<a href="/#/user/{{ir._id}}">{{ir.name}}</a>
+				
+				</li>			
+			</ul>
+			<p ng-if="!vm.interestUser[0]._id"> No User </p>
+		</div>
+	</div>
+</div>
 
 	

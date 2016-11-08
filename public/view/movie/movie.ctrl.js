@@ -13,9 +13,10 @@
 				//vm.addMovie = addMovie;
 				vm.likes = Likes;
 				vm.doWatch = doWatch;
+				vm.addInterest = addInterest;
 				vm.detail = detail;
 				vm.changeClass = false;
-
+				vm.interested = false;
 				activate();
 
 				function activate() {
@@ -67,10 +68,23 @@
 				function doWatch(id) {
 					//console.log(movie);
 					vm.added = false;
-					console.log('ctrl');
+					
 					return MovieService.doWatchMovie(id).then(function(movie){
-						console.log(movie);
+						//console.log(movie);
 						vm.added = true;
+						// vm.movie = movie.data;
+						//return vm.movie;
+					})
+				}
+
+				/* add to interest List*/
+				function addInterest(id) {
+					//console.log(movie);
+					
+					console.log('ctrl');
+					return MovieService.addToInterestList(id).then(function(movie){
+						console.log(movie);
+						vm.interested = true;
 						// vm.movie = movie.data;
 						//return vm.movie;
 					})
