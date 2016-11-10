@@ -11,7 +11,7 @@ var router= express.Router();
 router.route('/')
 	.get(getMovie)
 	.post(postMovie)
-
+/* Get all movie from DB*/
 function getMovie(req, res){
 	
 	var user = req.session.user;
@@ -31,8 +31,9 @@ function getMovie(req, res){
 	
 }
 //router.post('/special',postMovie)
+/* post movie from external api to DB*/
 function postMovie(req, res){
-	console.log("reach postMovie post request server route");
+	//console.log("reach postMovie post request server route");
 	var movie = req.body;
 
 	//console.log(movie);
@@ -54,6 +55,7 @@ function postMovie(req, res){
 		})	
 	})
 }
+/* movie json DB for test purpose*/
 router.route('/all')
 		.get(getAllMovie)
 
@@ -67,17 +69,19 @@ function getAllMovie(req, res) {
 		})
 	}
 
+/* specific movie operation using id*/
 router.route('/:id')
 	.get(movieById)
 	.post(postMovieById)
 	.delete(deleteMovieById)
 
+/* get Movie by id*/
 function movieById(req, res) {
-	console.log("here i am");
+	//console.log("here i am");
 	var user =[]
 	//console.log("reach movieById get request");
 	var id = req.params.id;
-	console.log("id is :"+id);
+	//console.log("id is :"+id);
 	var loggdUser = req.session.user;
 	Movie.findMovieById(id).then(function(movie){
 		if (movie) {
@@ -110,6 +114,7 @@ function movieById(req, res) {
 		movie.likeUsers = users
 	})
 }
+/* post request*/
 function postMovieById(req, res) {
 	var id = req.params.id;
 	Movie.findMovieById(id).then(function(movie){
@@ -124,6 +129,7 @@ function postMovieById(req, res) {
 		})
 	})
 }
+/* delete movie using id*/
 function deleteMovieById(req, res) {
 	console.log("reach deleteMovieById delete request");
 	var id = req.params.id;
@@ -132,10 +138,10 @@ function deleteMovieById(req, res) {
 		res.end()
 	},function(err){
 		//console.log("i am in return promise fail section");
-		console.log(err);
+		res.json(err);
 	})
 }
-
+/* edit movie Outdated*/
 router.route('/:id/edit')
 	.get(getEdit)
 	.put(doEdit)
@@ -169,7 +175,7 @@ router.route('/:id/edit')
 	}
 	
 
-	/*liked user*/
+	/*liked user by id */
 	router.route('/:id/likeUser')
 		.post(addLikes)
 
@@ -177,7 +183,7 @@ router.route('/:id/edit')
 		//var movie = null
 		var user= req.session.user
 		var MovieId = req.params.id;
-		console.log(MovieId, user);
+		//console.log(MovieId, user);
 
 		Movie.likeMovie(MovieId, user)
 			.then(function(movie){
@@ -201,13 +207,13 @@ router.route('/:id/edit')
 					console.log(err);
 				})
 	}
-/*watched user*/
+/*watched user request*/
 		router.route('/:id/watch')
 		.get(getWatchedUser)
 		.post(watchedUser)
 
 	function getWatchedUser(req, res) {
-		console.log("watch module");
+		//console.log("watch module");
 		var MovieId = req.params.id;
 		Movie.getWatchUserData(MovieId).then(function(user){
 			res.json(user)
@@ -240,14 +246,14 @@ router.route('/:id/edit')
 					console.log(err);
 				})	
 	}
-
+/* user interest to movie*/
 	router.route('/:id/interest')
 		.post(addToInterestList)
 
 		function addToInterestList(req,res) {
 			var user= req.session.user
 			var MovieId = req.params.id;
-			console.log('movie id is '+MovieId);
+			//console.log('movie id is '+MovieId);
 			Movie.addToInterestDb(MovieId, user).then(function(movie){
 				return User.interestedMovieUser(user._id, movie).then(function(user){
 					res.json({movie:movie, user: user})

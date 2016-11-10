@@ -10,6 +10,7 @@
 				
 				var service = {
 					loginUser: loginUser,
+					getAllUsers: getAllUsers,
 					getMovie: getMovie,
 					getUserPrfile: getUserPrfile,
 					getUserProfileById: getUserProfileById,
@@ -20,6 +21,10 @@
 				function loginUser() {
 					
 					return $http.get("/user/profile")
+				}
+				function getAllUsers() {
+					
+					return $http.get("/user")
 				}
 				function getMovie() {
 

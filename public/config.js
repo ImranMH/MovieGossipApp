@@ -20,6 +20,11 @@
 					controller: 'DetailsCtrl',
 					controllerAs: 'vm'
 				})
+				.when('/user', {
+					templateUrl: '/view/user/user.html',
+					controller: 'UserCtrl',
+					controllerAs: 'vm'
+				})
 				.when('/home/profile', {
 					templateUrl: '/view/profile/profile.html',
 					controller: 'ProfileCtrl',
@@ -30,7 +35,7 @@
 					//controller: 'ProfileCtrl',
 					controllerAs: 'vm'
 				})*/
-				.when('/home/movie', {
+				.when('/movie', {
 					templateUrl: '/view/movie/movie.html',
 					controller: 'MovieCtrl',
 					controllerAs: 'vm'

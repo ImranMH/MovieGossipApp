@@ -13,6 +13,7 @@
 				vm.getUserProfile = getUserProfile;
 				//vm.imdbId = imdbId
 				var id =$routeParams.id
+				//var imdbId = vm.movie.imdbID
 				//console.log(id);
 				activate();
 
@@ -25,7 +26,7 @@
 						 vm.likeUsers = movie.data.user;
 						 vm.movieStats_like = vm.likeUsers.length || 0;
 						//return vm.movie;
-						console.log(vm.likeUsers.length);
+						console.log(vm.likeUsers.length);				 
 					})
 					MovieService.getMovieWatcherById(id).then(function(response){
 						//console.log('render here');											 
@@ -34,12 +35,18 @@
 						 vm.movieStats_watch =vm.watchUser.length || 0
 						 vm.movieStats_interest =vm.interestUser.length
 						//return vm.movie;
-						console.log(vm.watchUser.length);
+						//console.log(vm.watchUser.length);
 					})
-				}
+					// OmdbService.getMovieByImdbId(vm.movie.imdbID).then(function(movie){
+					// 		console.log(movie);
+					// 		vm.done = false;
+					// 		 vm.movie = movie.data;
+					// 		return vm.movie;
+					// 	})
+				 }
 				function GetMovie() {
 					
-					console.log("ctrl");
+					//console.log("ctrl");
 					return MovieService.getMovie().then(function(movie){
 						//console.log(movie.data);
 						

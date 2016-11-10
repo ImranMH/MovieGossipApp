@@ -11,7 +11,8 @@ var router = express.Router();
       var xxx =res.locals.session_user = req.session.user || {};
         next()
   })
-  router.get('/json', findUserJson);
+  /* user json file for testing purpose*/
+router.get('/json', findUserJson);
   function findUserJson(req, res) {
       User.findAll().then( function(user){
         
@@ -20,8 +21,8 @@ var router = express.Router();
           res.status(400).send(err)
       })
   }
-
-  router.get('/', findUser);
+/* get all user list*/
+router.get('/', findUser);
     function findUser(req, res) {
       User.findAll().then( function(user){
         res.format({
@@ -39,13 +40,15 @@ var router = express.Router();
     }
     //app.get('/user', createAll)
     //router.post('/login',findLUser /*findLoginUser*/)
-    router.get('/register', renderRegister);
-    router.post('/register', RegisterUser);
+  router.route('/register')
+    .get(renderRegister)
+    .post(registerUser);
+    
     function renderRegister(req, res) {
       res.render('register')
     };
 
-    function RegisterUser(req, res) {
+    function registerUser(req, res) {
       //console.log("post Register");
       var user = req.body
       User.registerUser(user).then( function(user){
@@ -56,47 +59,33 @@ var router = express.Router();
       })
     };
 
-    router.get('/login', function(req, res){
-      res.render('login')
-    });
-   // router.post('/login', loggnll)
-    
-    function loggn(data){
-      var deffered = q.defer()
-      
-      User.userDb.findOne(
-        {username: data.username, password: data.password},
-        function(err, user){
-          if(err) {
-            deffered.reject(err)
-          }          
-          else {
-            //console.log("login as:"+ user);
-            deffered.resolve(user)
-          }
-          
-        })
-        return deffered.promise;        
+  router.route('/login')
+    .get(loginUser)
+    .post(LoginFunc)
+    /* login interface*/
+    function loginUser(req, res) {
+       res.render('login')
     }
-    function loggnll(req, res) {
-      
-      var user = req.body;
-      loggn(user).then(function(user){
-        if (user){
-          req.session.user = user;
-          var hour = 36000000;
-          req.session.cookie.expires = new Date(Date.now() + hour)
-          req.session.cookie.maxAge = hour
-          res.redirect('profile')
-        } else {
-          res.json('no user')
-        }
-      }, function(err){
-        res.send('error')
-      })
-    }
+  /* login a user*/  
+  function LoginFunc(req, res) {
+    var user = req.body;
+    User.findByCredientials(user).then(function(user){
+      if (user){
+        req.session.user = user;
+        var hour = 36000000;
+        req.session.cookie.expires = new Date(Date.now() + hour)
+        req.session.cookie.maxAge = hour
+        res.redirect('profile')
+      } else {
+        res.json('no user')
+      }
+    }, function(err){
+      res.redirect('/user/login')
+    })
+  }
+  
 
-    router.get('/profile', findUserProfile);
+  router.get('/profile', findUserProfile);
     function findUserProfile(req, res) {
 
       var userId = req.session.user._id
@@ -121,7 +110,7 @@ var router = express.Router();
       });
     }
     /*change password*/
-    router.post('/profile/changePassword', changePassword);
+  router.post('/profile/changePassword', changePassword);
     function changePassword(req, res) {
       console.log("here");
       var currentUser = req.session.user
@@ -137,10 +126,11 @@ var router = express.Router();
       }*/
     }
     /*find a profile when clicked*/
-    router.get('/:id', findUserProfileWithID);
+  router.get('/:id', findUserProfileWithID);
+
      function findUserProfileWithID(req,res) {
       var userId = req.params.id
-      console.log("looking for: "+userId);
+      //console.log("looking for: "+userId);
       var sessionUser = req.session.user;
       User.findUserById(userId).then(function(user){
         
@@ -169,20 +159,8 @@ var router = express.Router();
         res.json(err)
       })             
     };
-  // watch movie user
-  router.get('/:id/movie/watch', userWatchMovie);
-  function userWatchMovie(userId){
-    User.findById(userId)
-      .populate('watchMovies')
-      .exec(function(err, movie) {
-        if(err) {
-          console.log(err);
-        }
-        res.json(movie)
-      })
-  }
 /*Delete User Account Deactivate account*/
-  router.delete('/:id', DeleteUserAccount);
+router.delete('/:id', DeleteUserAccount);
   function DeleteUserAccount(req, res) {
     var user = req.session.user;
     User.deleteUserById(user._id).then(function(user){
@@ -198,8 +176,9 @@ var router = express.Router();
      
     })
   }
-  /*edit profile*/
-  router.route('/:id/edit')
+
+    /*edit profile*/
+router.route('/:id/edit')
       .get()
       .put(updateProfile)
 
@@ -212,60 +191,58 @@ var router = express.Router();
     })
   }
 
-    router.post('/logout', logout)
+  // watch movie user
+router.get('/:id/movie/watch', userWatchMovie);
+  function userWatchMovie(userId){
+    User.findById(userId)
+      .populate('watchMovies')
+      .exec(function(err, movie) {
+        if(err) {
+          console.log(err);
+        }
+        res.json(movie)
+      })
+  }
+
+
+
+router.post('/logout', logout)
     //router.post('/logout', logout)
 
-    function logout(req, res) {
-      console.log("logout");
-      req.session.destroy();
-      res.redirect('/user/login')
-     
-    }
-    function loggedin(req, res) {
-        res.json(req.session.user);
-    }
+  function logout(req, res) {
+    console.log("logout");
+    req.session.destroy();
+    res.redirect('/user/login') 
+  }
+
+  function loggedin(req, res) {
+      res.json(req.session.user);
+  }
   
 
-    function findUserById(req,res) {
-      console.log("userbyid");
+  function findUserById(req,res) {
+    console.log("userbyid");
 
-    }
+  }
 
    
 
-    function findLoginUser(req,res) {
-      console.log("login");
-      var requser = req.body
-      User.findUserByCredientials(requser).then(function(user){
-        
-          console.log("loggedIn as: "+ user);
-          res.redirect('../')
-        
-      }, 
-      function(err) {
-        console.log(err);
-       es.ststus(400).send(err)
-      })
-    };
-  
-   router.post('/login', LoginFunc)
-    
-  function LoginFunc(req, res) {
-    var user = req.body;
-    User.findByCredientials(user).then(function(user){
-      if (user){
-        req.session.user = user;
-        var hour = 36000000;
-        req.session.cookie.expires = new Date(Date.now() + hour)
-        req.session.cookie.maxAge = hour
-        res.redirect('profile')
-      } else {
-        res.json('no user')
-      }
-    }, function(err){
-      res.redirect('/user/login')
+  function findLoginUser(req,res) {
+    console.log("login");
+    var requser = req.body
+    User.findUserByCredientials(requser).then(function(user){
+      
+        console.log("loggedIn as: "+ user);
+        res.redirect('../')
+      
+    }, 
+    function(err) {
+      console.log(err);
+     es.ststus(400).send(err)
     })
-  }
+  };
+  
+  
 
     // working alternative
 
@@ -315,6 +292,41 @@ var router = express.Router();
    /* router.get('/login', function(req, res) {
       res.render('login')
     });*/
-
+ // router.post('/login', loggnll)
+    
+    /*function loggn(data){
+      var deffered = q.defer()
+      
+      User.userDb.findOne(
+        {username: data.username, password: data.password},
+        function(err, user){
+          if(err) {
+            deffered.reject(err)
+          }          
+          else {
+            //console.log("login as:"+ user);
+            deffered.resolve(user)
+          }
+          
+        })
+        return deffered.promise;        
+    }
+    function loggnll(req, res) {
+      
+      var user = req.body;
+      loggn(user).then(function(user){
+        if (user){
+          req.session.user = user;
+          var hour = 36000000;
+          req.session.cookie.expires = new Date(Date.now() + hour)
+          req.session.cookie.maxAge = hour
+          res.redirect('profile')
+        } else {
+          res.json('no user')
+        }
+      }, function(err){
+        res.send('error')
+      })
+    }*/
 
 module.exports = router;

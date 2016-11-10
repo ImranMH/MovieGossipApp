@@ -20,6 +20,7 @@
   <script src="services/movie.service.js"></script>
   <script src="view/nav/nav.ctrl.js"></script>
   <script src="view/movie/movie.ctrl.js"></script>
+  <script src="view/user/user.ctrl.js"></script>
   <script src="view/details/details.ctrl.js"></script>
   <script src="view/profile/profile.ctrl.js"></script>
 </head>
@@ -54,7 +55,8 @@
             
             <li class=""><a href="#/home">Home</a></li>
             <li><a href="#/home/search">search</a></li>
-            <li><a href="#/home/movie">movie</a></li>
+            <li><a href="#/movie">Movie</a></li>
+            <li><a href="#/user">User</a></li>
                      
             <li ng-show="current_user.name"><a href="#/home/profile">Profile</a></li>          
             <li ng-hide="current_user.name"><a href="/user/login">login</a></li>          

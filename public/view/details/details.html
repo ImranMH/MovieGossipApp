@@ -74,7 +74,16 @@
 						<p>{{vm.movie.genre}}</p>
 						<p>{{vm.movie.plot}}</p>
 						
-						
+						<div class="movie-action">
+								<a href="/#/movie/{{mov._id}}" ng-click="vm.detail(mov.id)" class="btn btn-primary details">back to list view</a>										
+								<a href="./movie/{{mov._id}}/edit" class="btn btn-primary edit">edit</a>
+								<button rel="movie/{{mov._id}}" class="btn btn-primary delete">delete</button>
+										
+								<button ng-click="vm.likes(mov._id)" rel="movie/{{mov._id}}/user" class="btn btn-primary likes"> like </button>
+											
+								<button ng-click="vm.doWatch(mov._id)" rel="movie/{{mov._id}}/watch" class="btn btn-primary watch">Add to Watchlist</button>
+								<button ng-hide="" ng-click="vm.addInterest(mov._id)" rel="movie/{{mov._id}}/interest" class="btn btn-primary watch">Add to Interest</button>										
+							</div>
 				</div>
 			
 			</div>
@@ -97,9 +106,10 @@
 				<h2 class="section-heading">User who like the movie</h2>
 				<ul ng-if="vm.likeUsers[0]._id">				
 					<li class="avater_container" ng-repeat="likeUser in vm.likeUsers">
-						<a class="avater_small" ng-click="vm.getUserProfile(likeUser._id)" href="#"><img ng-src="{{likeUser.avater}}"></a>
+						<a class="avater_small" ng-click="vm.getUserProfile(likeUser._id)" href="/#/user/{{likeUser._id}}">
+							<img ng-src="{{likeUser.avater}}">
+						</a>
 						<a href="/#/user/{{likeUser._id}}">{{likeUser.name}}</a>
-						<p> </p>
 					</li>
 					
 					<br>
@@ -116,7 +126,7 @@
 			<ul ng-if="vm.watchUser[0]._id">
 							
 				<li class="avater_container" ng-repeat="watchUser in vm.watchUser">
-					<a class="avater_small" ng-click="vm.getUserProfile(watchUser._id)" href="#"><img ng-src="{{watchUser.avater}}"></a>
+					<a class="avater_small" ng-click="vm.getUserProfile(watchUser._id)" href="/#/user/{{watchUser._id}}"><img ng-src="{{watchUser.avater}}"></a>
 					<a href="/#/user/{{watchUser._id}}">{{watchUser.name}}</a>
 				
 				</li>			
