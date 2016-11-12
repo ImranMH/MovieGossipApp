@@ -4,7 +4,7 @@
 			.module('expariment')
 			.controller('ProfileCtrl', ProfileCtrl)
 
-			ProfileCtrl.$inject = ['OmdbService','UserService','MovieService','$rootScope','$routeParams'];
+			//ProfileCtrl.$inject = ['OmdbService','UserService','MovieService','$rootScope','$routeParams'];
 
 			function ProfileCtrl(OmdbService,UserService, MovieService,$rootScope,$routeParams) {
 
@@ -13,27 +13,37 @@
 				vm.addMovie = addMovie;
 				vm.imdbId = imdbId*/
 				//vm._id = userId
-				var userId = $routeParams.id;
+				vm.updateUser = updateUser
+				var userId = 
 				activate();
 
 				function activate() {
 					 UserService.getUserPrfile().then(function(user){
 						console.log(user);
 						
-						 $rootScope.current_user = user.data.user;
-						 vm.user = user.data
+						 $rootScope.current_user = user.data.sessionUser;
+						 vm.user = user.data.user
 						return vm.user;
 					 })
 
-					 UserService.movieWatched(userId).then(function(user){
-						console.log(user);
+					 UserService.getUserActionBySession().then(function(user){
+						console.log(user);					 
+						 vm.movieWatch = user.data.watch;
+						 vm.movieInterest = user.data.interest;
+						 vm.movieAdded = user.data.addMovie;
+						 vm.movieLike = user.data.like;
 						
-						 /*$rootScope.current_user = user.data.user;
-						 vm.user = user.data
-						return vm.user;*/
 					 })
 				}
 			
+				function updateUser(user) {
+					UserService.UpdateUserPrfile(user).then(function(user) {
+						console.log(user);
+					})
+					
+				}
+
+
 
 			}
 			

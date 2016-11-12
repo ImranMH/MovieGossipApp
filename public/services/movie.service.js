@@ -15,6 +15,7 @@
 					movieWatched: movieWatched,
 					getMovieById: getMovieById,
 					getMovieWatcherById: getMovieWatcherById,
+					MovieActionUserById: MovieActionUserById,
 					getMovie: getMovie,
 					doWatchMovie: doWatchMovie,
 					addToInterestList: addToInterestList,
@@ -46,6 +47,10 @@
 				function getMovieWatcherById(id) {
 					console.log('reach');
 					return $http.get("/movie/"+id+"/watch")
+				}
+				function MovieActionUserById(id) {
+					console.log('reach');
+					return $http.get("/movie/"+id+"/user")
 				}
 				function doWatchMovie(id) {
 

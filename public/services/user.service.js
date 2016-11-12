@@ -13,7 +13,10 @@
 					getAllUsers: getAllUsers,
 					getMovie: getMovie,
 					getUserPrfile: getUserPrfile,
+					UpdateUserPrfile: UpdateUserPrfile,
 					getUserProfileById: getUserProfileById,
+					getUserActionBySession: getUserActionBySession,
+					getUserActionById: getUserActionById,
 					movieWatched: movieWatched
 				}
 				return service;
@@ -34,8 +37,19 @@
 
 					return $http.get("/user/profile")
 				}
+				function getUserActionBySession() {
+
+					return $http.get("/user/profile/userAction")
+				}
+				function UpdateUserPrfile(user) {
+
+					return $http.put("/user/profile/edit")
+				}
 				function getUserProfileById(id) {
 					return $http.get("/user/"+id)
+				}
+				function getUserActionById(id) {
+					return $http.get("/user/"+id+ "/movie")
 				}
 				function movieWatched(id) {
 

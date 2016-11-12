@@ -17,7 +17,7 @@
 				})
 				.when('/movie/:id', {
 					templateUrl: '/view/details/details.html',
-					controller: 'DetailsCtrl',
+					controller: 'MovDetailsCtrl',
 					controllerAs: 'vm'
 				})
 				.when('/user', {
@@ -30,11 +30,11 @@
 					controller: 'ProfileCtrl',
 					controllerAs: 'vm'
 				})
-				/*.when('/home/:id', {
-					templateUrl: '/view/profile/profile.html',
-					//controller: 'ProfileCtrl',
+				.when('/user/:id', {
+					templateUrl: '/view/userDetails/userDetails.html',
+					controller: 'UserDetailsCtrl',
 					controllerAs: 'vm'
-				})*/
+				})
 				.when('/movie', {
 					templateUrl: '/view/movie/movie.html',
 					controller: 'MovieCtrl',

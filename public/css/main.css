@@ -213,3 +213,26 @@
 .movie-action{
 	margin-top:20px ;
 }
+
+/* user list css */
+.user-action{
+	margin: 10px 0;
+}
+.user-action li{
+	display: inline-block;
+  border: 1px solid #202021;
+  padding: 0 10px 0 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  word-spacing: 1px;
+}
+.user-action span{
+	  background: #202021;
+    padding: 5px 0px;
+    height: 100%;
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+}

@@ -10,10 +10,10 @@ module.exports = function(mongoose) {
 		director: String,
 		plot: String,
 		genre: String,
-		likeUsers: [{type: Schema.Types.ObjectId, ref: "user"}],
-		viewedUser: [{type: Schema.Types.ObjectId, ref: "user"}],
-		intersetedUser: [{type: Schema.Types.ObjectId, ref: "user"}],
-		addedBy: [{type: Schema.Types.ObjectId, ref: "user"}],		
+		likeUsers: [{type: Schema.Types.ObjectId, ref: "User"}],
+		viewedUser: [{type: Schema.Types.ObjectId, ref: "User"}],
+		intersetedUser: [{type: Schema.Types.ObjectId, ref: "User"}],
+		addedBy: {type: Schema.Types.ObjectId, ref: "User"},		
 	}, {collection: 'exp-populate-movie'});
 
 	return MovieSchema;

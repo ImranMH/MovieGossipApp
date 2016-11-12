@@ -1,27 +1,34 @@
 <div class="container">
 		<div class="row">
-			<div class="col-md-10">
+			<div class="col-md-12">
 				<h2>User List</h2>
 
-				<div class="users" ng-if ="vm.users">
-					<ul ng-repeat="user in vm.users">
+				<div class="users" >
+					<ul ng-if ="vm.users">
 						
-							<li>
+							<li ng-repeat="user in vm.users">
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<a href="/user/{{ user._id}}">{{ user.name}}</a>
 									</div>
 									<div class="panel-body">
 										<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-											<a href="user/{{ user._id}}" class="thumbnail">
-												<img src=" {{ user.avater}}" alt="{{ user._id}}" >
+											<a href="/#/user/{{ user._id}}" class="thumbnail">
+												<img ng-src=" {{ user.avater}}" alt="{{ user._id}}" >
 											</a>
 										</div>
+										<p><button rel="{{ user._id}}" class="edit"> Follow </button></p>
 										<p>{{ user.name}}</p>
 										<p>Age : {{ user.age}}</p>
 										<p>{{ user.position}}</p>
+										<ul class="user-action">
+											<li><span>{{user.likeMovies.length || 0}}</span> Movie Like</li>
+											<li><span>{{user.watchMovies.length || 0}}</span> Movie Watch</li>
+											<li><span>{{user.interestedMovies.length || 0}}</span> Movie Interest</li> 
+											<li><span>{{user.addedMovies.length || 0}}</span> Movie added</li>
+										</ul>
 										
-										<p><button rel="{{ user._id}}" class="edit"> Follow </button></p>
+										
 									</div>
 								</div>
 							</li>

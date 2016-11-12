@@ -1,6 +1,9 @@
 <div class="container">
 	<div class="row">
-		<h2>details Movie</h2>
+	<div class="col-md-12">
+		<h2>{{vm.movie.title}}</h2> 
+	</div>
+		
 
 </div>
 <div class="container">
@@ -66,13 +69,18 @@
 					</a>
 				</div>
 				<div class="movie--info ">
-						<p>{{vm.movie.title}} </p>
-						<p>Year: {{vm.movie.year}} </p>
-						
-						<p>Director: {{vm.movie.director}}</p>
-						
-						<p>{{vm.movie.genre}}</p>
-						<p>{{vm.movie.plot}}</p>
+						<div class="">
+							<p>{{vm.movie.title}} </p>
+							<p>Year: {{vm.movie.year}} </p>
+							
+							<p>Director: {{vm.movie.director}}</p>
+							
+							<p>{{vm.movie.genre}}</p>
+							<p>{{vm.movie.plot}}</p>
+							<p ng-if="vm.addedBy" class="addedBy">
+								<a class="avater_small"  href="/#/user/{{vm.addedBy._id}}"><img ng-src="{{vm.addedBy.avater}}"></a>
+							</p>
+						</div>
 						
 						<div class="movie-action">
 								<a href="/#/movie/{{mov._id}}" ng-click="vm.detail(mov.id)" class="btn btn-primary details">back to list view</a>										

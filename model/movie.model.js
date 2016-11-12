@@ -12,6 +12,7 @@ module.exports = function(mongoose,q){
 		findMovieByIds: findMovieByIds,
 		likeMovie: likeMovie,
 		watchUser: watchUser,
+		userActionMovieDb: userActionMovieDb,
 		addToInterestDb: addToInterestDb,
 		getWatchUserData: getWatchUserData,
 		editMovie: editMovie,
@@ -174,6 +175,18 @@ module.exports = function(mongoose,q){
 			}
 		})
 		return deffered.promise;
+	}
+	/* movie user relation*/
+	function userActionMovieDb(movieId) {
+		var deffered = q.defer();
+		Movie.findById(movieId)
+			.populate('likeUsers viewedUser intersetedUser')
+			.exec(function(err, user) {
+				if (err) throw (err)
+
+				deffered.resolve({ likeusers:user.likeUsers, addedBy: user.addedBy, viewedUser: user.viewedUser, interestUser: user.intersetedUser})
+			})
+			return deffered.promise;
 	}
 	function getWatchUserData(movieId) {
 		var deffered = q.defer();

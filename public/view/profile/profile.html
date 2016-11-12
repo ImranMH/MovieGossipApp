@@ -1,27 +1,59 @@
-
-
 <div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h2>{{ current_user.name }}  page</h2>
+			<p><button class="edit" ng-click="ShowEditProfile = !ShowEditProfile">Edit Profile</button></p>
+		</div>
+	</div>
+</div>
+<div class="container" ng-hide="ShowEditProfile">
 		<div class="row">
 			<div class="col-md-12" ng-if="current_user">
-				<h2>{{ current_user.name }}  page</h2>
-				<p><button class="edit">Edit Profile</button></p>
+				<h2>{{ vm.user.name }}  page</h2>
+				
 				
 				<h2>Personal information</h2>
 				<hr>
-				<div class="left">
-					<img src="{{ current_user.avater }} " alt="{{current_user.name}}"> <br>
-					<small> {{current_user.name}}  </small>
-				</div>
-				<div class="right">
-					<h3>{{current_user.name}}  </h3>
-					<h5> {{current_user.username }}  </h5>
-					
-					<p>Age : {{ current_user.age }}  </p>
-					<p> {{ current_user.position }}  </p>
-					<h3> {{ current_user.avater }}  </h3>
-				</div>
+					<div class="left">
+						<img ng-src="{{ vm.user.avater }} " alt="{{vm.user.name}}"> <br>
+						<small> {{vm.user.name}}  </small>
+					</div>
+					<div class="right">
+						<h3>{{vm.user.name}}  </h3>
+						<h5> {{vm.user.vm.username }}  </h5>
+						
+						<p>Age : {{ vm.user.age }}  </p>
+						<p> {{ vm.user.position }}  </p>
+						
+					</div>
 				
 			</div>
+		</div>
+	</div>
+	<div class="container" ng-show="ShowEditProfile">
+		<div class="row">
+		<h2>Edit Personal information</h2>
+			<div class="col-md-6">
+				
+				<div class="editProfile" >
+					Name: <input ng-model="vm.user.name" class=" form-control" type="text" name="name" value="{{sessionUser.name }} "> <br>
+					Email: <input ng-model="vm.user.email" class=" form-control" type="email" name="name" value="{{sessionUser.email }} "> <br>
+					Avater: <input ng-model="vm.user.avater" class="form-control " type="text" name="avater" value="{{sessionUser.avater}} "> <br>
+					Location: <input ng-model="vm.user.location" class="form-control " type="text" name="avater" value="{{ sessionUser.location}}"> <br>
+		
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="editProfile" >				
+					Date Of Birth: <input ng-model="vm.user.DoB" class=" form-control" type="date" name="date" > <br>
+					Latest Status: <input ng-model="vm.user.position" class="form-control" type="text" name="position" value="{{sessionUser.position}} "> <br>
+					Sex: <select ng-model="vm.user.sex" class="form-control">
+								  <option>Male</option>
+								  <option>Female</option>
+								</select>					
+				</div>
+			</div>
+			<p> <button ng-click="vm.updateUser(vm.user)" class="updateUser btn btn-primary btn-lg btn-block">Update Profile</button></p>
 		</div>
 	</div>
 <!-- 	<div id="showEdit" class="container hidden">
@@ -59,11 +91,11 @@
 				<hr>
 
 						
-					<ul ng-show="vm.user.movie">
+					<ul>
 						
-							<li ng-repeat="mov in vm.user.movie" class="liked_movie">
+							<li ng-repeat="mov in vm.movieLike" class="liked_movie">
 								<div class="movie_thumb">
-									<a href="/#/movie/{{mov._id}}"><img src="{{mov.poster}}" alt="{{mov.title}}"></a>
+									<a href="/#/movie/{{mov._id}}"><img ng-src="{{mov.poster}}" alt="{{mov.title}}"></a>
 								</div>								
 									<div class="movie_thump_meta">
 										<h5>{{mov.title}}</h5>
@@ -76,7 +108,78 @@
 			</div>
 		</div>
 	</div>
-	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2> Movie interest {{ current_user.name }}</h2>
+				<hr>
+
+						
+					<ul>
+						
+							<li ng-repeat="mov in vm.movieInterest" class="liked_movie">
+								<div class="movie_thumb">
+									<a href="/#/movie/{{mov._id}}"><img ng-src="{{mov.poster}}" alt="{{mov.title}}"></a>
+								</div>								
+									<div class="movie_thump_meta">
+										<h5>{{mov.title}}</h5>
+										<small>{{mov.year}}</small>
+									</div>
+							</li>
+					
+					</ul>
+					
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2> Movie watch {{ current_user.name }}</h2>
+				<hr>
+
+						
+					<ul>
+						
+							<li ng-repeat="mov in vm.movieWatch" class="liked_movie">
+								<div class="movie_thumb">
+									<a href="/#/movie/{{mov._id}}"><img ng-src="{{mov.poster}}" alt="{{mov.title}}"></a>
+								</div>								
+									<div class="movie_thump_meta">
+										<h5>{{mov.title}}</h5>
+										<small>{{mov.year}}</small>
+									</div>
+							</li>
+					
+					</ul>
+					
+			</div>
+		</div>
+	</div>
+		<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2> Movie Added {{ current_user.name }}</h2>
+				<hr>
+
+						
+					<ul>
+						
+							<li ng-repeat="mov in vm.movieAdded" class="liked_movie">
+								<div class="movie_thumb">
+									<a href="/#/movie/{{mov._id}}"><img ng-src="{{mov.poster}}" alt="{{mov.title}}"></a>
+								</div>								
+									<div class="movie_thump_meta">
+										<h5>{{mov.title}}</h5>
+										<small>{{mov.year}}</small>
+									</div>
+							</li>
+					
+					</ul>
+					
+			</div>
+		</div>
+	</div>
 	<!-- <div class="container">
 		<div class="row">
 			<div class="col-md-12">

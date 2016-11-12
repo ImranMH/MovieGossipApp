@@ -174,7 +174,16 @@ router.route('/:id/edit')
 		})
 	}
 	
+	router.route('/:id/user')
+		.get(userActionMovie)
 
+		function userActionMovie(req, res) {
+		//console.log("watch module");
+		var MovieId = req.params.id;
+		Movie.userActionMovieDb(MovieId).then(function(user){
+			res.json(user)
+		})
+	}
 	/*liked user by id */
 	router.route('/:id/likeUser')
 		.post(addLikes)

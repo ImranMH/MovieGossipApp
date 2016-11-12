@@ -3,7 +3,7 @@ module.exports = function(mongoose, q) {
 	var UserSchema = require('./user.schema')(mongoose)
 
 
-	var User = mongoose.model('user', UserSchema);
+	var User = mongoose.model('User', UserSchema);
 	var api = {
 		findAll : findAll,
 		findUserById : findUserById,
@@ -15,9 +15,11 @@ module.exports = function(mongoose, q) {
 		movieWatchUser : movieWatchUser,
 		interestedMovieUser : interestedMovieUser,
 		//userWatchMovie : userWatchMovie,
+		movieActionUser : movieActionUser,
 		registerUser : registerUser,
 		createUser : createUser,
 		updateUser: updateUser,
+		updateUserProfile: updateUserProfile,
 		deleteUserById: deleteUserById,
 		changePwd: changePwd,
 		userDb: userDb()
@@ -89,6 +91,99 @@ module.exports = function(mongoose, q) {
 		})
 		return deffered.promise;
 	}
+
+	function findUsersByIds (userIds) {
+        var deferred = q.defer();
+
+        // find all users in array of user IDs
+        User.find({
+            _id:{$in: userIds}
+        }, function (err, users) {
+            if (err) {
+                deferred.reject(err);
+                //console.log(users);
+            } else {
+            	
+                deferred.resolve(users);
+            }
+        });
+
+        return deferred.promise;
+	}
+/*update user database*/
+	function updateUser (user, data) {
+		var deferred = q.defer()
+		User.findById({_id:user._id}, function(err, user){
+			if (err) {
+				deferred.reject(err)
+			} else {
+				user.update({
+					name: data.name,
+					age: data.age,
+					position: data.position,
+					avater: data.avater
+				},function(err, user){
+					if (err) {
+                deferred.reject(err);
+                //console.log(users);
+            } else {
+            	
+                deferred.resolve(user);
+            }
+				})
+			}
+		})
+		return deferred.promise;
+	};
+/*update user database*/
+	function updateUserProfile (user, data) {
+		
+		var deferred = q.defer()
+		User.findById(user._id, function(err, user){
+			console.log("in model");
+			if (err) {
+				deferred.reject(err)
+			} else {
+				user.update({
+					name: data.name,
+					age: data.age,
+					position: data.position,
+					DoB: data.DoB,
+					location: data.location,
+					sex: data.sex,
+					email: data.email
+				},function(err, user){
+					if (err) {
+                deferred.reject(err);
+                //console.log(users);
+            } else {
+            	
+                deferred.resolve(user);
+            }
+				})
+			}
+		})
+		return deferred.promise;
+		return deferred.promise;
+	};
+/*Delete user from database (Deactivate Account)*/
+	function deleteUserById (userid) {
+		var deferred = q.defer()
+		User.findById(userid, function(err, user){
+			if (err) {
+				deferred.reject(err)
+			} else {
+				user.remove(function(err, user){
+					if (err) {
+                deferred.reject(err);
+            } else {            	
+                deferred.resolve(user);
+            }
+				});
+			}
+		})
+		return deferred.promise;
+	};
 /* change password*/
 
 function changePwd(user, data) {
@@ -206,68 +301,7 @@ function changePwd(user, data) {
 		})
 		return deffered.promise;
 	};
-	function findUsersByIds (userIds) {
-        var deferred = q.defer();
 
-        // find all users in array of user IDs
-        User.find({
-            _id:{$in: userIds}
-        }, function (err, users) {
-            if (err) {
-                deferred.reject(err);
-                //console.log(users);
-            } else {
-            	
-                deferred.resolve(users);
-            }
-        });
-
-        return deferred.promise;
-	}
-/*update user database*/
-	function updateUser (userid, data) {
-		var deferred = q.defer()
-		User.findOne({_id:userid._id}, function(err, user){
-			if (err) {
-				deferred.reject(err)
-			} else {
-				user.update({
-					name: data.name,
-					age: data.age,
-					position: data.position,
-					avater: data.avater
-				},function(err, user){
-					if (err) {
-                deferred.reject(err);
-                //console.log(users);
-            } else {
-            	
-                deferred.resolve(user);
-            }
-				})
-			}
-		})
-		return deferred.promise;
-	};
-
-/*Delete user from database (Deactivate Account)*/
-	function deleteUserById (userid) {
-		var deferred = q.defer()
-		User.findById(userid, function(err, user){
-			if (err) {
-				deferred.reject(err)
-			} else {
-				user.remove(function(err, user){
-					if (err) {
-                deferred.reject(err);
-            } else {            	
-                deferred.resolve(user);
-            }
-				});
-			}
-		})
-		return deferred.promise;
-	};
 /*User who watched movie*/
 	/*function deleteUserById (userid) {
 		var deferred = q.defer()
@@ -286,10 +320,25 @@ function changePwd(user, data) {
 		})
 		return deferred.promise;
 	};*/
+
+	/* movie action by user */
+	function movieActionUser (userid) {
+		var deffered = q.defer()
+		User.findById(userid)
+			.populate('likeMovies watchMovies interestedMovies addedMovies')
+      .exec(function(err, user) {
+        if(err) {
+          deffered.reject(err);
+        }
+        deffered.resolve({like: user.likeMovies, watch: user.watchMovies, 
+          interest: user.interestedMovies, addMovie: user.addedMovies})
+      })
+	
+		return deffered.promise;
+	};
 	function userDb(){
 		return User;
 	}
-
 
 };
 

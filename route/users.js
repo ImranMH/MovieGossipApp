@@ -84,8 +84,8 @@ router.get('/', findUser);
     })
   }
   
-
-  router.get('/profile', findUserProfile);
+  router.route('/profile')
+    .get(findUserProfile);
     function findUserProfile(req, res) {
 
       var userId = req.session.user._id
@@ -108,6 +108,29 @@ router.get('/', findUser);
           res.json(err)
         })        
       });
+    }
+  router.get('/profile/userAction', profileUserActions);
+    function profileUserActions(req, res){
+      var userId = req.session.user._id;
+      
+      User.movieActionUser(userId).then(function(user){
+        res.json(user)
+      }, function(err) {
+        res.json(err)
+      })
+        
+    }
+      /*edit profile*/
+  router.route('/profile/edit')
+    .put(updateProfile)
+
+    function updateProfile(req,res) {
+    console.log("in user route");     
+      var user = req.session.user;
+      var data = req.body
+      User.updateUserProfile(user, data).then(function(user){
+        res.json(user)
+      })
     }
     /*change password*/
   router.post('/profile/changePassword', changePassword);
@@ -146,8 +169,8 @@ router.get('/', findUser);
               res.render('profile',{sessionUser: sessionUser, movie: mov, searchUser: user}) 
             },
             json: function () {
-              console.log("return from json :"+ user)
-              res.json({movie:mov, user:user})
+              //console.log("return from json :"+ user)
+              res.json({user:user})
             }
           }) 
           
@@ -177,22 +200,21 @@ router.delete('/:id', DeleteUserAccount);
     })
   }
 
-    /*edit profile*/
-router.route('/:id/edit')
-      .get()
-      .put(updateProfile)
 
-  function updateProfile(req,res) {
-    console.log(req.body);
-    var user = req.session.user;
-    var data = req.body
-    User.updateUser(user, data).then(function(user){
+
+router.get('/:id/movie', userActions);
+  function userActions(req, res){
+    var userId = req.params.id;
+    console.log(userId);
+    User.movieActionUser(userId).then(function(user){
       res.json(user)
+    }, function(err) {
+      res.json(err)
     })
+      
   }
-
   // watch movie user
-router.get('/:id/movie/watch', userWatchMovie);
+/*router.get('/:id/movie/watch', userWatchMovie);
   function userWatchMovie(userId){
     User.findById(userId)
       .populate('watchMovies')
@@ -202,7 +224,7 @@ router.get('/:id/movie/watch', userWatchMovie);
         }
         res.json(movie)
       })
-  }
+  }*/
 
 
 

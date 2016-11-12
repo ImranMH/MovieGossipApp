@@ -2,11 +2,11 @@
 	'use strict'
 	angular
 			.module('expariment')
-			.controller('DetailsCtrl', DetailsCtrl)
+			.controller('MovDetailsCtrl', MovDetailsCtrl)
 
-			//DetailsCtrl.$inject['OmdbService'];
+			//MovDetailsCtrl.$inject = ['$location','OmdbService',' MovieService','UserService','$routeParams'];
 
-			function DetailsCtrl($location, OmdbService, MovieService, UserService, $routeParams) {
+			function MovDetailsCtrl( $location, OmdbService, MovieService, UserService, $routeParams) {
 
 				var vm = this;
 				vm.GetMovie = GetMovie;
@@ -28,9 +28,10 @@
 						//return vm.movie;
 						console.log(vm.likeUsers.length);				 
 					})
-					MovieService.getMovieWatcherById(id).then(function(response){
-						//console.log('render here');											 
+					MovieService.MovieActionUserById(id).then(function(response){
+						console.log(response);											 
 						 vm.watchUser = response.data.viewedUser;
+						 vm.addedBy = response.data.addedBy;
 						 vm.interestUser = response.data.interestUser;
 						 vm.movieStats_watch =vm.watchUser.length || 0
 						 vm.movieStats_interest =vm.interestUser.length
