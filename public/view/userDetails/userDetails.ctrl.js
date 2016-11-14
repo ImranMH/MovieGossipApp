@@ -16,7 +16,7 @@
 				function activate() {
 					UserService.getUserProfileById(id).then(function(user) {
 						vm.user = user.data.user;
-						//console.log(vm.user);
+						console.log(user);
 					})
 
 					UserService.getUserActionById(id).then(function(user) {

@@ -59,9 +59,9 @@
             <li><a href="#/movie">Movie</a></li>
             <li><a href="#/user">User</a></li>
                      
-            <li ng-show="current_user._id"><a href="#/home/profile">Profile</a></li>          
-            <li ng-hide="current_user._id"><a href="/user/login">login</a></li>          
-            <li ng-show="current_user._id"><a href="/user/profile">LogOut</a></li>          
+            <li ng-show="$root.current_user._id"><a href="#/home/profile">Profile</a></li>          
+            <li ng-hide="$root.current_user._id"><a href="/user/login">login</a></li>          
+            <li ng-show="$root.current_user._id"><a href="/user/login">LogOut</a></li>          
                    
           </ul>
         </nav>

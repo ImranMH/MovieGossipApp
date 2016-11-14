@@ -15,6 +15,7 @@
 				function activate() {
 					UserService.getAllUsers().then(function(users) {
 						vm.users = users.data;
+						console.log(users);
 					})
 				}
 			
