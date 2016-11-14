@@ -153,6 +153,7 @@ router.get('/', findUser);
     // follow user
 router.route('/profile/follow')
   .post(startFollowing)
+
   function startFollowing(req, res){
     var followerUserId = req.session.user._id;
     var followingUserId = req.body._id;
@@ -242,8 +243,16 @@ router.get('/:id/movie', userActions);
         res.json(movie)
       })
   }*/
+router.route('/:id/follow')
+  .get(showFollowing)
+  function showFollowing(req, res) {
+    var cu = followerUserId || "no id"
+    console.log(cu);
+    var followerUserId = req.session.user._id;
+    User.getFollowData(followerUserId).then(function() {
 
-
+    })
+  }
 router.post('/logout', logout)
     //router.post('/logout', logout)
 

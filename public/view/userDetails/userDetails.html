@@ -7,7 +7,7 @@
 					<ul ng-if ="vm.user">
 						<h2>{{ vm.user.name }}  Profile</h2>
 						
-						
+						<p><button ng-show="" ng-click="vm.follow(vm.user)" class="edit"> Follow </button></p>
 						
 						<hr>
 						<div class="left">
@@ -18,7 +18,10 @@
 							<h2>About User  </h2>
 							<h3>{{vm.user.name}}  </h3>
 							<h5> {{vm.user.username }}  </h5>
-							
+							<ul class="user-action">
+								<li><span>{{vm.user.following.length || 0}}</span> Following</li>
+								<li><span>{{vm.user.follower.length || 0}}</span> Follower</li>									
+							</ul>
 							<p>Age : {{ vm.user.age }}  </p>
 							<p> {{ vm.user.position }}  </p>
 							
@@ -129,7 +132,42 @@
 			</div>
 		</div>
 	</div>
-
+<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="section-heading">Followings</h2>
+				<ul>				
+					<li class="avater_container" ng-repeat="followings in vm.followingUser">
+						<a class="avater_small" ng-click="vm.getUserProfile(followings._id)" href="/#/user/{{followings._id}}">
+							<img ng-src="{{followings.avater}}">
+						</a>
+						<a href="/#/user/{{followings._id}}">{{followings.name}}</a>
+					</li>
+					
+					<br>
+				
+				</ul>
+			</div>
+		</div>
+</div>
+		<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="section-heading">Followers</h2>
+				<ul>				
+					<li class="avater_container" ng-repeat="followers in vm.followerUser">
+						<a class="avater_small" ng-click="vm.getUserProfile(followers._id)" href="/#/user/{{followers._id}}">
+							<img ng-src="{{followers.avater}}">
+						</a>
+						<a href="/#/user/{{followers._id}}">{{followers.name}}</a>
+					</li>
+					
+					<br>
+				
+				</ul>
+			</div>
+		</div>
+</div>
 
 
 	

@@ -22,7 +22,7 @@
 					//var id = id.toString()
 					console.log(user);
 					UserService.startFollowing(user).then(function(obj){
-						console.log(obj);
+						window.location.reload();
 					})
 				}
 

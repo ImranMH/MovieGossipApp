@@ -17,10 +17,14 @@
 												<img ng-src=" {{ user.avater}}" alt="{{ user._id}}" >
 											</a>
 										</div>
-										<p><button ng-click="vm.follow(user)" rel="{{ user._id}}" class="edit"> Follow </button></p>
+										<p><button ng-click="vm.follow(user)" class="edit"> Follow </button></p>
 										<p>{{ user.name}}</p>
 										<p>Age : {{ user.age}}</p>
 										<p>{{ user.position}}</p>
+										<ul class="user-action">
+											<li><span>{{user.following.length || 0}}</span> Following</li>
+											<li><span>{{user.follower.length || 0}}</span> Follower</li>									
+										</ul>
 										<ul class="user-action">
 											<li><span>{{user.likeMovies.length || 0}}</span> Movie Like</li>
 											<li><span>{{user.watchMovies.length || 0}}</span> Movie Watch</li>

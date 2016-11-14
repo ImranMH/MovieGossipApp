@@ -21,6 +21,7 @@ module.exports = function(mongoose, q) {
 		updateUser: updateUser,
 		updateUserProfile: updateUserProfile,
 		deleteUserById: deleteUserById,
+		getFollowData: getFollowData,
 		followingRegister: followingRegister,
 		followerRegister: followerRegister,
 		changePwd: changePwd,
@@ -283,6 +284,27 @@ function changePwd(user, data) {
 		return deffered.promise;
 	};
 	/* follower user register*/
+	function getFollowData (followingUserId) {
+		var deffered = q.defer()
+		User.findById(followingUserId, function(err, user){
+			if (err) {
+				deffered.reject(err)
+			} else {
+				//console.log("return user....: "+user);
+				user.follower.push(followerUserId);
+				user.save(function(err, folloeingUser){
+					if (err) {
+						deffered.reject(err)
+					} else {
+						deffered.resolve(folloeingUser)
+					}
+				})
+			}
+		})
+		return deffered.promise;
+	};
+	
+		/* follower user register*/
 	function followerRegister (followingUserId, followerUserId) {
 		var deffered = q.defer()
 		User.findById(followingUserId, function(err, user){
@@ -367,13 +389,14 @@ function changePwd(user, data) {
 	function movieActionUser (userid) {
 		var deffered = q.defer()
 		User.findById(userid)
-			.populate('likeMovies watchMovies interestedMovies addedMovies')
+			.populate('likeMovies watchMovies interestedMovies addedMovies following follower')
       .exec(function(err, user) {
         if(err) {
           deffered.reject(err);
         }
         deffered.resolve({like: user.likeMovies, watch: user.watchMovies, 
-          interest: user.interestedMovies, addMovie: user.addedMovies})
+          interest: user.interestedMovies, addMovie: user.addedMovies, 
+          following: user.following, follower: user.follower})
       })
 	
 		return deffered.promise;

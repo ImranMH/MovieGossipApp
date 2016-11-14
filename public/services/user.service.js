@@ -16,6 +16,7 @@
 					UpdateUserPrfile: UpdateUserPrfile,
 					getUserProfileById: getUserProfileById,
 					getUserActionBySession: getUserActionBySession,
+					//showFollowing: showFollowing,
 					startFollowing: startFollowing,
 					getUserActionById: getUserActionById,
 					movieWatched: movieWatched
@@ -56,6 +57,10 @@
 
 					return $http.get("/user/"+id+"/movie/watch")
 				}
+				// function showFollowing(id) {
+
+				// 	return $http.get("/user/"+id+"/follow")
+				// }
 				function startFollowing(user) {
 
 					return $http.post("/user/profile/follow", user)
