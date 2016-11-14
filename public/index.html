@@ -36,11 +36,11 @@
             <li role="presentation"><a href="/movie">Movie</a></li>
             <li role="presentation"><a href="/user">User</a></li>
             
-            <li ng-hide="current_user.name" role="presentation"><a href="/user/login">Login</a></li>
+            <li ng-hide="current_user._id" role="presentation"><a href="/user/login">Login</a></li>
            
 
-            <li ng-show="current_user.name" role="presentation"><a href="/user/profile">profile</a></li>
-            <li ng-show="current_user.name" role="presentation"><a class="logout" >LogOut</a></li>
+            <li ng-show="current_user._id" role="presentation"><a href="/user/profile">profile</a></li>
+            <li ng-show="current_user._id" role="presentation"><a class="logout" >LogOut</a></li>
            
           </ul>
         </nav>
@@ -59,9 +59,9 @@
             <li><a href="#/movie">Movie</a></li>
             <li><a href="#/user">User</a></li>
                      
-            <li ng-show="current_user.name"><a href="#/home/profile">Profile</a></li>          
-            <li ng-hide="current_user.name"><a href="/user/login">login</a></li>          
-            <li ng-show="current_user.name"><a href="/user/profile">LogOut</a></li>          
+            <li ng-show="current_user._id"><a href="#/home/profile">Profile</a></li>          
+            <li ng-hide="current_user._id"><a href="/user/login">login</a></li>          
+            <li ng-show="current_user._id"><a href="/user/profile">LogOut</a></li>          
                    
           </ul>
         </nav>

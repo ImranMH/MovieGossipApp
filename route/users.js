@@ -125,9 +125,10 @@ router.get('/', findUser);
     .put(updateProfile)
 
     function updateProfile(req,res) {
-    console.log("in user route");     
-      var user = req.session.user;
+         
+      var user = req.session.user._id;
       var data = req.body
+      console.log("in user route"+ data);
       User.updateUserProfile(user, data).then(function(user){
         res.json(user)
       })
@@ -148,6 +149,22 @@ router.get('/', findUser);
         console.log(currentUser.password);
       }*/
     }
+
+    // follow user
+router.route('/profile/follow')
+  .post(startFollowing)
+  function startFollowing(req, res){
+    var followerUserId = req.session.user._id;
+    var followingUserId = req.body._id;
+    User.followingRegister(followerUserId, followingUserId).then(function(CurrentUser){
+      return User.followerRegister(followingUserId, followerUserId).then(function(followingUser){
+        res.json({currentUser:CurrentUser, followIngUser: followingUser })
+      }, function (err) {
+        res.json(err)
+      })
+    })
+  }
+
     /*find a profile when clicked*/
   router.get('/:id', findUserProfileWithID);
 
@@ -225,7 +242,6 @@ router.get('/:id/movie', userActions);
         res.json(movie)
       })
   }*/
-
 
 
 router.post('/logout', logout)

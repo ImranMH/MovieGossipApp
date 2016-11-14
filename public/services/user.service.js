@@ -16,6 +16,7 @@
 					UpdateUserPrfile: UpdateUserPrfile,
 					getUserProfileById: getUserProfileById,
 					getUserActionBySession: getUserActionBySession,
+					startFollowing: startFollowing,
 					getUserActionById: getUserActionById,
 					movieWatched: movieWatched
 				}
@@ -43,7 +44,7 @@
 				}
 				function UpdateUserPrfile(user) {
 
-					return $http.put("/user/profile/edit")
+					return $http.put("/user/profile/edit", user)
 				}
 				function getUserProfileById(id) {
 					return $http.get("/user/"+id)
@@ -54,6 +55,10 @@
 				function movieWatched(id) {
 
 					return $http.get("/user/"+id+"/movie/watch")
+				}
+				function startFollowing(user) {
+
+					return $http.post("/user/profile/follow", user)
 				}
 			}
 			

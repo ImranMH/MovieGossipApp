@@ -17,7 +17,7 @@
 												<img ng-src=" {{ user.avater}}" alt="{{ user._id}}" >
 											</a>
 										</div>
-										<p><button rel="{{ user._id}}" class="edit"> Follow </button></p>
+										<p><button ng-click="vm.follow(user)" rel="{{ user._id}}" class="edit"> Follow </button></p>
 										<p>{{ user.name}}</p>
 										<p>Age : {{ user.age}}</p>
 										<p>{{ user.position}}</p>

@@ -37,6 +37,7 @@
 				}
 			
 				function updateUser(user) {
+					console.log(user);
 					UserService.UpdateUserPrfile(user).then(function(user) {
 						console.log(user);
 					})

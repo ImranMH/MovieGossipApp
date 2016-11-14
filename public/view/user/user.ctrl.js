@@ -9,7 +9,7 @@
 			function UserCtrl(UserService, MovieService) {
 
 				var vm = this;
-			
+				vm.follow = follow
 				activate();
 
 				function activate() {
@@ -18,6 +18,14 @@
 					})
 				}
 			
+				function follow(user) {
+					//var id = id.toString()
+					console.log(user);
+					UserService.startFollowing(user).then(function(obj){
+						console.log(obj);
+					})
+				}
+
 			}
 			
 }())

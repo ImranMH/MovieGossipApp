@@ -21,6 +21,8 @@ module.exports = function(mongoose, q) {
 		updateUser: updateUser,
 		updateUserProfile: updateUserProfile,
 		deleteUserById: deleteUserById,
+		followingRegister: followingRegister,
+		followerRegister: followerRegister,
 		changePwd: changePwd,
 		userDb: userDb()
 	}
@@ -136,11 +138,12 @@ module.exports = function(mongoose, q) {
 		return deferred.promise;
 	};
 /*update user database*/
-	function updateUserProfile (user, data) {
+	function updateUserProfile (userId, doc) {
 		
 		var deferred = q.defer()
-		User.findById(user._id, function(err, user){
-			console.log("in model");
+		User.findById(userId, function(err, user){
+			var data = doc;
+			console.log(data);
 			if (err) {
 				deferred.reject(err)
 			} else {
@@ -157,13 +160,12 @@ module.exports = function(mongoose, q) {
                 deferred.reject(err);
                 //console.log(users);
             } else {
-            	
+            		console.log(user);
                 deferred.resolve(user);
             }
 				})
 			}
 		})
-		return deferred.promise;
 		return deferred.promise;
 	};
 /*Delete user from database (Deactivate Account)*/
@@ -260,6 +262,46 @@ function changePwd(user, data) {
 		return deffered.promise;
 	};
 
+/* following user register */
+	function followingRegister (followerUser, followingUserId) {
+		var deffered = q.defer()
+		User.findById(followerUser, function(err, user){
+			if (err) {
+				deffered.reject(err)
+			} else {
+				//console.log("return user....: "+user);
+				user.following.push(followingUserId);
+				user.save(function(err, followerUser){
+					if (err) {
+						deffered.reject(err)
+					} else {
+						deffered.resolve(followerUser)
+					}
+				})
+			}
+		})
+		return deffered.promise;
+	};
+	/* follower user register*/
+	function followerRegister (followingUserId, followerUserId) {
+		var deffered = q.defer()
+		User.findById(followingUserId, function(err, user){
+			if (err) {
+				deffered.reject(err)
+			} else {
+				//console.log("return user....: "+user);
+				user.follower.push(followerUserId);
+				user.save(function(err, folloeingUser){
+					if (err) {
+						deffered.reject(err)
+					} else {
+						deffered.resolve(folloeingUser)
+					}
+				})
+			}
+		})
+		return deffered.promise;
+	};
 /* movie watch by user */
 	function movieWatchUser (userid, movie) {
 		var deffered = q.defer()

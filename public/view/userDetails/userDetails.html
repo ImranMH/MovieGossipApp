@@ -1,0 +1,135 @@
+<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				
+				
+				<div class="users" >
+					<ul ng-if ="vm.user">
+						<h2>{{ vm.user.name }}  Profile</h2>
+						
+						
+						
+						<hr>
+						<div class="left">
+							<img ng-src="{{ vm.user.avater }} " alt="{{vm.user.name}}"> <br>
+							<small> {{vm.user.name}}  </small>
+						</div>
+						<div class="right">
+							<h2>About User  </h2>
+							<h3>{{vm.user.name}}  </h3>
+							<h5> {{vm.user.username }}  </h5>
+							
+							<p>Age : {{ vm.user.age }}  </p>
+							<p> {{ vm.user.position }}  </p>
+							
+							<ul class="user-action">
+								<li><span>{{vm.user.likeMovies.length || 0}}</span> Movie Like</li>
+								<li><span>{{vm.user.watchMovies.length || 0}}</span> Movie Watch</li>
+								<li><span>{{vm.user.interestedMovies.length || 0}}</span> Movie Interest</li> 
+								<li><span>{{vm.user.addedMovies.length || 0}}</span> Movie added</li>
+							</ul>
+						</div>					
+					</ul>
+				</div>		
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2> Movie like {{ vm.user.name }}</h2>
+				<hr>
+
+						
+					<ul ng-show="vm.user">
+						
+							<li ng-repeat="likeMov in vm.likesUser" class="liked_movie">
+								<div class="movie_thumb">
+									<a href="/#/movie/{{likeMov._id}}"><img ng-src="{{likeMov.poster}}" alt="{{likeMov.title}}"></a>
+								</div>								
+									<div class="movie_thump_meta">
+										<h5>{{likeMov.title}}</h5>
+										<small>{{likeMov.year}}</small>
+									</div>
+							</li>
+					
+					</ul>
+					
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2> Movie Watched By {{ vm.user.name }}</h2>
+				<hr>
+
+						
+					<ul ng-show="vm.user">
+						
+							<li ng-repeat="watUser in vm.watchsUser" class="liked_movie">
+								<div class="movie_thumb">
+									<a href="/#/movie/{{watUser._id}}"><img ng-src="{{watUser.poster}}" alt="{{watUser.title}}"></a>
+								</div>								
+									<div class="movie_thump_meta">
+										<h5>{{watUser.title}}</h5>
+										<small>{{watUser.year}}</small>
+									</div>									
+							</li>
+					
+					</ul>
+					
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2> Movie interest By {{ vm.user.name }}</h2>
+				<hr>
+
+						
+					<ul ng-show="vm.user">
+						
+							<li ng-repeat="intUser in vm.interestUser" class="liked_movie">
+								<div class="movie_thumb">
+									<a href="/#/movie/{{intUser._id}}"><img ng-src="{{intUser.poster}}" alt="{{intUser.title}}"></a>
+								</div>								
+									<div class="movie_thump_meta">
+										<h5>{{intUser.title}}</h5>
+										<small>{{intUser.year}}</small>
+									</div>
+							</li>					
+					</ul>					
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2> Movie Added By {{ vm.user.name }}</h2>
+				<hr>
+
+						
+					<ul ng-show="vm.user">
+						
+							<li ng-repeat="addedMovie in vm.addedMovieUser" class="liked_movie">
+								<div class="movie_thumb">
+									<a href="/#/movie/{{addedMovie._id}}"><img ng-src="{{addedMovie.poster}}" alt="{{addedMovie.title}}"></a>
+								</div>								
+									<div class="movie_thump_meta">
+										<h5>{{addedMovie.title}}</h5>
+										<small>{{addedMovie.year}}</small>
+									</div>
+							</li>					
+					</ul>					
+			</div>
+		</div>
+	</div>
+
+
+
+	
