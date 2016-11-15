@@ -21,7 +21,7 @@
 										<p>
 											<button ng-hide="user.follower.indexOf($root.current_user._id) > -1 || user._id ===$root.current_user._id" ng-click="vm.follow(user)" class="btn btn-primary"> Follow </button>
 											<button ng-show="user.follower.indexOf($root.current_user._id) > -1 "  class="btn btn-warning"> Following </button>
-											<button ng-show="user.follower.indexOf($root.current_user._id) > -1 " ng-click="vm.unfollow(user)" class="btn btn-danger"> Unfollow </button>
+											<button ng-show="user.follower.indexOf($root.current_user._id) > -1 " ng-click="vm.unFollow(user)" class="btn btn-danger"> Unfollow </button>
 											</p>
 										</p>
 										<p>{{ user.name}}</p>

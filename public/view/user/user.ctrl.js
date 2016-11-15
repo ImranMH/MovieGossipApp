@@ -4,13 +4,14 @@
 			.module('expariment')
 			.controller('UserCtrl', UserCtrl)
 
-			UserCtrl.$inject = ['UserService', 'MovieService'];
+			UserCtrl.$inject = ['UserService', 'MovieService','$window','$route'];
 
-			function UserCtrl(UserService, MovieService) {
+			function UserCtrl(UserService, MovieService, $window, $route) {
 
 				var vm = this;
-				vm.follow = follow
-				activate();
+				vm.follow = follow;
+				vm.unFollow = unFollow;
+				activate()
 
 				function activate() {
 					UserService.getAllUsers().then(function(users) {
@@ -23,7 +24,16 @@
 					//var id = id.toString()
 					console.log(user);
 					UserService.startFollowing(user).then(function(obj){
-						window.location.reload();
+						//$window.location.reload();
+						$route.reload();
+					})
+				}
+
+				function unFollow(user) {
+					//var id = id.toString()
+					console.log(user);
+					UserService.startUnFollowing(user).then(function(obj){
+						$route.reload();
 					})
 				}
 

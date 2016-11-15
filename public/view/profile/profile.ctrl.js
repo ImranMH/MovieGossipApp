@@ -32,6 +32,8 @@
 						 vm.movieInterest = user.data.interest;
 						 vm.movieAdded = user.data.addMovie;
 						 vm.movieLike = user.data.like;
+						 vm.followingUser = user.data.following;
+						 vm.followerUser = user.data.follower;
 						
 					 })
 				}

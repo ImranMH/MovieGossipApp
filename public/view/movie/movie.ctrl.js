@@ -6,7 +6,7 @@
 
 			//MovieCtrl.$inject['OmdbService'];
 
-			function MovieCtrl(OmdbService,MovieService, UserService, $rootScope) {
+			function MovieCtrl(OmdbService,MovieService, UserService, $rootScope, $route) {
 
 				var vm = this;
 				//vm.GetMovie = GetMovie;
@@ -37,18 +37,15 @@
 				}
 
 				function Likes(id) {
-					
-					console.log(id);
 					return MovieService.movieLike(id).then(function(doc){
 						if( doc.user) {
 							vm.changeClass = true;
-						}						
-						
+							$route.reload()
+						}											
 					})
 				}
-				function detail(id) {
-					
-					
+
+				function detail(id) {					
 					return MovieService.getMovieById(id).then(function(doc){
 						vm.mov = doc				
 						console.log(doc);
@@ -72,6 +69,7 @@
 					return MovieService.doWatchMovie(id).then(function(movie){
 						//console.log(movie);
 						vm.added = true;
+						$route.reload()
 						// vm.movie = movie.data;
 						//return vm.movie;
 					})
@@ -85,6 +83,7 @@
 					return MovieService.addToInterestList(id).then(function(movie){
 						console.log(movie);
 						vm.interested = true;
+						$route.reload()
 						// vm.movie = movie.data;
 						//return vm.movie;
 					})

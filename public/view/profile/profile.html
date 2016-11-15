@@ -206,4 +206,41 @@
 			</div>
 		</div>
 	</div> -->
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="section-heading">Followings</h2>
+				<ul>				
+					<li class="avater_container" ng-repeat="followings in vm.followingUser">
+						<a class="avater_small" ng-click="vm.getUserProfile(followings._id)" href="/#/user/{{followings._id}}">
+							<img ng-src="{{followings.avater}}">
+						</a>
+						<a href="/#/user/{{followings._id}}">{{followings.name}}</a>
+					</li>
+					
+					<br>
+				
+				</ul>
+			</div>
+		</div>
+</div>
+<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="section-heading">Followers</h2>
+				<ul>				
+					<li class="avater_container" ng-repeat="followers in vm.followerUser">
+						<a class="avater_small" ng-click="vm.getUserProfile(followers._id)" href="/#/user/{{followers._id}}">
+							<img ng-src="{{followers.avater}}">
+						</a>
+						<a href="/#/user/{{followers._id}}">{{followers.name}}</a>
+					</li>
+					
+					<br>
+				
+				</ul>
+			</div>
+		</div>
+</div>
 	

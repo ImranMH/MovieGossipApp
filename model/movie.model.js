@@ -162,7 +162,7 @@ module.exports = function(mongoose,q){
 		Movie.findById(movieId, function(err, movie){
 			if(err) {
 				deffered.reject(err)
-			} if(movie) {
+			} if(movie.likeUsers.indexOf(user._id) == -1) {
 				movie.likeUsers.push(user._id)
 				movie.save(function(err, mov) {
 					if(err) {
@@ -172,6 +172,8 @@ module.exports = function(mongoose,q){
 						deffered.resolve(mov)
 					}
 				})
+			} else{
+				deffered.reject("You already like this movie")
 			}
 		})
 		return deffered.promise;
@@ -206,7 +208,7 @@ module.exports = function(mongoose,q){
 		Movie.findById(movieId, function(err, movie){
 			if(err) {
 				deffered.reject(err)
-			} if(movie) {
+			} if(movie.viewedUser.indexOf(user.id) == -1) {
 				movie.viewedUser.push(user._id)
 				movie.save(function(err, mov) {
 					if(err) {
@@ -216,6 +218,8 @@ module.exports = function(mongoose,q){
 						deffered.resolve(mov)
 					}
 				})
+			} else {
+				deffered.reject("you already watched it")
 			}
 		})
 		return deffered.promise;
@@ -227,7 +231,7 @@ module.exports = function(mongoose,q){
 		Movie.findById(movieId, function(err, movie){
 			if(err) {
 				deffered.reject(err)
-			} if(movie) {
+			} if(movie.intersetedUser.indexOf(user.id) == -1) {
 				movie.intersetedUser.push(user._id)
 				movie.save(function(err, mov) {
 					if(err) {
@@ -237,6 +241,8 @@ module.exports = function(mongoose,q){
 						deffered.resolve(mov)
 					}
 				})
+			} else {
+				deffered.reject("you already show interest on it")
 			}
 		})
 		return deffered.promise;
