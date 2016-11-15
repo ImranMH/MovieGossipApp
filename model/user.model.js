@@ -21,9 +21,11 @@ module.exports = function(mongoose, q) {
 		updateUser: updateUser,
 		updateUserProfile: updateUserProfile,
 		deleteUserById: deleteUserById,
-		getFollowData: getFollowData,
+		//getFollowData: getFollowData,
 		followingRegister: followingRegister,
 		followerRegister: followerRegister,
+		followingUnRegister: followingUnRegister,
+		followerUnRegister: followerUnRegister,
 		changePwd: changePwd,
 		userDb: userDb()
 	}
@@ -144,7 +146,7 @@ module.exports = function(mongoose, q) {
 		var deferred = q.defer()
 		User.findById(userId, function(err, user){
 			var data = doc;
-			console.log(data);
+			//console.log(data);
 			if (err) {
 				deferred.reject(err)
 			} else {
@@ -152,6 +154,7 @@ module.exports = function(mongoose, q) {
 					name: data.name,
 					age: data.age,
 					position: data.position,
+					avater: data.avater,
 					DoB: data.DoB,
 					location: data.location,
 					sex: data.sex,
@@ -161,7 +164,7 @@ module.exports = function(mongoose, q) {
                 deferred.reject(err);
                 //console.log(users);
             } else {
-            		console.log(user);
+            		//console.log(user);
                 deferred.resolve(user);
             }
 				})
@@ -271,38 +274,44 @@ function changePwd(user, data) {
 				deffered.reject(err)
 			} else {
 				//console.log("return user....: "+user);
-				user.following.push(followingUserId);
-				user.save(function(err, followerUser){
-					if (err) {
-						deffered.reject(err)
-					} else {
-						deffered.resolve(followerUser)
-					}
-				})
+				if (user.following.indexOf(followingUserId) == -1) {
+					user.following.push(followingUserId);
+					user.save(function(err, followerUser){
+						if (err) {
+							deffered.reject(err)
+						} else {
+							deffered.resolve(followerUser)
+						}
+					})
+				}
+				else {
+					deffered.reject('you already follow this user');
+				}
 			}
 		})
 		return deffered.promise;
 	};
 	/* follower user register*/
-	function getFollowData (followingUserId) {
-		var deffered = q.defer()
-		User.findById(followingUserId, function(err, user){
-			if (err) {
-				deffered.reject(err)
-			} else {
-				//console.log("return user....: "+user);
-				user.follower.push(followerUserId);
-				user.save(function(err, folloeingUser){
-					if (err) {
-						deffered.reject(err)
-					} else {
-						deffered.resolve(folloeingUser)
-					}
-				})
-			}
-		})
-		return deffered.promise;
-	};
+	// function getFollowData (followingUserId) {
+	// 	var deffered = q.defer()
+	// 	User.findById(followingUserId, function(err, user){
+	// 		if (err) {
+	// 			deffered.reject(err)
+	// 		} else {
+	// 			//console.log("return user....: "+user);
+	// 			if (user.follower.indexOf(followerUserId) == -1)
+	// 			user.follower.push(followerUserId);
+	// 			user.save(function(err, folloeingUser){
+	// 				if (err) {
+	// 					deffered.reject(err)
+	// 				} else {
+	// 					deffered.resolve(folloeingUser)
+	// 				}
+	// 			})
+	// 		}
+	// 	})
+	// 	return deffered.promise;
+	// };
 	
 		/* follower user register*/
 	function followerRegister (followingUserId, followerUserId) {
@@ -322,6 +331,34 @@ function changePwd(user, data) {
 				})
 			}
 		})
+		return deffered.promise;
+	};
+
+	/* un follow register*/
+		function followingUnRegister ( followerUser , followingUserId ) {
+		var deffered = q.defer()
+		User.findOneAndUpdate({_id: followerUser }, {$pull: {following: followingUserId }},
+		function (err, user) {
+			if (err) {
+				deffered.reject(err)
+				
+			}
+			deffered.resolve(user)
+		} )
+		return deffered.promise;
+	};
+
+		/* un follow register*/
+		function followerUnRegister (followingUserId, followerUserId) {
+		var deffered = q.defer()
+		User.findOneAndUpdate({_id: followingUserId}, {$pull: {follower: followerUserId}},
+		function (err, user) {
+			if (err) {
+				deffered.reject(err)
+				
+			}
+			deffered.resolve(user)
+		} )
 		return deffered.promise;
 	};
 /* movie watch by user */

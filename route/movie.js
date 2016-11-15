@@ -15,7 +15,7 @@ router.route('/')
 function getMovie(req, res){
 	
 	var user = req.session.user;
-	console.log(user);
+	//console.log(user);
 	Movie.getMovie().then(function(movie){
 		res.format({
 			html: function () {
@@ -131,7 +131,7 @@ function postMovieById(req, res) {
 }
 /* delete movie using id*/
 function deleteMovieById(req, res) {
-	console.log("reach deleteMovieById delete request");
+	//console.log("reach deleteMovieById delete request");
 	var id = req.params.id;
 	Movie.deleteMovie(id).then(function(count){
 		//console.log("i am in return promise");
@@ -148,7 +148,7 @@ router.route('/:id/edit')
 
 
 	function getEdit(req, res) {
-		console.log("reach movieById edit get request");
+		//console.log("reach movieById edit get request");
 		var id = req.params.id;
 		Movie.findMovieById(id).then(function(movie){
 				res.format({

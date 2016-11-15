@@ -128,7 +128,7 @@ router.get('/', findUser);
          
       var user = req.session.user._id;
       var data = req.body
-      console.log("in user route"+ data);
+      //console.log("in user route"+ data);
       User.updateUserProfile(user, data).then(function(user){
         res.json(user)
       })
@@ -136,7 +136,7 @@ router.get('/', findUser);
     /*change password*/
   router.post('/profile/changePassword', changePassword);
     function changePassword(req, res) {
-      console.log("here");
+      //console.log("here");
       var currentUser = req.session.user
       var changeP = req.body
       User.changePwd(currentUser,changeP).then(function(data){
@@ -153,6 +153,7 @@ router.get('/', findUser);
     // follow user
 router.route('/profile/follow')
   .post(startFollowing)
+  .put(startUnFollowing)
 
   function startFollowing(req, res){
     var followerUserId = req.session.user._id;
@@ -162,6 +163,19 @@ router.route('/profile/follow')
         res.json({currentUser:CurrentUser, followIngUser: followingUser })
       }, function (err) {
         res.json(err)
+      })
+    })
+  }
+
+   function startUnFollowing(req, res){
+    var followerUserId = req.session.user._id;
+    var followingUserId = req.body._id;
+    console.log(followerUserId, followingUserId);
+    User.followingUnRegister(followerUserId, followingUserId).then(function(CurrentUser){
+      return User.followerUnRegister(followingUserId, followerUserId).then(function(followingUser){
+        res.json({currentUser:CurrentUser, followIngUser: followingUser })
+      }, function (err) {
+        return res.status(500).json({'error' : 'error in deleting address'});
       })
     })
   }
@@ -223,7 +237,7 @@ router.delete('/:id', DeleteUserAccount);
 router.get('/:id/movie', userActions);
   function userActions(req, res){
     var userId = req.params.id;
-    console.log(userId);
+    //console.log(userId);
     User.movieActionUser(userId).then(function(user){
       res.json(user)
     }, function(err) {
@@ -247,7 +261,7 @@ router.route('/:id/follow')
   .get(showFollowing)
   function showFollowing(req, res) {
     var cu = followerUserId || "no id"
-    console.log(cu);
+    //console.log(cu);
     var followerUserId = req.session.user._id;
     User.getFollowData(followerUserId).then(function() {
 

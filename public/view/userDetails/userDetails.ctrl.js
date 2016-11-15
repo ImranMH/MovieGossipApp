@@ -11,6 +11,7 @@
 				var vm = this;
 				var id = $routeParams.id;
 				vm.follow = follow;
+				vm.unFollow = unFollow;
 				activate();
 
 				function activate() {
@@ -38,6 +39,14 @@
 					//var id = id.toString()
 					console.log(user);
 					UserService.startFollowing(user).then(function(obj){
+						console.log(obj);
+					})
+				}
+
+				function unFollow(user) {
+					//var id = id.toString()
+					console.log(user);
+					UserService.startUnFollowing(user).then(function(obj){
 						console.log(obj);
 					})
 				}

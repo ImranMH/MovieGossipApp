@@ -109,7 +109,7 @@ module.exports = function(mongoose,q){
 		return deffered.promise;
 	};
 	function editMovie(movieId, mov) {
-		console.log('inside db before edit');
+		//console.log('inside db before edit');
 		var deffered = q.defer();
 		Movie.findById(movieId, function(err, movie){
 			if(err) {
@@ -124,7 +124,7 @@ module.exports = function(mongoose,q){
 					if(err) {
 						deffered.reject(err)
 					} else {
-						console.log('inside db after edit');
+						//console.log('inside db after edit');
 						deffered.resolve(editMov)
 					}
 				})
@@ -134,7 +134,7 @@ module.exports = function(mongoose,q){
 	}
 	
 	function deleteMovie(movieId) {
-		console.log('i am model file');
+		//console.log('i am model file');
 		var deffered = q.defer();
 		Movie.findById(movieId, function(err, movie){
 			if(err) {
@@ -144,7 +144,7 @@ module.exports = function(mongoose,q){
 					if(err) {
 						deffered.reject(err)
 					} else {
-							console.log('i am model database');
+							//console.log('i am model database');
 						deffered.resolve(del)
 					}
 				})
@@ -157,7 +157,7 @@ module.exports = function(mongoose,q){
 
 	function likeMovie(movieId, user) {
 		var users = []
-		console.log('inside db before edit');
+		//console.log('inside db before edit');
 		var deffered = q.defer();
 		Movie.findById(movieId, function(err, movie){
 			if(err) {
@@ -168,7 +168,7 @@ module.exports = function(mongoose,q){
 					if(err) {
 						deffered.reject(err)
 					} else {
-						console.log('inside db save');
+						//console.log('inside db save');
 						deffered.resolve(mov)
 					}
 				})
@@ -222,7 +222,7 @@ module.exports = function(mongoose,q){
 	}
 	function addToInterestDb(movieId, user) {
 		var users = []
-		console.log('inside db before edit');
+		//console.log('inside db before edit');
 		var deffered = q.defer();
 		Movie.findById(movieId, function(err, movie){
 			if(err) {

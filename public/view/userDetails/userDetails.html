@@ -6,11 +6,11 @@
 				<div class="users" >
 					<ul ng-if ="vm.user">
 						<h2>{{ vm.user.name }}  Profile</h2>
-						<h3>CurrentUser: {{$root.current_user._id}}</h3>
+						
 						<p>
-						<button ng-hide="vm.user.follower.indexOf($root.current_user._id) > -1 " ng-click="vm.follow(vm.user)" class="btn btn-primary"> Follow </button>
-						<button ng-show="vm.user.follower.indexOf($root.current_user._id) > -1 "  class="edit"> Following </button>
-						<button ng-show="vm.user.follower.indexOf($root.current_user._id) > -1 " ng-click="vm.unfollow(vm.user)" class="btn btn-danger"> Unfollow </button>
+						<button ng-show="vm.user.follower.indexOf($root.current_user._id) == -1 " ng-click="vm.follow(vm.user)" class="btn btn-primary" ng-hide="vm.user._id ===$root.current_user._id"> Follow </button>
+						<button ng-show="vm.user.follower.indexOf($root.current_user._id) > -1 "  class="btn btn-warning"> Following </button>
+						<button ng-show="vm.user.follower.indexOf($root.current_user._id) > -1 " ng-click="vm.unFollow(vm.user)" class="btn btn-danger"> Unfollow </button>
 						</p>
 						
 						<hr>

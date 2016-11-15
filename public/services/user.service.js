@@ -18,6 +18,7 @@
 					getUserActionBySession: getUserActionBySession,
 					//showFollowing: showFollowing,
 					startFollowing: startFollowing,
+					startUnFollowing: startUnFollowing,
 					getUserActionById: getUserActionById,
 					movieWatched: movieWatched
 				}
@@ -64,6 +65,10 @@
 				function startFollowing(user) {
 
 					return $http.post("/user/profile/follow", user)
+				}
+				function startUnFollowing(user) {
+					console.log(user);
+					return $http.put("/user/profile/follow", user)
 				}
 			}
 			
