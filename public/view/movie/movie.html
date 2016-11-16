@@ -36,19 +36,13 @@
 								<button rel="movie/{{mov._id}}" class="btn btn-primary delete">delete</button>
 										
 								<button ng-hide="mov.likeUsers.indexOf($root.current_user._id) > -1" ng-click="vm.likes(mov._id)"  class="btn btn-primary likes"> like </button>
-								<button ng-show="mov.likeUsers.indexOf($root.current_user._id) > -1"   class="btn btn-success likes"> liked </button>
-
-								<!-- <p>
-								<button ng-hide="vm.user.follower.indexOf($root.current_user._id) > -1 || vm.user._id ===$root.current_user._id" ng-click="vm.follow(vm.user)" class="btn btn-primary"> Follow </button>
-								<button ng-show="vm.user.follower.indexOf($root.current_user._id) > -1 "  class="btn btn-warning"> Following </button>
-								<button ng-show="vm.user.follower.indexOf($root.current_user._id) > -1 " ng-click="vm.unFollow(vm.user)" class="btn btn-danger"> Unfollow </button>
-								</p> -->
+								<button ng-show="mov.likeUsers.indexOf($root.current_user._id) > -1"   class="btn btn-success likes"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span> liked </button>
 											
 								<button ng-hide="mov.viewedUser.indexOf($root.current_user._id) > -1"  ng-click="vm.doWatch(mov._id)" class="btn btn-primary watch">Add to Watchlist</button>
-								<button ng-show="mov.viewedUser.indexOf($root.current_user._id) > -1"   class="btn btn-success likes"> Watched </button>
+								<button ng-show="mov.viewedUser.indexOf($root.current_user._id) > -1"   class="btn btn-success likes"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"> Watched </button>
 
 								<button ng-hide="mov.intersetedUser.indexOf($root.current_user._id) > -1" ng-click="vm.addInterest(mov._id)" class="btn btn-primary watch">Add to Interest</button>
-								<button ng-show="mov.intersetedUser.indexOf($root.current_user._id) > -1"   class="btn btn-success likes"> Interest </button>										
+								<button ng-show="mov.intersetedUser.indexOf($root.current_user._id) > -1"   class="btn btn-success likes"><span class="glyphicon glyphicon-list" aria-hidden="true"> Interest </button>										
 							</div>						
 					
 				</div>

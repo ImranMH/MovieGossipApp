@@ -38,10 +38,8 @@
 
 				function Likes(id) {
 					return MovieService.movieLike(id).then(function(doc){
-						if( doc.user) {
 							vm.changeClass = true;
-							$route.reload()
-						}											
+							$route.reload()										
 					})
 				}
 

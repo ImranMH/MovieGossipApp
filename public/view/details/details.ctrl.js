@@ -6,15 +6,23 @@
 
 			//MovDetailsCtrl.$inject = ['$location','OmdbService',' MovieService','UserService','$routeParams'];
 
-			function MovDetailsCtrl( $location, OmdbService, MovieService, UserService, $routeParams) {
+			function MovDetailsCtrl( $location, OmdbService, MovieService, UserService, $routeParams,$route) {
 
 				var vm = this;
 				vm.GetMovie = GetMovie;
-				vm.getUserProfile = getUserProfile;
+				//vm.getUserProfile = getUserProfile;
 				//vm.imdbId = imdbId
 				var id =$routeParams.id
 				//var imdbId = vm.movie.imdbID
-				//console.log(id);
+				vm.likes = Likes;
+				vm.doWatch = doWatch;
+				vm.addInterest = addInterest;
+				vm.detail = detail;
+				vm.unLike = unLike;
+				vm.unWatch = unWatch;
+				vm.unInterest = unInterest;
+				vm.changeClass = false;
+				vm.interested = false;
 				activate();
 
 				function activate() {
@@ -44,11 +52,13 @@
 					// 		 vm.movie = movie.data;
 					// 		return vm.movie;
 					// 	})
+
 				 }
+
 				function GetMovie() {
 					
 					//console.log("ctrl");
-					return MovieService.getMovie().then(function(movie){
+					return MovieService.getMovie(id).then(function(movie){
 						//console.log(movie.data);
 						
 						 vm.movie = movie.data;
@@ -56,17 +66,78 @@
 					})
 				}
 
-				function getUserProfile(id, e) {
-					//console.log(e);
-					return UserService.getUserProfileById(id).then(function(user){
-						// console.log("get response");
-						 //console.log(user);
-						// $location.url('/user/profile')
-						vm.user = user.data
-						return vm.user;
+				function Likes() {
+				  MovieService.movieLike(id).then(function(doc){
+						if( doc.user) {
+							vm.changeClass = true;
+							$route.reload()
+						}											
 					})
-				}	
+				}
+				function unLike() {
+					MovieService.movieUnLike(id).then(function(doc){						
+							vm.changeClass = true;
+							$route.reload()										
+					})
+				}
 
+				function detail(id) {					
+					return MovieService.getMovieById(id).then(function(doc){
+						vm.mov = doc				
+						console.log(doc);
+					})
+				}
+
+			/*	function testfunc() {
+					console.log(data);
+					console.log('ctrl');
+					return MovieService.addMovie(data).then(function(data){
+						console.log(data);
+						// vm.movie = movie.data;
+						//return vm.movie;
+					})
+				}*/
+
+				function doWatch() {
+					//console.log(movie);
+					vm.added = false;
+					
+					return MovieService.doWatchMovie(id).then(function(movie){
+						//console.log(movie);
+						vm.added = true;
+						$route.reload()
+						// vm.movie = movie.data;
+						//return vm.movie;
+					})
+				}
+				function unWatch() {			
+					return MovieService.unWatchMovie(id).then(function(movie){
+						$route.reload()
+					})
+				}
+
+				/* add to interest List*/
+				function addInterest() {
+					//console.log(movie);
+					
+					console.log('ctrl');
+					return MovieService.addToInterestList(id).then(function(movie){
+						console.log(movie);
+						vm.interested = true;
+						$route.reload()
+						// vm.movie = movie.data;
+						//return vm.movie;
+					})
+				}
+				function unInterest() {
+					MovieService.addToUnInterestList(id).then(function(movie){
+						console.log(movie);
+						vm.interested = true;
+						$route.reload()
+						// vm.movie = movie.data;
+						//return vm.movie;
+					})
+				}
 
 			}
 			

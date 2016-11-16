@@ -67,6 +67,14 @@
 						<img ng-hide ="vm.movie.Poster =='N/A'" ng-src="{{vm.movie.poster}}" alt="{{vm.movie.title}}">
 						<img ng-show ="vm.movie.poster =='N/A'" ng-src="http://www.classicposters.com/images/nopicture.gif" alt="{{vm.movie.title}}">
 					</a>
+					<div class="view-status">
+						<button ng-show="vm.movie.likeUsers.indexOf($root.current_user._id) > -1"   class="btn btn-success likes"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span> </button>
+
+						<button ng-show="vm.movie.viewedUser.indexOf($root.current_user._id) > -1"   class="btn btn-success likes"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></button>
+
+						<button ng-show="vm.movie.intersetedUser.indexOf($root.current_user._id) > -1"class="btn btn-success likes"><span class="glyphicon glyphicon-list" aria-hidden="true"> Interest </button>	
+
+					</div>
 				</div>
 				<div class="movie--info ">
 						<div class="">
@@ -82,16 +90,22 @@
 							</p>
 						</div>
 						
-						<div class="movie-action">
-								<a href="/#/movie/{{mov._id}}" ng-click="vm.detail(mov.id)" class="btn btn-primary details">back to list view</a>										
+			
+							<div class="movie-action">
+								<a href="/#/movie/{{mov._id}}" ng-click="vm.detail(mov.id)" class="btn btn-primary details">details</a>										
 								<a href="./movie/{{mov._id}}/edit" class="btn btn-primary edit">edit</a>
 								<button rel="movie/{{mov._id}}" class="btn btn-primary delete">delete</button>
 										
-								<button ng-click="vm.likes(mov._id)" rel="movie/{{mov._id}}/user" class="btn btn-primary likes"> like </button>
+								<button ng-show="vm.movie.likeUsers.indexOf($root.current_user._id) == -1" ng-click="vm.likes()"  class="btn btn-primary likes"> like </button>
+								
+								<button ng-show="vm.movie.likeUsers.indexOf($root.current_user._id) > -1"   class="btn btn-success likes" ng-click="vm.unLike()"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Unlike </button>
 											
-								<button ng-click="vm.doWatch(mov._id)" rel="movie/{{mov._id}}/watch" class="btn btn-primary watch">Add to Watchlist</button>
-								<button ng-hide="" ng-click="vm.addInterest(mov._id)" rel="movie/{{mov._id}}/interest" class="btn btn-primary watch">Add to Interest</button>										
-							</div>
+								<button ng-show="vm.movie.viewedUser.indexOf($root.current_user._id) == -1"  ng-click="vm.doWatch()" class="btn btn-primary watch">Add to Watchlist</button>
+								<button ng-click="vm.unWatch()" ng-show="vm.movie.viewedUser.indexOf($root.current_user._id) > -1"   class="btn btn-success likes"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"> UnWatched </button>
+
+								<button ng-hide="vm.movie.intersetedUser.indexOf($root.current_user._id) > -1" ng-click="vm.addInterest()" class="btn btn-primary watch">Add to Interest</button>
+								<button ng-click="vm.unInterest()" ng-show="vm.movie.intersetedUser.indexOf($root.current_user._id) > -1"class="btn btn-success likes"><span class="glyphicon glyphicon-list" aria-hidden="true"> UnInterest </button>										
+							</div>	
 				</div>
 			
 			</div>

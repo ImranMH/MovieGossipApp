@@ -12,13 +12,16 @@
 				var service = {
 					addMovie: addMovie,
 					movieLike: movieLike,
+					movieUnLike: movieUnLike,
 					movieWatched: movieWatched,
 					getMovieById: getMovieById,
 					getMovieWatcherById: getMovieWatcherById,
 					MovieActionUserById: MovieActionUserById,
 					getMovie: getMovie,
 					doWatchMovie: doWatchMovie,
+					unWatchMovie: unWatchMovie,
 					addToInterestList: addToInterestList,
+					addToUnInterestList: addToUnInterestList
 				}
 				return service;
 
@@ -40,6 +43,11 @@
 
 					return $http.post("/movie/"+id+"/likeUser")
 				}
+				function movieUnLike(id) {
+
+					return $http.put("/movie/"+id+"/likeUser")
+				}
+
 				function movieWatched(id) {
 
 					return $http.get("/movie/"+id+"/user")
@@ -56,10 +64,19 @@
 
 					return $http.post("/movie/"+id+"/watch")
 				}
+				function unWatchMovie(id) {
+
+					return $http.put("/movie/"+id+"/watch")
+				}
 				function addToInterestList(id) {
 
 					return $http.post("/movie/"+id+"/interest")
 				}
+					function addToUnInterestList(id) {
+
+					return $http.put("/movie/"+id+"/interest")
+				}
+
 
 			}
 			

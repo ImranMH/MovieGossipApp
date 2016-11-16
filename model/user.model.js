@@ -11,9 +11,12 @@ module.exports = function(mongoose, q) {
 		findUserByCredientials : findUserByCredientials,
 		findByCredientials: findByCredientials,
 		movieLikedUser : movieLikedUser,
+		movieUnLikedUser : movieUnLikedUser,
 		movieAddedUser : movieAddedUser,
 		movieWatchUser : movieWatchUser,
+		movieUnWatchUser : movieUnWatchUser,
 		interestedMovieUser : interestedMovieUser,
+		UninterestedUser : UninterestedUser,
 		//userWatchMovie : userWatchMovie,
 		movieActionUser : movieActionUser,
 		registerUser : registerUser,
@@ -226,6 +229,7 @@ function changePwd(user, data) {
 		});
 		return deffered.promise;
 	};
+	/* movie likes ................*/
 	function movieLikedUser (userid, movie) {
 		var deffered = q.defer()
 		User.findOne({_id:userid._id}, function(err, user){
@@ -243,6 +247,19 @@ function changePwd(user, data) {
 				})
 			}
 		})
+		return deffered.promise;
+	};
+
+	function movieUnLikedUser (userid, movie) {
+		var deffered = q.defer();
+		User.findOneAndUpdate({_id: userid._id }, {$pull: {likeMovies: movie._id }},
+		function (err, user) {
+			if (err) {
+				deffered.reject(err)
+				
+			}
+			deffered.resolve(user)
+		} )
 		return deffered.promise;
 	};
 /* movie added by */
@@ -381,7 +398,18 @@ function changePwd(user, data) {
 		})
 		return deffered.promise;
 	};
-
+	function movieUnWatchUser (userid, movie) {
+		var deffered = q.defer();
+		User.findOneAndUpdate({_id: userid._id }, {$pull: {watchMovies: movie._id }},
+		function (err, user) {
+			if (err) {
+				deffered.reject(err)
+				
+			}
+			deffered.resolve(user)
+		} )
+		return deffered.promise;
+	};
 /* movie interested by user */
 	function interestedMovieUser (userid, movie) {
 		var deffered = q.defer()
@@ -400,6 +428,19 @@ function changePwd(user, data) {
 				})
 			}
 		})
+		return deffered.promise;
+	};
+
+	function UninterestedUser (userid, movie) {
+		var deffered = q.defer();
+		User.findOneAndUpdate({_id: userid._id }, {$pull: {interestedMovies: movie._id }},
+		function (err, user) {
+			if (err) {
+				deffered.reject(err)
+				
+			}
+			deffered.resolve(user)
+		} )
 		return deffered.promise;
 	};
 

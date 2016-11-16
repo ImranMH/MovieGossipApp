@@ -187,6 +187,7 @@ router.route('/:id/edit')
 	/*liked user by id */
 	router.route('/:id/likeUser')
 		.post(addLikes)
+		.put(unLikeUser)
 
 	function addLikes(req, res) {
 		//var movie = null
@@ -200,7 +201,7 @@ router.route('/:id/edit')
 					//console.log(user+": users" + movie+': movie return like');
 					return User.movieLikedUser(user, movie)
 					}, function(err) {
-					res.status(400).send(err)
+					res.json(err)
 			})
 			.then(function(user){
 
@@ -213,13 +214,34 @@ router.route('/:id/edit')
 					}
 				});
 				},function(err) {
-					console.log(err);
+					console.log(err+ 'u already do this operation');
+				})
+	}
+	function unLikeUser(req, res) {
+		//var movie = null
+		var user= req.session.user
+		var MovieId = req.params.id;
+		//console.log(MovieId, user);
+
+		Movie.unLikeMovie(MovieId, user)
+			.then(function(movie){
+
+					//console.log(user+": users" + movie+': movie return like');
+					return User.movieUnLikedUser(user, movie)
+					}, function(err) {
+					res.json(err)
+			})
+			.then(function(user){
+				res.json(user)
+				},function(err) {
+					console.log(err+ 'u already do this operation');
 				})
 	}
 /*watched user request*/
 		router.route('/:id/watch')
 		.get(getWatchedUser)
 		.post(watchedUser)
+		.put(UnwatchedUser)
 
 	function getWatchedUser(req, res) {
 		//console.log("watch module");
@@ -255,9 +277,30 @@ router.route('/:id/edit')
 					console.log(err);
 				})	
 	}
+
+	function UnwatchedUser(req, res) {
+		var movie = null
+		var user= req.session.user
+		var MovieId = req.params.id;
+		//console.log(MovieId, user);
+			Movie.unWatchMovie(MovieId, user)
+			.then(function(movie){
+
+					//console.log(user+": users" + movie+': movie return like');
+					return User.movieUnWatchUser(user, movie)
+					}, function(err) {
+					res.json(err)
+			})
+			.then(function(user){
+				res.json(user)
+				},function(err) {
+					console.log(err+ 'u already do this operation');
+			})
+	}
 /* user interest to movie*/
 	router.route('/:id/interest')
 		.post(addToInterestList)
+		.put(addToUnInterestList)
 
 		function addToInterestList(req,res) {
 			var user= req.session.user
@@ -270,5 +313,25 @@ router.route('/:id/edit')
 					
 			})
 		}
+
+		function addToUnInterestList(req, res) {
+		var movie = null
+		var user= req.session.user
+		var MovieId = req.params.id;
+		//console.log(MovieId, user);
+			Movie.unInterestMovie(MovieId, user)
+			.then(function(movie){
+
+					//console.log(user+": users" + movie+': movie return like');
+					return User.UninterestedUser(user, movie)
+					}, function(err) {
+					res.json(err)
+			})
+			.then(function(user){
+				res.json(user)
+				},function(err) {
+					console.log(err+ 'u already do this operation');
+			})
+	}
 
 module.exports = router;

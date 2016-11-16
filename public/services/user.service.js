@@ -49,9 +49,11 @@
 					return $http.put("/user/profile/edit", user)
 				}
 				function getUserProfileById(id) {
+
 					return $http.get("/user/"+id)
 				}
 				function getUserActionById(id) {
+					
 					return $http.get("/user/"+id+ "/movie")
 				}
 				function movieWatched(id) {

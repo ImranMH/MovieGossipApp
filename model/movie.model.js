@@ -11,9 +11,12 @@ module.exports = function(mongoose,q){
 		findMovieById: findMovieById,
 		findMovieByIds: findMovieByIds,
 		likeMovie: likeMovie,
+		unLikeMovie: unLikeMovie,
 		watchUser: watchUser,
+		unWatchMovie: unWatchMovie,
 		userActionMovieDb: userActionMovieDb,
 		addToInterestDb: addToInterestDb,
+		unInterestMovie: unInterestMovie,
 		getWatchUserData: getWatchUserData,
 		editMovie: editMovie,
 		deleteMovie: deleteMovie
@@ -157,7 +160,6 @@ module.exports = function(mongoose,q){
 
 	function likeMovie(movieId, user) {
 		var users = []
-		//console.log('inside db before edit');
 		var deffered = q.defer();
 		Movie.findById(movieId, function(err, movie){
 			if(err) {
@@ -178,6 +180,20 @@ module.exports = function(mongoose,q){
 		})
 		return deffered.promise;
 	}
+
+	function unLikeMovie(movieId, user) {
+		var users = []
+		var deffered = q.defer();
+		Movie.findOneAndUpdate({_id: movieId }, {$pull: {likeUsers: user._id }},
+		function (err, movie) {
+			if (err) {
+				deffered.reject(err)
+				
+			}
+			deffered.resolve(movie)
+		} )
+		return deffered.promise;
+	}
 	/* movie user relation*/
 	function userActionMovieDb(movieId) {
 		var deffered = q.defer();
@@ -190,6 +206,7 @@ module.exports = function(mongoose,q){
 			})
 			return deffered.promise;
 	}
+	/* movie watch section*/
 	function getWatchUserData(movieId) {
 		var deffered = q.defer();
 		Movie.findById(movieId)
@@ -224,6 +241,20 @@ module.exports = function(mongoose,q){
 		})
 		return deffered.promise;
 	}
+	function unWatchMovie(movieId, user) {
+		var users = []
+		var deffered = q.defer();
+		Movie.findOneAndUpdate({_id: movieId }, {$pull: {viewedUser: user._id }},
+		function (err, movie) {
+			if (err) {
+				deffered.reject(err)
+				
+			}
+			deffered.resolve(movie)
+		} )
+		return deffered.promise;
+	}
+
 	function addToInterestDb(movieId, user) {
 		var users = []
 		//console.log('inside db before edit');
@@ -247,4 +278,18 @@ module.exports = function(mongoose,q){
 		})
 		return deffered.promise;
 	}
+	function unInterestMovie(movieId, user) {
+		var users = []
+		var deffered = q.defer();
+		Movie.findOneAndUpdate({_id: movieId }, {$pull: {intersetedUser: user._id }},
+		function (err, movie) {
+			if (err) {
+				deffered.reject(err)
+				
+			}
+			deffered.resolve(movie)
+		} )
+		return deffered.promise;
+	}
+	
 }
