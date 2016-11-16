@@ -4,15 +4,15 @@
 			.module('expariment')
 			.controller('UserCtrl', UserCtrl)
 
-			UserCtrl.$inject = ['UserService', 'MovieService','$window','$route'];
+			UserCtrl.$inject = ['UserService', 'MovieService','$window','$route','$rootScope'];
 
-			function UserCtrl(UserService, MovieService, $window, $route) {
+			function UserCtrl(UserService, MovieService, $window, $route, $rootScope) {
 
 				var vm = this;
 				vm.follow = follow;
 				vm.unFollow = unFollow;
 				activate()
-
+				$rootScope.current_user;
 				function activate() {
 					UserService.getAllUsers().then(function(users) {
 						vm.users = users.data;

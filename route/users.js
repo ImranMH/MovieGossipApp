@@ -73,6 +73,7 @@ router.get('/', findUser);
       if (user){
         req.session.user = user;
         var hour = 36000000;
+
         req.session.cookie.expires = new Date(Date.now() + hour)
         req.session.cookie.maxAge = hour
         res.redirect('profile')
@@ -90,6 +91,7 @@ router.get('/', findUser);
 
       var userId = req.session.user._id
       var sessionUser = req.session.user;
+
       User.findUserById(userId).then(function(user){
         //console.log("profile route: "+user);
         var likeMovies = user.likeMovies;
@@ -112,7 +114,7 @@ router.get('/', findUser);
   router.get('/profile/userAction', profileUserActions);
     function profileUserActions(req, res){
       var userId = req.session.user._id;
-      
+      console.log(userId);
       User.movieActionUser(userId).then(function(user){
         res.json(user)
       }, function(err) {
@@ -127,14 +129,14 @@ router.get('/', findUser);
     function updateProfile(req,res) {
          
       var user = req.session.user._id;
-      var data = req.body
+      var data = req.body;
       //console.log("in user route"+ data);
       User.updateUserProfile(user, data).then(function(user){
         res.json(user)
       })
     }
     /*change password*/
-  router.post('/profile/changePassword', changePassword);
+  router.put('/profile/changePassword', changePassword);
     function changePassword(req, res) {
       //console.log("here");
       var currentUser = req.session.user

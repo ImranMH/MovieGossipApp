@@ -32,32 +32,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="container" ng-show="ShowEditProfile">
-		<div class="row">
-		<h2>Edit Personal information</h2>
-			<div class="col-md-6">
-				
-				<div class="editProfile" >
-					Name: <input ng-model="vm.user.name" class=" form-control" type="text" name="name" value="{{sessionUser.name }} "> <br>
-					Email: <input ng-model="vm.user.email" class=" form-control" type="email" name="name" value="{{sessionUser.email }} "> <br>
-					Avater: <input ng-model="vm.user.avater" class="form-control " type="text" name="avater" value="{{sessionUser.avater}} "> <br>
-					Location: <input ng-model="vm.user.location" class="form-control " type="text" name="avater" value="{{ sessionUser.location}}"> <br>
-		
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="editProfile" >				
-					Date Of Birth: <input ng-model="vm.user.DoB" class=" form-control" type="date" name="date" > <br>
-					Latest Status: <input ng-model="vm.user.position" class="form-control" type="text" name="position" value="{{sessionUser.position}} "> <br>
-					Sex: <select ng-model="vm.user.sex" class="form-control">
-								  <option>Male</option>
-								  <option>Female</option>
-								</select>					
-				</div>
-			</div>
-			<p> <button ng-click="vm.updateUser(vm.user)" class="updateUser btn btn-primary btn-lg btn-block">Update Profile</button></p>
-		</div>
-	</div>
+
 <!-- 	<div id="showEdit" class="container hidden">
 	<div class="row">
 		<h3>Edit Profile</h3>
@@ -86,7 +61,7 @@
 		</div>
 	</div>
 </div> -->
-	<div class="container">
+	<div class="container" ng-hide="ShowEditProfile">
 		<div class="row">
 			<div class="col-md-12">
 				<h2> Movie like {{ current_user.name }}</h2>
@@ -110,7 +85,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="container">
+	<div class="container" ng-hide="ShowEditProfile">
 		<div class="row">
 			<div class="col-md-12">
 				<h2> Movie interest {{ current_user.name }}</h2>
@@ -134,7 +109,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="container">
+	<div class="container" ng-hide="ShowEditProfile">
 		<div class="row">
 			<div class="col-md-12">
 				<h2> Movie watch {{ current_user.name }}</h2>
@@ -158,7 +133,7 @@
 			</div>
 		</div>
 	</div>
-		<div class="container">
+		<div class="container" ng-hide="ShowEditProfile">
 		<div class="row">
 			<div class="col-md-12">
 				<h2> Movie Added {{ current_user.name }}</h2>
@@ -207,7 +182,7 @@
 		</div>
 	</div> -->
 
-	<div class="container">
+	<div class="container" ng-hide="ShowEditProfile">
 		<div class="row">
 			<div class="col-md-12">
 				<h2 class="section-heading">Followings</h2>
@@ -225,7 +200,7 @@
 			</div>
 		</div>
 </div>
-<div class="container">
+<div class="container" ng-hide="ShowEditProfile">
 		<div class="row">
 			<div class="col-md-12">
 				<h2 class="section-heading">Followers</h2>
@@ -243,4 +218,55 @@
 			</div>
 		</div>
 </div>
+
+
+
 	
+		
+		<div class="edit" ng-show="ShowEditProfile">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6">
+						<button ng-click="ShowPassword = !ShowPassword" class="show_change_p btn btn-default">Change Password</button>
+						<div>{{vm.status}}</div>
+						<div class="cp" ng-show="ShowPassword">
+								Old Password: <input type="password" ng-model="password.oldPassword" name="old_password" class="form-control">
+								New Password: <input type="password" name="new_password" ng-model="password.newPassword" class="form-control">
+								Contarm New Password: <input type="password" name="new_password2" ng-model="password.confarm" class="form-control">
+								<button ng-click="vm.changePassword(password)" class=" btn btn-info">Confarm Change</button>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<button ng-click="vm.deactivate(sessionUser._id)" class="btn btn-danger right">Deactivate Account</button>
+					</div>
+				</div>
+			</div>
+			<div class="container" >
+				<div class="row">
+					<h2>Edit Personal information</h2>
+					<div class="col-md-6">
+						<div class="">{{vm.updateStatus}} </div>
+						<div class="editProfile" >
+							Name: <input ng-model="vm.user.name" class=" form-control" type="text" name="name" value="{{sessionUser.name }} "> <br>
+							Email: <input ng-model="vm.user.email" class=" form-control" type="email" name="name" value="{{sessionUser.email }} "> <br>
+							Avater: <input ng-model="vm.user.avater" class="form-control " type="text" name="avater" value="{{sessionUser.avater}} "> <br>
+							Location: <input ng-model="vm.user.location" class="form-control " type="text" name="avater" value="{{ sessionUser.location}}"> <br>
+				
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="editProfile" >				
+							Date Of Birth: <input ng-model="vm.user.DoB" class=" form-control" type="date" name="date" > <br>
+							Latest Status: <input ng-model="vm.user.position" class="form-control" type="text" name="position" value="{{sessionUser.position}} "> <br>
+							Sex: <select ng-model="vm.user.sex" class="form-control">
+										  <option>Male</option>
+										  <option>Female</option>
+										</select>					
+						</div>
+					</div>
+						<p> <button ng-click="vm.updateUser(vm.user)" class="updateUser btn btn-primary btn-lg btn-block">Update Profile</button></p>
+				</div>
+			</div>
+			
+		</div>
+		

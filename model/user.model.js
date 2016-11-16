@@ -197,7 +197,7 @@ module.exports = function(mongoose, q) {
 
 function changePwd(user, data) {
 	var deffered = q.defer()
-		User.findOne({username: user.username}, function(err, user){
+		User.findOne({_id: user._id}, function(err, user){
 			if (err) {
 				res.json(err)
 			} else if (!user.validPassword(data.oldPassword)){
@@ -221,9 +221,14 @@ function changePwd(user, data) {
 		User.findOne({username: credientials.username}, function(err, user){
 			if (err) {
 				deffered.reject(err)
-			} else if (!user.validPassword(credientials.password)){
+			} 
+			else if(!user) {
+				deffered.reject('No User found')
+			}
+			else if (!user.validPassword(credientials.password)){
 				deffered.reject("Password is incerrect")
-			} else {
+			} 
+			else {
 				deffered.resolve(user)
 			}
 		});
@@ -466,6 +471,7 @@ function changePwd(user, data) {
 	/* movie action by user */
 	function movieActionUser (userid) {
 		var deffered = q.defer()
+		console.log(userid);
 		User.findById(userid)
 			.populate('likeMovies watchMovies interestedMovies addedMovies following follower')
       .exec(function(err, user) {

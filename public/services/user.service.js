@@ -18,6 +18,8 @@
 					getUserActionBySession: getUserActionBySession,
 					//showFollowing: showFollowing,
 					startFollowing: startFollowing,
+					changePass: changePass,
+					deactivateAc: deactivateAc,
 					startUnFollowing: startUnFollowing,
 					getUserActionById: getUserActionById,
 					movieWatched: movieWatched
@@ -71,6 +73,13 @@
 				function startUnFollowing(user) {
 					console.log(user);
 					return $http.put("/user/profile/follow", user)
+				}
+
+				function changePass(pass) {
+					return $http.put("/user/profile/changePassword", pass)
+				}
+				function deactivateAc(id) {
+					return $http.delete("/user/"+id)
 				}
 			}
 			
