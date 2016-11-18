@@ -79,6 +79,8 @@
 	 		list-style-type: none;
 	 	}
 
+
+
 /* user ejs */
 .liked_movie{
 			display: inline-block;
@@ -122,4 +124,115 @@
     0%{background-position:0% 51%}
     50%{background-position:100% 50%}
     100%{background-position:0% 51%}
+}
+
+/* angular template */
+.section-heading{
+	font-size: 20px;
+  color: #424242;
+  font-family: fantasy;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+/* // details movie */
+.statics{
+	margin: 20px 0;
+	display: flex;
+	-webkit-align-items: stretch;
+	        align-items: stretch;
+}
+.stats-item{
+	margin-right: 10px;
+	width: 17%;
+	border: 1px solid #ccc;
+	text-align: center;
+}
+.stats-result{
+	background: #000;
+	color: #FFF;	
+	height: 84px;
+}
+.stats-result h5{
+	padding: 20px;
+	font-size: 40px;
+	margin: 0;
+}
+.stats-info h4{
+	font-size: 14px;
+	text-transform: uppercase;
+	font-weight: bold;
+	
+}
+.stats-result a{
+	display: block;
+	font-size: 30px;
+	color: #FFF;
+	width: 100%;
+	text-decoration: none;
+	padding: 20px;
+}
+.stats-result.imdb{
+	background: #333333;
+	
+}
+.stats-result.wiki{
+	background: #f6f6f6;
+}
+.stats-result.imdb a{
+	color: #F5DE50;
+}
+.stats-result.wiki a{
+	color: #0b0080;
+}
+.movie-detail{
+	background: #f1eef2;
+	padding-top: 40px;
+}
+.media{
+	float: left;
+	width: 200px;
+	margin-right: 20px;
+}
+
+/* movie listviwe css */
+
+.movie{
+	  border-top: 1px solid #ccc;
+    padding: 35px 0 10px;
+}
+.mov-media{
+	  float: left;
+    width: 130px;
+    margin-right: 20px;
+}
+.mov-media img{
+	  width: 125px;
+    height: 170px;
+}
+.movie-action{
+	margin-top:20px ;
+}
+
+/* user list css */
+.user-action{
+	margin: 10px 0;
+}
+.user-action li{
+	display: inline-block;
+  border: 1px solid #202021;
+  padding: 0 10px 0 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  word-spacing: 1px;
+}
+.user-action span{
+	  background: #202021;
+    padding: 5px 0px;
+    height: 100%;
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
 }

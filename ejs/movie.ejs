@@ -12,41 +12,8 @@
 	 </style>
 </head>
 <body>
-	<div class="container">
-        <div class="header clearfix">
-            <nav>
-              <ul class="nav nav-pills pull-right">
-                <li role="presentation"><a href="/user/profile"><%= logUser.username? logUser.username: "null" %></a></li>
-                <li role="presentation" class="active"><a href="/">Home</a></li>
-                <li role="presentation"><a href="/movie">Movie</a></li>
-                <li role="presentation"><a href="/user">user</a></li>
-                 <% if(!logUser.name) { %>
-                <li role="presentation"><a href="../user/login">Login</a></li>
-                <% } else { %>
+	<% include header %>
 
-                <li role="presentation"><a href="/user/profile">profile</a></li>
-                <li role="presentation"><a class="logout" >LogOut</a></li>
-                <% } %>
-              </ul>
-            </nav>
-            <h3 class="text-muted">Project name</h3>
-          </div>
-        
-    </div>
-  <!--   <div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h3>Create a movie</h3>
-					<form method= 'post' action="/movie">
-					Movie Naame: <input type="text" name="name" class="form-control"> <br>
-					Year: <input type="text" name="year" class="form-control"> <br>
-					Plot: <input type="text" name="plot" class="form-control"> <br>
-					Ganere: <input type="text" name="genere" class="form-control"> <br>
-					<input type="submit" value="Post Movie" class="btn btn-primary btn-lg btn-block">
-				</form>
-				</div>
-			</div>
-		</div> -->
 	<div class="container">
 		<div class="row">
 			<div class="col-md-10">
@@ -77,7 +44,7 @@
 								<button rel="<%= movie._id %>" class="btn btn-primary delete">Delete</button>
 								<a href="./<%= movie._id %>/edit" class="btn btn-primary edit">edit</a>
 								<% for (var i =0; i < movie.likeUsers.length; i++) { %> 
-									<% if ( movie.likeUsers[i] == logUser._id) { %>
+									<% if ( movie.likeUsers[i] == session_user._id) { %>
 										<% var lkdUder =  movie.likeUsers[i] %>
 									<% } %>																
 								<% } %>								

@@ -1,0 +1,57 @@
+<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2>User List</h2>
+
+				<div class="users" >
+					<ul ng-if ="vm.users">
+						
+							<li ng-repeat="user in vm.users">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<a href="/user/{{ user._id}}">{{ user.name}}</a>
+									</div>
+									<div class="panel-body">
+										<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+											<a href="/#/user/{{ user._id}}" class="thumbnail">
+												<img ng-src=" {{ user.avater}}" alt="{{ user._id}}" >
+											</a>
+										</div>
+										<!-- <p><button ng-click="vm.follow(user)" class="edit"> Follow </button> -->
+										<p>
+											<button ng-hide="user.follower.indexOf($root.current_user._id) > -1 || user._id ===$root.current_user._id" ng-click="vm.follow(user)" class="btn btn-primary"> Follow </button>
+											<button ng-show="user.follower.indexOf($root.current_user._id) > -1 "  class="btn btn-warning"> Following </button>
+											<button ng-show="user.follower.indexOf($root.current_user._id) > -1 " ng-click="vm.unFollow(user)" class="btn btn-danger"> Unfollow </button>
+											</p>
+										</p>
+										<p>{{ user.name}}</p>
+										<p>Age : {{ user.age}}</p>
+										<p>{{ user.position}}</p>
+										<ul class="user-action">
+											<li><span>{{user.following.length || 0}}</span> Following</li>
+											<li><span>{{user.follower.length || 0}}</span> Follower</li>									
+										</ul>
+										<ul class="user-action">
+											<li><span>{{user.likeMovies.length || 0}}</span> Movie Like</li>
+											<li><span>{{user.watchMovies.length || 0}}</span> Movie Watch</li>
+											<li><span>{{user.interestedMovies.length || 0}}</span> Movie Interest</li> 
+											<li><span>{{user.addedMovies.length || 0}}</span> Movie added</li>
+										</ul>
+										
+										
+									</div>
+								</div>
+							</li>
+					</ul>
+				</div>		
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				
+			</div>
+		</div>
+	</div>

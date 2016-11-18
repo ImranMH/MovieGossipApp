@@ -10,6 +10,7 @@
 
 				var vm = this;
 				vm.search = searchMovie;
+				vm.searchImdb = searchImdbMovie;
 				vm.addMovie = addMovie;
 				
 
@@ -28,7 +29,16 @@
 						return vm.movie;
 					})
 				}
-
+				function searchImdbMovie(movie) {
+					vm.done = true;
+					console.log("ctrl");
+					return OmdbService.getMovieByImdbTitle(movie.title).then(function(movie){
+						console.log(movie);
+						vm.done = false;
+						 vm.movie = movie.data;
+						return vm.movie;
+					})
+				}
 			/*	function testfunc() {
 					console.log(data);
 					console.log('ctrl');

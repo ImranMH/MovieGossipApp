@@ -12,14 +12,18 @@
 	<script src="js/vendor/angular-route.js"></script>
   <script src="app.js"></script>
   <script src="config.js"></script>
-  
+  <script src="view/profile/profile.ctrl.js"></script>
   <script src="view/home/home.ctrl.js"></script>
   <script src="view/search/search.ctrl.js"></script>
   <script src="services/ombd.service.js"></script>
+  <script src="services/user.service.js"></script>
   <script src="services/movie.service.js"></script>
   <script src="view/nav/nav.ctrl.js"></script>
   <script src="view/movie/movie.ctrl.js"></script>
+  <script src="view/user/user.ctrl.js"></script>
+  <script src="view/userDetails/userDetails.ctrl.js"></script>
   <script src="view/details/details.ctrl.js"></script>
+  
 </head>
 <body ng-app="expariment">
 	
@@ -32,11 +36,11 @@
             <li role="presentation"><a href="/movie">Movie</a></li>
             <li role="presentation"><a href="/user">User</a></li>
             
-            <li role="presentation"><a href="/user/login">Login</a></li>
+            <li ng-hide="current_user._id" role="presentation"><a href="/user/login">Login</a></li>
            
 
-            <li role="presentation"><a href="/user/profile">profile</a></li>
-            <li role="presentation"><a class="logout" >LogOut</a></li>
+            <li ng-show="current_user._id" role="presentation"><a href="/user/profile">profile</a></li>
+            <li ng-show="current_user._id" role="presentation"><a class="logout" >LogOut</a></li>
            
           </ul>
         </nav>
@@ -52,18 +56,22 @@
             
             <li class=""><a href="#/home">Home</a></li>
             <li><a href="#/home/search">search</a></li>
-            <li><a href="#/home/movie">movie</a></li>
-            <li><a href="#/home/details">Details</a></li>          
+            <li><a href="#/movie">Movie</a></li>
+            <li><a href="#/user">User</a></li>
+                     
+            <li ng-show="$root.current_user._id"><a href="#/home/profile">Profile</a></li>          
+            <li ng-hide="$root.current_user._id"><a href="/user/login">login</a></li>          
+            <li ng-show="$root.current_user._id"><a href="/user/login">LogOut</a></li>          
                    
           </ul>
         </nav>
     </div>        
   </div>
 
-
+  <h3>CurrentUser: {{$root.current_user.name}}<span>{{$root.current_user._id}}</span></h3> 
 	
 		
-			<p>{{vvm.name}}</p>
+		
 	
     <div ng-view></div>
 </body>

@@ -208,7 +208,7 @@ $(function(){
 			$.ajax({
 				url: '/user/profile/changePassword',
 				data: data,
-				type: 'post'
+				type: 'put'
 			}).then(function(res) {
 				console.log("getting response"+ res);
 			})

@@ -6,32 +6,47 @@
 
 			//MovieCtrl.$inject['OmdbService'];
 
-			function MovieCtrl(OmdbService, MovieService) {
+			function MovieCtrl(OmdbService,MovieService, UserService, $rootScope, $route) {
 
 				var vm = this;
-				vm.GetMovie = GetMovie;
-				vm.addMovie = addMovie;
-				
-
+				//vm.GetMovie = GetMovie;
+				//vm.addMovie = addMovie;
+				vm.likes = Likes;
+				vm.doWatch = doWatch;
+				vm.addInterest = addInterest;
+				vm.detail = detail;
+				vm.changeClass = false;
+				vm.interested = false;
 				activate();
 
 				function activate() {
-					return MovieService.getMovie().then(function(movie){
+					MovieService.getMovie().then(function(movie){
 						console.log(movie.data);
 						
 						 vm.movie = movie.data;
 						return vm.movie;
 					})
 
-				}
-				function GetMovie() {
-					
-					console.log("ctrl");
-					return MovieService.getMovie().then(function(movie){
-						console.log(movie.data);
+					UserService.loginUser().then(function(user){
 						
-						 vm.movie = movie.data;
-						return vm.movie;
+						$rootScope.current_user = user.data.user
+						vm.user = user.data;
+						console.log(vm.user);
+						return user.data;
+					})
+				}
+
+				function Likes(id) {
+					return MovieService.movieLike(id).then(function(doc){
+							vm.changeClass = true;
+							$route.reload()										
+					})
+				}
+
+				function detail(id) {					
+					return MovieService.getMovieById(id).then(function(doc){
+						vm.mov = doc				
+						console.log(doc);
 					})
 				}
 
@@ -45,13 +60,28 @@
 					})
 				}*/
 
-				function addMovie(movie) {
-					console.log(movie);
+				function doWatch(id) {
+					//console.log(movie);
 					vm.added = false;
-					console.log('ctrl');
-					return MovieService.addMovie(movie).then(function(movie){
-						console.log(movie);
+					
+					return MovieService.doWatchMovie(id).then(function(movie){
+						//console.log(movie);
 						vm.added = true;
+						$route.reload()
+						// vm.movie = movie.data;
+						//return vm.movie;
+					})
+				}
+
+				/* add to interest List*/
+				function addInterest(id) {
+					//console.log(movie);
+					
+					console.log('ctrl');
+					return MovieService.addToInterestList(id).then(function(movie){
+						console.log(movie);
+						vm.interested = true;
+						$route.reload()
 						// vm.movie = movie.data;
 						//return vm.movie;
 					})

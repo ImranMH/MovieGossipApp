@@ -2,11 +2,11 @@
         <div class="header clearfix">
             <nav>
               <ul class="nav nav-pills pull-right">
-                <li role="presentation"><a href="/user/profile"><%= user.username? user.username: "null" %></a></li>
+                <li role="presentation"><a href="/user/profile"><%= session_user.username? session_user.username: "null" %></a></li>
                 <li role="presentation" class="active"><a href="/">Home</a></li>
                 <li role="presentation"><a href="/movie">Movie</a></li>
                 <li role="presentation"><a href="/user">user</a></li>
-                 <% if(!user.name) { %>
+                 <% if(!session_user.name) { %>
                 <li role="presentation"><a href="/user/login">Login</a></li>
                 <% } else { %>
 

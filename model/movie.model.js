@@ -11,7 +11,13 @@ module.exports = function(mongoose,q){
 		findMovieById: findMovieById,
 		findMovieByIds: findMovieByIds,
 		likeMovie: likeMovie,
+		unLikeMovie: unLikeMovie,
 		watchUser: watchUser,
+		unWatchMovie: unWatchMovie,
+		userActionMovieDb: userActionMovieDb,
+		addToInterestDb: addToInterestDb,
+		unInterestMovie: unInterestMovie,
+		getWatchUserData: getWatchUserData,
 		editMovie: editMovie,
 		deleteMovie: deleteMovie
 	}
@@ -106,7 +112,7 @@ module.exports = function(mongoose,q){
 		return deffered.promise;
 	};
 	function editMovie(movieId, mov) {
-		console.log('inside db before edit');
+		//console.log('inside db before edit');
 		var deffered = q.defer();
 		Movie.findById(movieId, function(err, movie){
 			if(err) {
@@ -121,7 +127,7 @@ module.exports = function(mongoose,q){
 					if(err) {
 						deffered.reject(err)
 					} else {
-						console.log('inside db after edit');
+						//console.log('inside db after edit');
 						deffered.resolve(editMov)
 					}
 				})
@@ -131,7 +137,7 @@ module.exports = function(mongoose,q){
 	}
 	
 	function deleteMovie(movieId) {
-		console.log('i am model file');
+		//console.log('i am model file');
 		var deffered = q.defer();
 		Movie.findById(movieId, function(err, movie){
 			if(err) {
@@ -141,7 +147,7 @@ module.exports = function(mongoose,q){
 					if(err) {
 						deffered.reject(err)
 					} else {
-							console.log('i am model database');
+							//console.log('i am model database');
 						deffered.resolve(del)
 					}
 				})
@@ -154,45 +160,136 @@ module.exports = function(mongoose,q){
 
 	function likeMovie(movieId, user) {
 		var users = []
-		console.log('inside db before edit');
 		var deffered = q.defer();
 		Movie.findById(movieId, function(err, movie){
 			if(err) {
 				deffered.reject(err)
-			} if(movie) {
+			} if(movie.likeUsers.indexOf(user._id) == -1) {
 				movie.likeUsers.push(user._id)
 				movie.save(function(err, mov) {
 					if(err) {
 						deffered.reject(err)
 					} else {
-						console.log('inside db save');
+						//console.log('inside db save');
 						deffered.resolve(mov)
 					}
 				})
+			} else{
+				deffered.reject("You already like this movie")
 			}
 		})
 		return deffered.promise;
 	}
 
+	function unLikeMovie(movieId, user) {
+		var users = []
+		var deffered = q.defer();
+		Movie.findOneAndUpdate({_id: movieId }, {$pull: {likeUsers: user._id }},
+		function (err, movie) {
+			if (err) {
+				deffered.reject(err)
+				
+			}
+			deffered.resolve(movie)
+		} )
+		return deffered.promise;
+	}
+	/* movie user relation*/
+	function userActionMovieDb(movieId) {
+		var deffered = q.defer();
+		Movie.findById(movieId)
+			.populate('likeUsers viewedUser intersetedUser')
+			.exec(function(err, user) {
+				if (err) throw (err)
+
+				deffered.resolve({ likeusers:user.likeUsers, addedBy: user.addedBy, viewedUser: user.viewedUser, interestUser: user.intersetedUser})
+			})
+			return deffered.promise;
+	}
+	/* movie watch section*/
+	function getWatchUserData(movieId) {
+		var deffered = q.defer();
+		Movie.findById(movieId)
+			.populate('viewedUser intersetedUser')
+			.exec(function(err, user) {
+				if (err) throw (err)
+
+				deffered.resolve({viewedUser: user.viewedUser, interestUser: user.intersetedUser})
+			})
+			return deffered.promise;
+	}
 	function watchUser(movieId, user) {
 		var users = []
-		console.log('inside db before edit');
+		//console.log('inside db before edit');
 		var deffered = q.defer();
 		Movie.findById(movieId, function(err, movie){
 			if(err) {
 				deffered.reject(err)
-			} if(movie) {
+			} if(movie.viewedUser.indexOf(user.id) == -1) {
 				movie.viewedUser.push(user._id)
 				movie.save(function(err, mov) {
 					if(err) {
 						deffered.reject(err)
 					} else {
-						console.log('inside db save');
+						//console.log('inside db save');
 						deffered.resolve(mov)
 					}
 				})
+			} else {
+				deffered.reject("you already watched it")
 			}
 		})
 		return deffered.promise;
 	}
+	function unWatchMovie(movieId, user) {
+		var users = []
+		var deffered = q.defer();
+		Movie.findOneAndUpdate({_id: movieId }, {$pull: {viewedUser: user._id }},
+		function (err, movie) {
+			if (err) {
+				deffered.reject(err)
+				
+			}
+			deffered.resolve(movie)
+		} )
+		return deffered.promise;
+	}
+
+	function addToInterestDb(movieId, user) {
+		var users = []
+		//console.log('inside db before edit');
+		var deffered = q.defer();
+		Movie.findById(movieId, function(err, movie){
+			if(err) {
+				deffered.reject(err)
+			} if(movie.intersetedUser.indexOf(user.id) == -1) {
+				movie.intersetedUser.push(user._id)
+				movie.save(function(err, mov) {
+					if(err) {
+						deffered.reject(err)
+					} else {
+						//console.log('inside db save .....');
+						deffered.resolve(mov)
+					}
+				})
+			} else {
+				deffered.reject("you already show interest on it")
+			}
+		})
+		return deffered.promise;
+	}
+	function unInterestMovie(movieId, user) {
+		var users = []
+		var deffered = q.defer();
+		Movie.findOneAndUpdate({_id: movieId }, {$pull: {intersetedUser: user._id }},
+		function (err, movie) {
+			if (err) {
+				deffered.reject(err)
+				
+			}
+			deffered.resolve(movie)
+		} )
+		return deffered.promise;
+	}
+	
 }

@@ -15,12 +15,27 @@
 					controller: 'homeCtrl',
 					controllerAs: 'vm'
 				})
-				.when('/home/details', {
+				.when('/movie/:id', {
 					templateUrl: '/view/details/details.html',
-					controller: 'DetailsCtrl',
+					controller: 'MovDetailsCtrl',
 					controllerAs: 'vm'
 				})
-				.when('/home/movie', {
+				.when('/user', {
+					templateUrl: '/view/user/user.html',
+					controller: 'UserCtrl',
+					controllerAs: 'vm'
+				})
+				.when('/home/profile', {
+					templateUrl: '/view/profile/profile.html',
+					controller: 'ProfileCtrl',
+					controllerAs: 'vm'
+				})
+				.when('/user/:id', {
+					templateUrl: '/view/userDetails/userDetails.html',
+					controller: 'UserDetailsCtrl',
+					controllerAs: 'vm'
+				})
+				.when('/movie', {
 					templateUrl: '/view/movie/movie.html',
 					controller: 'MovieCtrl',
 					controllerAs: 'vm'
