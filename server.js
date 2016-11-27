@@ -4,7 +4,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var app = express();
 var router = express.Router();
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 5000;
 //var ejs = require('ejs');
 var mongoose = require('mongoose');
 var connectingString ='mongodb://127.0.0.1:27017/test-chirp'
@@ -12,9 +12,11 @@ if (process.env.PORT) {
 	var connectingString = 'mongodb://imranMH:pin71627162@ds139817.mlab.com:39817/movie-gassip' ;
 }
 //var connectingString = 'mongodb://imran:2020@ds139817.mlab.com:39817/movie-gassip';
-		
-db = mongoose.connect(connectingString)
-
+var options = {
+  server: { poolSize: 1 }
+}		
+ mongoose.connect(connectingString, options)
+var db = mongoose.connection;
 
 app.use(bodyParser.urlencoded({ extended: false}))
 app.use(bodyParser.json())
@@ -47,11 +49,13 @@ app.use( function(req, res,next) {
 app.get('/', function(req, res) {
 	res.render('index')
 })
-app.use('/user', users)
-app.use('/production', production)
-app.use('/movie', movie)
 
-app.listen(port, function() {
 
-  console.log('server running at port: '+port+'.....');
+
+	app.use('/user', users)
+	app.use('/production', production)
+	app.use('/movie', movie)
+	app.listen(5000, function() {
+
+  console.log('server running at port: ....');
 })
