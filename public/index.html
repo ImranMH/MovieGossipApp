@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Movie Watcher</title>
+	<title>Movie-gossip</title>
+  <link rel="shortcut icon" href="uploads/favicon.ico" type="image/x-icon">
   <link href="css/bootstrap.css" rel="stylesheet">
 	<link href="css/main.css" rel="stylesheet">
 
@@ -44,7 +45,7 @@
            
           </ul>
         </nav>
-        <h3 class="text-muted">Project name</h3>
+        <h1 class="text-muted"><a href="https://movie-gossip.herokuapp.com/">MovieGossip</a></h1>
     </div>
         
   </div>
@@ -68,7 +69,13 @@
     </div>        
   </div>
 
-  <h3>CurrentUser: {{$root.current_user.name}}<span>{{$root.current_user._id}}</span></h3> 
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>CurrentUser: {{$root.current_user.name}}<span>{{$root.current_user._id}}</span></h3> 
+      </div>
+    </div>
+  </div>
 	
 		
 		
