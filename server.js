@@ -62,7 +62,7 @@ app.get('/', function(req, res) {
 	app.use('/user', users)
 	app.use('/production', production)
 	app.use('/movie', movie)
-	app.listen(5000, function() {
+	app.listen(port, function() {
 
   console.log('server running at port: ....');
 })
